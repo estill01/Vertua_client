@@ -42,7 +42,7 @@ function App() {
           </a>
           ,<span> and </span>
           <a
-            className="App-link"
+            className="bg-blue-400 p-8"
             href="https://react-redux.js.org/"
             target="_blank"
             rel="noopener noreferrer"
