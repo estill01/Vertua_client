@@ -1,19 +1,24 @@
-const tailwindcss = require('tailwindcss')
-const purgecss = require("@fullhuman/postcss-purgecss")({
-	content: [
-	  "./src/*.html",
-	  "./src/**/*.html",
-		"./src/*.js(x)?",
-		"./src/**/*.js(x)?",
-	]
-})
+// const tailwindcss = require('tailwindcss')
+const purgecss = require("@fullhuman/postcss-purgecss")
+
 
 module.exports = {
 	style: {
 		postcss: {
 			plugins: [
-			  tailwindcss('./tailwind.js'),
-				...(process.env.NODE_ENV === "production" ? [purgecss] : [])
+				require('tailwindcss'),
+				require('autoprefixer'),
+				
+			  // tailwindcss('./tailwind.config.js'),
+				// purgecss({
+				// 	content: [
+				// 		"./src#<{(|.html",
+				// 		"./src#<{(||)}>#*.html",
+				// 		"./src#<{(|.js(x)?",
+				// 		"./src#<{(||)}>#*.js(x)?",
+				// 	]
+				// })
+
 			]
 		}
 	}
