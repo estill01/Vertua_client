@@ -1,14 +1,17 @@
 // Toggle Dark Theme
+import React from 'react'
 
-let d = document.getElement,
-    t = document.querySelectorAll(".theme-btn")[0],
-    m = localStorage.getItem("theme")
+function toggleTheme() {
+	let d = document.documentElement,
+			m = localStorage.getItem("theme")
 
-if (m === 'dark') {
-	d.classList.add('theme-dark')
-}
+	console.log("###")
+	console.log("document.getElement: ", d)
 
-t.addEventListener("click", function() {
+	if (m === 'dark') {
+		d.classList.add('theme-dark')
+	}
+
 	if (d.classList.contains("theme-dark")) {
 		d.classList.remove("theme-dark")
 		localStorage.removeItem("theme")
@@ -16,5 +19,15 @@ t.addEventListener("click", function() {
 		d.classList.add("theme-dark")
 		localStorage.setItem("theme", "dark")
 	}
-})
+}
 
+
+const ThemeToggle = ({ props }) => (
+  <>
+		<button onClick={toggleTheme} className='btn' { ...props }>
+			Toggle Theme
+		</button>
+	</>
+)
+
+export default ThemeToggle
