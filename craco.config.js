@@ -1,5 +1,7 @@
-// const tailwindcss = require('tailwindcss')
-const purgecss = require("@fullhuman/postcss-purgecss")
+const purgecss = require("@fullhuman/postcss-purgecss")({
+	content: ['./public/**/*.html'],
+	defaultExtractor: content => content.match(/[A-Za-z0-9-_:/]+/g) || []
+})
 
 
 module.exports = {
@@ -8,16 +10,9 @@ module.exports = {
 			plugins: [
 				require('tailwindcss'),
 				require('autoprefixer'),
-				
-			  // tailwindcss('./tailwind.config.js'),
-				// purgecss({
-				// 	content: [
-				// 		"./src#<{(|.html",
-				// 		"./src#<{(||)}>#*.html",
-				// 		"./src#<{(|.js(x)?",
-				// 		"./src#<{(||)}>#*.js(x)?",
-				// 	]
-				// })
+				...process.env.NODE_ENV === 'production'
+				? [purgecss, requrie('cssnano')]
+				: []
 
 			]
 		}
