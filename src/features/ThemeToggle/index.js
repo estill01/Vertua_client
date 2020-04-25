@@ -21,7 +21,7 @@ function toggleTheme() {
 
 const ThemeToggle = ({ props }) => (
   <>
-		<button onClick={toggleTheme} className='btn text-primary' { ...props }>
+		<button onClick={toggleTheme} className='btn text-primary font-body' { ...props }>
 			Toggle Theme
 		</button>
 	</>

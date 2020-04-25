@@ -17,12 +17,10 @@ module.exports = {
 			},
 			fontFamily: {
 				logo: ['Comfortaa-Regular'],
-				"logo-bold": ['Comfortaa-Bold']
-			}
-			// fontFamily: {
-			// 	display: "var(--font-display)",
-			// 	body: "var(--font-body)"
-			// },
+				"logo-bold": ['Comfortaa-Bold'],
+				display: ["Comfortaa-Regular", "Helvetica", "sans-serif"],
+				body: ["Comfortaa-Regular", "Helvetica", "sans-serif"],
+			},
 			// fontWeights: {
 			// 	normal: "var(--font-weight-normal)",
 			// 	display: "var(--font-weight-display)",

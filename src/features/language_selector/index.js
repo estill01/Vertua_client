@@ -20,8 +20,12 @@ const countryOptions = [
 const LanguageSelector = ({ ...props }) => (
 	<>
 		<Dropdown
+		style={{
+			backgroundColor:"var(--color-bg-primary)"
+		}}
 		selection
 		options={countryOptions}
+		defaultValue='us'
 		/>
 	</>
 )
