@@ -5,9 +5,6 @@ function toggleTheme() {
 	let d = document.documentElement,
 			m = localStorage.getItem("theme")
 
-	console.log("###")
-	console.log("document.getElement: ", d)
-
 	if (m === 'dark') {
 		d.classList.add('theme-dark')
 	}
@@ -24,7 +21,7 @@ function toggleTheme() {
 
 const ThemeToggle = ({ props }) => (
   <>
-		<button onClick={toggleTheme} className='btn' { ...props }>
+		<button onClick={toggleTheme} className='btn text-primary' { ...props }>
 			Toggle Theme
 		</button>
 	</>

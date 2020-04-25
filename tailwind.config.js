@@ -15,6 +15,10 @@ module.exports = {
 				default: "var(--color-bg-default)",
 				inverse: "var(--color-bg-inverse)"
 			},
+			fontFamily: {
+				logo: ['Comfortaa-Regular'],
+				"logo-bold": ['Comfortaa-Bold']
+			}
 			// fontFamily: {
 			// 	display: "var(--font-display)",
 			// 	body: "var(--font-body)"
