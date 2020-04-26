@@ -1,7 +1,6 @@
 import React from 'react';
 import ThemeToggle from '../ThemeToggle'
 import Superbar from '../superbar'
-
 import '../../assets/fonts/Comfortaa-Regular.ttf'
 import '../../assets/fonts/Comfortaa-Bold.ttf'
 
@@ -13,6 +12,11 @@ function App() {
         <p className='text-primary'>
 					Welcome to Vertua
         </p>
+
+				<div>
+					Projects
+				</div>
+
 				<ThemeToggle/>
       </header>
     </div>

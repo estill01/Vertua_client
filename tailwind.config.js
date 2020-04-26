@@ -18,8 +18,8 @@ module.exports = {
 			fontFamily: {
 				logo: ['Comfortaa-Regular'],
 				"logo-bold": ['Comfortaa-Bold'],
-				display: ["Comfortaa-Regular", "Helvetica", "sans-serif"],
-				body: ["Comfortaa-Regular", "Helvetica", "sans-serif"],
+				display: ["Helvetica", "sans-serif"],
+				body: ["Helvetica", "sans-serif"],
 			},
 			// fontWeights: {
 			// 	normal: "var(--font-weight-normal)",
