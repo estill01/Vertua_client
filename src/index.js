@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'semantic-ui-css/semantic.min.css'
 import './assets/styles/index.css'; // TailwindCSS overrides
+import 'semantic-ui-css/semantic.min.css'
 import store from './redux/store';
 import { Provider } from 'react-redux';
 import * as serviceWorker from './service_workers/serviceWorker';

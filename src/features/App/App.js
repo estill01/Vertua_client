@@ -16,6 +16,9 @@ function App() {
 				<div>
 					Projects
 				</div>
+				<div>
+					Approaches
+				</div>
 
 				<ThemeToggle/>
       </header>
