@@ -1,6 +1,7 @@
 import { configureStore, getDefaultMiddleware } from '@reduxjs/toolkit';
 import { createLogger } from 'redux-logger'
-import counterReducer from '../features/counter/counterSlice.js'
+import counterReducer from '../components/counter/counterSlice.js'
+import pageReducer from '../components/page/pageSlice.js'
 
 const middleware = [ ...getDefaultMiddleware() ]
 if (process.env.NODE_ENV !== 'production') {
@@ -9,7 +10,8 @@ if (process.env.NODE_ENV !== 'production') {
 
 export default configureStore({
 	reducer: {
-		counter: counterReducer
+		counter: counterReducer,
+		page: pageReducer,
 	},
 	middleware
 })
