@@ -1,5 +1,6 @@
 // Toggle Dark Theme
 import React from 'react'
+import { Button } from 'semantic-ui-react'
 
 function toggleTheme() {
 	let d = document.documentElement,
@@ -19,11 +20,11 @@ function toggleTheme() {
 }
 
 
-const ThemeToggle = ({ props }) => (
+const ThemeToggle = () => (
   <>
-		<button onClick={toggleTheme} className='btn text-primary font-body' { ...props }>
+		<Button onClick={toggleTheme} className='text-primary font-body'>
 			Toggle Theme
-		</button>
+		</Button>
 	</>
 )
 

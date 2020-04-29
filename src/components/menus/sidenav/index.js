@@ -2,6 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Sidebar, Menu } from 'semantic-ui-react';
 import { MenuToggle } from '../utils'
+import ThemeToggle from '../../ThemeToggle'
 
 const SideNav = () => {
 
@@ -29,6 +30,7 @@ const SideNav = () => {
 				<Menu.Item>Products</Menu.Item>
 				<Menu.Item>Technology</Menu.Item>
 				<Menu.Item>Sign Up</Menu.Item>
+				<Menu.Item><ThemeToggle/></Menu.Item>
 
 			</Sidebar>
 		</>
