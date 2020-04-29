@@ -17,7 +17,11 @@ const AccountPage = loadable(
 	{ fallback: <Loading/> }
 )
 const ProjectPage = loadable(
-	() => import(/* @preserve webpackPrefetch: true */ '../views/ProjectPage'),
+	() => import('../views/ProjectPage'),
+	{ fallback: <Loading/> }
+)
+const NotFoundPage = loadable(
+	() => import('../views/NotFoundPage'),
 	{ fallback: <Loading/> }
 )
 
@@ -36,8 +40,9 @@ const Router = () => {
 			<Suspense>
 			<Switch>
 				<Route exact path='/' component={HomePage}/>
-				<Route path='/account' component={AccountPage}/>
+				<Route exact path='/account' component={AccountPage}/>
 				<Route path='/project/:id' component={ProjectPage}/>
+				<Route component={NotFoundPage}/>
 			</Switch>
 			</Suspense>
 		</>
