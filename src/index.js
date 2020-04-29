@@ -2,10 +2,10 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/styles/index.css'; // TailwindCSS overrides
 import 'semantic-ui-css/semantic.min.css'
-import store from './redux/store';
 import { Provider } from 'react-redux';
+import store from './redux/store';
+import App from './components/app';
 import * as serviceWorker from './service_workers/serviceWorker';
-import { App } from './features/App';
 
 ReactDOM.render(
   <React.StrictMode>
