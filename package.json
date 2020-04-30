@@ -6,12 +6,14 @@
   "scripts": {
     "start": "craco start",
     "build": "craco build",
+		"build:staging": "cp .env.staging .env && npm run build",
+		"build:production": "cp .env.prod .env && npm run build",
     "test": "craco test",
     "use:staging": "firebase use vertua--staging",
     "use:production": "firebase use vertua--production",
-    "deploy:staging": "npm run build && npm run use:staging && firebase deploy",
-    "deploy:production": "npm run build && npm run use:production && firebase deploy",
-    "serve": "npm run build && firebase serve"
+    "deploy:staging": "npm run build:staging && npm run use:staging && firebase deploy",
+    "deploy:production": "npm run build:production && npm run use:production && firebase deploy",
+    "serve": "npm run build:staging && firebase serve"
   },
   "dependencies": {
     "@loadable/component": "^5.12.0",

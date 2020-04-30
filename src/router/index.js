@@ -29,7 +29,6 @@ const NotFoundPage = loadable(
 )
 
 
-
 const Router = () => {
 
 	// HomePage.preload()
@@ -53,23 +52,3 @@ const Router = () => {
 }
 
 export default Router
-
-
-
-// ----------------------------------------------
-
-// const AccountPage = loadable(
-// 	() => import('../views/AccountPage'),
-// 	{ fallback: <Loading/> }
-// )
-//
-// const ProjectPage = try { loadable(
-// 	() => import('../views/ProjectPage'), 
-// 	{ fallback: <Loading/> }) 
-// } catch (e) { return <ErrorPage/> }
-//
-// const NotFoundPage = try { loadable(
-// 	() => import('../views/NotFoundPage'),
-// 	{ fallback: <Loading/> })
-// } catch (e) { return <ErrorPage/> }
-

@@ -2,17 +2,15 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/styles/index.css'; // TailwindCSS overrides
 import 'semantic-ui-css/semantic.min.css'
-import { Provider } from 'react-redux';
-import store from './redux/store';
 import App from './components/app';
 import * as serviceWorker from './service_workers/serviceWorker';
 
+console.log("### CONFIGS ##")
+console.log("process.env", process.env)
+console.log("REACT_APP_FIREBASE_PROJECT_ID: ", process.env.REACT_APP_FIREBASE_PROJECT_ID)
+
 ReactDOM.render(
-  <React.StrictMode>
-    <Provider store={store}>
-      <App />
-    </Provider>
-  </React.StrictMode>,
+  <App />,
   document.getElementById('root')
 );
 
