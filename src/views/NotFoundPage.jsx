@@ -1,8 +1,11 @@
 import React from 'react'
+import PageErrorBoundary from './PageErrorBoundary'
 
 const NotFoundPage = () => (
 	<>
-		<h1>404 Page Not Found</h1>
+		<PageErrorBoundary>
+			<h1>404 Page Not Found</h1>
+		</PageErrorBoundary>
 	</>
 )
 

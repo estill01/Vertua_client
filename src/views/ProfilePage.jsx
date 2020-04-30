@@ -1,8 +1,11 @@
 import React from 'react'
+import PageErrorBoundary from './PageErrorBoundary'
 
 const ProfilePage = () => (
 	<>
-		<h1>Profile Page</h1>
+		<PageErrorBoundary>
+			<h1>Profile Page</h1>
+		</PageErrorBoundary>
 	</>
 )
 

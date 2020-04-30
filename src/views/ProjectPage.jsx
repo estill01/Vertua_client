@@ -1,8 +1,11 @@
 import React from 'react'
+import PageErrorBoundary from './PageErrorBoundary'
 
 const ProjectPage = () => (
 	<>
-		<h1>Project Page</h1>
+		<PageErrorBoundary>
+			<h1>Project Page</h1>
+		</PageErrorBoundary>
 	</>
 )
 
