@@ -1,10 +1,8 @@
-// TODO ... figure out best way to defer loading of these...
-
 import * as firebase from 'firebase/app'
-import 'firebase/auth'
-import 'firebase/firestore'
-import 'firebase/functions'
-import 'firebase/storage'
+// import 'firebase/auth'
+// import 'firebase/firestore'
+// import 'firebase/functions'
+// import 'firebase/storage'
 // import 'firebase/analytics'
 
 const firebaseConfig = {
@@ -18,5 +16,7 @@ const firebaseConfig = {
 	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 }
 
-firebase.initializeApp(firebaseConfig)
-export default firebase
+export firebaseConfig
+
+// firebase.initializeApp(firebaseConfig)
+// export default firebase

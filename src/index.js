@@ -5,8 +5,20 @@ import 'semantic-ui-css/semantic.min.css'
 import App from './components/App';
 import * as serviceWorker from './service_workers/serviceWorker';
 
+import store from './redux/store'
+import { bootAuth } from './redux/slices/FirebaseSlice.js'
+
+// store.firebase.boot
+console.log("$$ STORE DEV ##")
+// async function boot() {
+// 	await store.dispatch(bootFirebase())
+// 	await store.dispatch(bootAuth())
+// }
+store.dispatch(bootAuth())
+
+
 ReactDOM.render(
-  <App />,
+  <App store={store}/>,
   document.getElementById('root')
 );
 

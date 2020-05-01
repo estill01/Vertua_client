@@ -1,12 +1,93 @@
-import { createSlice } from '@reduxjs/toolkit'
+import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
+import { nanoid } from 'nanoid'
+
+// import firebase from '../api/firebase'
+
+const createSession = createAsyncThunk(
+	'session/createSession',
+	async (userApi, thunkApi) => {
+		// thunkApi.useState()
+		// const response = await userAPI.fetchById(userId)
+		// return response.data
+	},
+	{
+		condition: (userId, { getState, extra }) => {
+			// const { users } = getState()
+			// const fetchStatus = users.requests[userId]
+			// if (fetchStatus === 'fulfilled' || fetchStatus === 'loading') {
+			// 	return false
+			// }
+		}
+	}
+)
+
+export const expireSession = createAsyncThunk(
+  'session/expireSession',
+	async (arg, thunkApi) => {
+	}
+)
+
+export const updateSession = createAsyncThunk(
+	'session/updateSession',
+	async (arg, thunkApi) => {
+	}
+)
+
 
 export const SessionSlice = createSlice({
 	name: 'session',
 	initialState: {
+		authId: nanoid(),
+		loading: 'idle'
 	},
 	reducers: {
+	},
+	extraReducers: { 
+		// ** createSession ** 
+		// ------------------- 
+		// NB these get called automatically when you dispatch the asyncThunk
+		[createSession.pending]: (state, action) => {
+			state.loading = 'pending'
+		},
+		[createSession.fulfilled]: (state, action) => {
+			state.authId = action.payload
+			state.loading = 'idle'
+		},
+		[createSession.rejected]: (state, action) => {
+			state.loading = 'idle'
+			// TODO ... what do we do if we can't create a session(?)
+		},
+
+		// ** updateSession **
+		// -------------------
+		[updateSession.pending]: (state, action) => {
+			state.loading = 'pending'
+		},
+		[updateSession.fulfilled]: (state, action) => {
+			state.loading = 'idle'
+		},
+		[updateSession.rejected]: (state, action) => {
+			state.loading = 'idle'
+		},
+
+		// ** expireSession **
+		// -------------------
+		[expireSession.pending]: (state, action) => {
+			state.loading = 'pending'
+		},
+		[expireSession.fulfilled]: (state, action) => {
+			state.loading = 'idle'
+			// .. then what? new session
+			// can we log-out from an anonymous account ; No
+		},
+		[expireSession.rejected]: (state, action) => {
+			state.loading = 'idle'
+			// TODO try again.
+		},
 	}
 })
+
+
 
 export const { } = SessionSlice.actions
 

@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { Button, Icon } from 'semantic-ui-react'
-import { toggle } from '../../../redux/pageSlice.js'
+import { toggle } from '../../../redux/slices/PageSlice.js'
 
 const MenuToggle = () => {
   const dispatch = useDispatch()

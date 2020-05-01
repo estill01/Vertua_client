@@ -1,13 +1,13 @@
 import React from 'react';
 import { Provider } from 'react-redux'
-import store from '../../redux/store'
+// import store from '../../redux/store'
 import '../../assets/fonts/Comfortaa-Regular.ttf'
 import '../../assets/fonts/Comfortaa-Bold.ttf'
 import { Sidebar } from 'semantic-ui-react'
 import SideNav from '../menus/SideNav'
 import { Page, Metadata } from '../page'
 
-const App = () => (
+const App = ({ store }) => (
 	<React.StrictMode>
 		<Provider store={store}>
 			<Metadata/>
