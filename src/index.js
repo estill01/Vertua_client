@@ -2,12 +2,8 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './assets/styles/index.css'; // TailwindCSS overrides
 import 'semantic-ui-css/semantic.min.css'
-import App from './components/app';
+import App from './components/App';
 import * as serviceWorker from './service_workers/serviceWorker';
-
-console.log("### CONFIGS ##")
-console.log("process.env", process.env)
-console.log("REACT_APP_FIREBASE_PROJECT_ID: ", process.env.REACT_APP_FIREBASE_PROJECT_ID)
 
 ReactDOM.render(
   <App />,

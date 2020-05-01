@@ -1,6 +1,6 @@
 import React from 'react'
 import { MenuToggle } from '../menus/utils'
-import LanguageSelector from '../language_selector'
+import LanguageSelector from '../utils/LanguageSelector'
 import { Link } from 'react-router-dom'
 
 const SuperBar = ({ props } ) => (

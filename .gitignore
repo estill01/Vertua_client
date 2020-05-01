@@ -22,3 +22,5 @@ firebase-debug.log
 .firebase
 
 .env
+
+__tmp

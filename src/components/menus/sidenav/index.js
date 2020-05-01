@@ -2,7 +2,7 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux'
 import { Sidebar, Menu } from 'semantic-ui-react';
 import { MenuToggle } from '../utils'
-import ThemeToggle from '../../ThemeToggle'
+import ThemeToggle from '../../utils/ThemeToggle'
 
 const SideNav = () => {
 

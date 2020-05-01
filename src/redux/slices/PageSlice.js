@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit'
 
-export const pageSlice = createSlice({
+export const PageSlice = createSlice({
 	name: 'page',
 	initialState: {
 		title: 'Vertua | #BuildTheFuture',
@@ -20,6 +20,6 @@ export const pageSlice = createSlice({
 	}
 })
 
-export const { toggle, setTitle } = pageSlice.actions
+export const { toggle, setTitle } = PageSlice.actions
 
-export default pageSlice.reducer
+export default PageSlice.reducer

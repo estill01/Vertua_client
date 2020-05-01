@@ -4,8 +4,8 @@ import store from '../../redux/store'
 import '../../assets/fonts/Comfortaa-Regular.ttf'
 import '../../assets/fonts/Comfortaa-Bold.ttf'
 import { Sidebar } from 'semantic-ui-react'
-import SideNav from '../menus/sidenav'
-import Page, { Metadata } from '../page'
+import SideNav from '../menus/SideNav'
+import { Page, Metadata } from '../page'
 
 const App = () => (
 	<React.StrictMode>
