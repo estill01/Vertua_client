@@ -2,6 +2,8 @@
 import React from 'react'
 import { Button } from 'semantic-ui-react'
 
+// TODO set theme on redux store
+
 function toggleTheme() {
 	let d = document.documentElement,
 			m = localStorage.getItem("theme")

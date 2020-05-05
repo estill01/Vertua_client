@@ -7,6 +7,8 @@ import {
 } from './slices'
 
 
+// serializableCheck: false,
+// immutableStateInvariant: false,
 const middleware = [ ...getDefaultMiddleware() ]
 if (process.env.NODE_ENV !== 'production') {
 	middleware.push(createLogger())
@@ -14,9 +16,9 @@ if (process.env.NODE_ENV !== 'production') {
 
 export default configureStore({
 	reducer: {
-		firebase: FirebaseReducer,
 		page: PageReducer,
 		session: SessionReducer,
+		firebase: FirebaseReducer,
 	},
 	middleware
 })
