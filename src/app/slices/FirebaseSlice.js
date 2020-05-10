@@ -36,7 +36,7 @@ export const bootAnalytics =
 	{ condition: (_, { getState }) => shouldCancelBoot(getState(), 'analytics') })
 
 
-// TODO Obviously would be better if the firebase instance were stashed in the store, but that doesn't seem to play nicely with Redux.
+// TODO Obviously would be better if the firebase instance were stashed in the store, but that doesn't seem to play nicely with Redux, so need to access firebase instance separately.
 export const FirebaseSlice = createSlice({
 	name: 'firebase',
 	initialState: {

@@ -1,4 +1,5 @@
-import app from 'firebase/app'
+// import firebase from 'firebase/app' // DOES NOT WORK
+import firebase from 'firebase' // SDK 7.14.1 // WORKS
 
 export const firebaseConfig = {
 	apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -10,5 +11,6 @@ export const firebaseConfig = {
 	appId: process.env.REACT_APP_FIREBASE_APP_ID,
 	measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 }
+firebase.initializeApp(firebaseConfig)
 
-export default app.initializeApp(firebaseConfig)
+export default firebase

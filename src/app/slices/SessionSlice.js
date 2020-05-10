@@ -1,6 +1,5 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { nanoid } from 'nanoid'
-
 // import firebase from '../api/firebase'
 
 const createSession = createAsyncThunk(
@@ -37,10 +36,21 @@ export const updateSession = createAsyncThunk(
 export const SessionSlice = createSlice({
 	name: 'session',
 	initialState: {
-		authId: nanoid(),
-		loading: 'idle'
+		loading: 'idle',
+		sessionId: nanoid(),
+		currentUser: {
+			id: '',
+			userName: 'estill01',
+			avatarUrl: '',
+		}
 	},
 	reducers: {
+		logIn: (state, action) => {
+			console.log("-- SessionStore.logIn(): ", action.payload)
+		},
+		logOut: (state, action) => {
+			console.log("-- SessionStore.logOut(): ", action)
+		},
 	},
 	extraReducers: { 
 		// ** createSession ** 
@@ -50,7 +60,6 @@ export const SessionSlice = createSlice({
 			state.loading = 'pending'
 		},
 		[createSession.fulfilled]: (state, action) => {
-			state.authId = action.payload
 			state.loading = 'idle'
 		},
 		[createSession.rejected]: (state, action) => {
@@ -89,6 +98,6 @@ export const SessionSlice = createSlice({
 
 
 
-export const { } = SessionSlice.actions
+export const { logIn, logOut } = SessionSlice.actions
 
 export default SessionSlice.reducer

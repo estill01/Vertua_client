@@ -4,14 +4,9 @@ import './assets/styles/index.css'; // TailwindCSS overrides
 import 'semantic-ui-css/semantic.min.css'
 import App from './components/App';
 import * as serviceWorker from './service_workers/serviceWorker';
+import { boot, store } from './app'
 
-import store from './app/store'
-import { bootAuth, bootFirestore, bootApp } from './app/slices/FirebaseSlice.js'
-
-// store.dispatch(bootApp())
-store.dispatch(bootAuth()) 
-// store.dispatch(bootFirestore())
-
+boot()
 
 ReactDOM.render(
 	<App store={store}/>,

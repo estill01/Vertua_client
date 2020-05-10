@@ -3,7 +3,8 @@ import { createLogger } from 'redux-logger'
 import {
 	PageReducer,
 	SessionReducer,
-	FirebaseReducer
+	FirebaseReducer,
+	EntitiesReducer,
 } from './slices'
 
 
@@ -19,6 +20,7 @@ export default configureStore({
 		page: PageReducer,
 		session: SessionReducer,
 		firebase: FirebaseReducer,
+		entities: EntitiesReducer,
 	},
 	middleware
 })
