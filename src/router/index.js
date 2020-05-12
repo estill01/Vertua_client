@@ -23,6 +23,31 @@ const ProjectPage = loadable(
 	{ fallback: <Loading/> }
 )
 
+const LogInPage = loadable(
+	() => timeout(import('../views/LogInPage'), 5000),
+	{ fallback: <Loading/> }
+)
+
+const SignUpPage = loadable(
+	() => timeout(import('../views/SignUpPage'), 5000),
+	{ fallback: <Loading/> }
+)
+
+const PasswordResetPage = loadable(
+	() => timeout(import('../views/PasswordResetPage'), 5000),
+	{ fallback: <Loading/> }
+)
+
+const TermsOfServicePage = loadable(
+	() => timeout(import('../views/TermsOfServicePage'), 5000),
+	{ fallback: <Loading/> }
+)
+
+const PrivacyPolicyPage = loadable(
+	() => timeout(import('../views/PrivacyPolicyPage'), 5000),
+	{ fallback: <Loading/> }
+)
+
 const NotFoundPage = loadable(
 	() => timeout(import('../views/NotFoundPage'), 5000),
 	{ fallback: <Loading/> }
@@ -43,6 +68,11 @@ const Router = () => {
 						<Route exact path='/' component={HomePage}/>
 						<Route exact path='/account' component={AccountPage}/>
 						<Route path='/project/:id' component={ProjectPage}/>
+						<Route exact path='/login' component={LogInPage}/>
+						<Route exact path='/signup' component={SignUpPage}/>
+						<Route exact path='/password_reset' component={PasswordResetPage}/>
+						<Route exact path='/tos' component={TermsOfServicePage}/>
+						<Route exact path='/privacy' component={PrivacyPolicyPage}/>
 						<Route component={NotFoundPage}/>
 					</Switch>
 				</Suspense>

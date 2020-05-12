@@ -1,7 +1,11 @@
 import { useSelector, getState } from 'react-redux'
-import { store, firebase } from './index'
+import { store, firebase, initializeFirebaseUI } from './index'
 import { bootAuth, bootFirestore } from './slices/FirebaseSlice'
-import { logIn, logOut } from './slices/SessionSlice'
+import { 
+	setCurrentUser, 
+	clearCurrentUser, 
+	// toggleIsLoggedIn,
+} from './slices/SessionSlice'
 import watch from 'redux-watch'
 
 
@@ -27,21 +31,13 @@ function _rehydrateStoreFromLocalStorage() {
 // Boot Auth / Authentication Listener
 // ---------------------------------------------
 async function _bootAuth() {
-
 	await store.dispatch(bootAuth())
-
-	// DOES NOT WORK, b/c using the FIREBASE APP, not the FIREBASE main export
-	// console.log("*******************")
-	// console.log("firebase: ", firebase)
-	// console.log("firebase.auth: ", firebase.auth)
-	// let provider = new firebase.auth.GoogleAuthProvider()
-	// console.log("firebase.auth.GoogleAuthProvider: ", provider)
-	// console.log("*******************")
-
 	_registerUserAuthStateChangedListener()
+	initializeFirebaseUI()
 }
 
 async function _registerUserAuthStateChangedListener() {
+	// TODO Return this all as a Promise (?)
 	let auth = store.getState().firebase._.auth
 	if (auth.isLoaded) { _onAuthStateChangedListener() }
 	else if (auth.isLoading) {
@@ -54,8 +50,15 @@ async function _registerUserAuthStateChangedListener() {
 }
 
 function _onAuthStateChangedListener() {
+
+	// does this get called when it's taking 'user' 
+	// from local storage? 
+	//
+	// AKA, need to populate session.currentUser from local
+	// storage
+
+
 	firebase.auth().onAuthStateChanged( user => {
-		// NB Firebase auto saves returned user value to local storage.
 		
 		// NB. Triggered on 'updateCurrentUser', i.e. if user signs in. 
 		//
@@ -77,19 +80,29 @@ function _onAuthStateChangedListener() {
 		// now logged-in account.
 
 
-		console.log("user: ", user) 
-		console.log("currentUser: ", firebase.auth().currentUser)
-
-		console.log("firebase.auth: ", firebase.auth)
-		console.log("firebase.auth.GoogleAuthProvider(): ", new firebase.auth.GoogleAuthProvider())
+		// console.log("user: ", user) 
+		// console.log("currentUser: ", firebase.auth().currentUser)
+    //
+		// console.log("firebase.auth: ", firebase.auth)
+		// console.log("firebase.auth.GoogleAuthProvider(): ", new firebase.auth.GoogleAuthProvider())
 
 
 		if (user) {
 			console.log("-- User logged in: ", user)
+			// console.log("Current User: ", firebase.auth().currentUser)
+
+			store.dispatch(setCurrentUser(firebase.auth().currentUser))
+
+			// if isAnonymous
+			//
+			// else 
+
+
 			// TODO need to format 'user' object / extract the importat bits
 			// store.dispatch(createSession(user))
 			// > what's this going to do?
 			// - make: store.session.currentUser
+
 		} else {
 			console.log("-- User NOT logged in: ", user)
 			// store.dispatch(deleteSession(user))

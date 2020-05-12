@@ -19,6 +19,7 @@
     "@loadable/component": "^5.12.0",
     "@reduxjs/toolkit": "^1.1.0",
     "firebase": "^7.14.2",
+    "firebaseui": "^4.5.0",
     "formik": "^2.1.4",
     "lodash": "^4.17.15",
     "nanoid": "^3.1.3",

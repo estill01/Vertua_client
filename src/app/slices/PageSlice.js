@@ -9,6 +9,10 @@ export const PageSlice = createSlice({
 		modal: false,
 		sideNav: false,
 		superbar: true,
+		path: {
+			current: '',
+			previous: '',
+		}
 	},
 	reducers: {
 		toggle: (state, action) => {
@@ -16,7 +20,13 @@ export const PageSlice = createSlice({
 		},
 		setTitle: (state, action) => {
 			state.title = action.payload
-		}
+		},
+		setCurrentPath: (state, action) => {
+			state.path.current = action.payload
+		},
+		setPreviousPath: (state, action) => {
+			state.path.previous = action.payload
+		},
 	}
 })
 
