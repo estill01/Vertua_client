@@ -1,4 +1,4 @@
-import { useSelector, getState } from 'react-redux'
+import { useSelector } from 'react-redux'
 import { store, firebase, initializeFirebaseUI } from './index'
 import { bootAuth, bootFirestore } from './slices/FirebaseSlice'
 import { 
@@ -48,6 +48,7 @@ async function _registerUserAuthStateChangedListener() {
 	} 
 	else { await store.dispatch(bootAuth()); _registerUserAuthStateChangedListener() }
 }
+	
 
 function _onAuthStateChangedListener() {
 

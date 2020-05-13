@@ -37,13 +37,9 @@ export const firebaseUIConfig = {
 	privacyPolicyUrl: 'privacy',
 }
 
-// TODO Need to make this a singleton / not re-initialize on every 'LogInPage' render
-
-export let firebaseUI = ''
 export const initializeFirebaseUI = () => {
-	// TODO check that auth has been loaded(?)
-	firebaseUI = new firebaseui.auth.AuthUI(firebase.auth())
+	new firebaseui.auth.AuthUI(firebase.auth())
 }
 
-
 export default firebase
+export { firebaseui }

@@ -7,7 +7,7 @@ import SideNav from '../menus/SideNav'
 import { Page, Metadata } from '../page'
 
 // import store from '../../app/store'
-
+// 
 const App = ({ store }) => (
 	<React.StrictMode>
 		<Provider store={store}>
