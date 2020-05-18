@@ -20,7 +20,6 @@ const Footer = () => (
 			color: 'whitesmoke',
 			borderTop: '4px solid #e03997',
 			display: 'flex',
-			marginTop: '1rem',
 		}}>
 			<Container style={{ display: 'flex', flex: 1 }}>
 				<div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>

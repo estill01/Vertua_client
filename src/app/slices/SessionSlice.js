@@ -52,7 +52,7 @@ export const SessionSlice = createSlice({
 		setCurrentUser: (state, action) => {
 			console.log("-- setCurrentUser")
 			console.log('action.payload: ', action.payload)
-			// let user = firebase.auth().currentUser
+			state.isLoggedIn = true
 			let user = action.payload
 			state.currentUser = {
 				uid: user.uid,
@@ -64,7 +64,6 @@ export const SessionSlice = createSlice({
 				lastSignInTime: user.metadata.lastSignInTime,
 				photoURL: user.photoURL,
 			}
-			state.isLoggedIn = true
 		},
 		clearCurrentUser: (state, action) => {
 			state.currentUser = {

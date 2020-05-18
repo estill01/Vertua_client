@@ -3,6 +3,8 @@ import { Route, Switch } from 'react-router-dom'
 import loadable from '@loadable/component'
 import { timeout } from 'promise-timeout'
 import PageErrorBoundary from '../views/PageErrorBoundary'
+import { useStore } from 'react-redux'
+import { store } from '../app/index'
 
 const Loading = () => (
 	<div>Loading...</div>
@@ -68,7 +70,28 @@ const Router = () => {
 						<Route exact path='/' component={HomePage}/>
 						<Route exact path='/account' component={AccountPage}/>
 						<Route path='/project/:id' component={ProjectPage}/>
-						<Route exact path='/login' component={LogInPage}/>
+
+						<Route 
+						exact 
+						path='/login' 
+						// component={LogInPage}
+						render={ routeProps => {
+							console.log("=== ROUTER DEBUG +++")
+							console.log("session: ", store.getState().session)
+							
+							let isLoggedIn = store.getState().session.isLoggedIn
+							console.log("isLoggedIn: ", isLoggedIn)
+							// TODO use a watcher?
+							// TODO Fix: This is not working likely b/c the redux store is behind schedule
+
+							return ( <LogInPage/> )
+
+							// if (isLoggedIn) { return ( <HomePage/> ) 
+							// } else {  return ( <LogInPage/> ) }
+
+						}}
+						/>
+
 						<Route exact path='/signup' component={SignUpPage}/>
 						<Route exact path='/password_reset' component={PasswordResetPage}/>
 						<Route exact path='/tos' component={TermsOfServicePage}/>

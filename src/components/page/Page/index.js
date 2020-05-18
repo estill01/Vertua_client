@@ -7,11 +7,13 @@ import { Footer } from '../utils'
 const Page = () => (
 	<>
 		<BrowserRouter>
-			<Superbar/>
-			<div className='bg-secondary text-primary'>
-				<Router/>
+			<div className='flex flex-col min-h-screen'>
+				<Superbar/>
+				<div className='bg-secondary text-primary flex-1'>
+					<Router/>
+				</div>
+				<Footer/>
 			</div>
-			<Footer/>
 		</BrowserRouter>
 	</>
 )
