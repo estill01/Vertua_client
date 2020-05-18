@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux'
 import { MenuToggle } from '../menus/utils'
 import { Link } from 'react-router-dom'
 import { LogInButton, LogOutButton } from '../buttons/account'
-import LanguageSelector from '../utils/LanguageSelector'
+// import LanguageSelector from '../utils/LanguageSelector'
 
 const SuperBar = ({ props } ) => {
 	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
@@ -15,16 +15,19 @@ const SuperBar = ({ props } ) => {
 		<>
 			<div className='w-full p-4 bg-primary flex flex-row items-center' { ...props }>
 				<MenuToggle/>
-				<div className='text-primary text-lg font-logo-bold'>Vertua</div>
-				<div className='flex flex-1 flex-row'>
+
+				<div className='text-primary text-lg font-logo-bold'>
+					<Link to='/'>Vertua</Link>
+				</div>
+
+				<div className='flex flex-1 flex-row items-center'>
 					<Link to='/'>Home</Link>
 					<Link to='/account'>Account</Link>
-
+				</div>
+				<div>
 					{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
 					{ (isAnonymous === false) && (<LogOutButton/>)}
-
 				</div>
-				<LanguageSelector/>
 			</div>
 		</>
 	)
