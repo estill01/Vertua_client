@@ -43,7 +43,6 @@ const SideNav = () => {
 
 				<Menu.Item>Technology</Menu.Item>
 
-				<Menu.Item>Sign Up</Menu.Item>
 
 				<Menu.Item>
 					<ThemeToggle/>

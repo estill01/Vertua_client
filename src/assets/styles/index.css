@@ -1,8 +1,8 @@
 @tailwind base;
 
 :root {
-  --color-bg-primary: #f3f8ff; 
-  --color-bg-secondary: #dfe9f3;
+  --color-bg-primary: 'whitesmoke'; 
+  --color-bg-secondary: 'white';
   --color-bg-default: #fff;
   --color-bg-inverse: #fff;
 

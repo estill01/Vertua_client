@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { Button, Icon } from 'semantic-ui-react'
 import { toggle } from '../../../app/slices/PageSlice.js'
 
-const MenuToggle = () => {
+const MenuToggle = (props) => {
   const dispatch = useDispatch()
 	const isOpen = useSelector(state => state.page.sideNav)
 	const handleClick = () => dispatch(toggle('sideNav'))
@@ -11,9 +11,12 @@ const MenuToggle = () => {
 
 	return (
 		<>
-			<Button basic icon onClick={handleClick}>
-				<Icon name={icon}/>
-			</Button>
+			<Icon 
+			name={icon} 
+			onClick={handleClick} 
+			className='cursor-pointer'
+			{...props}
+			/>
 		</>
 	)
 }
