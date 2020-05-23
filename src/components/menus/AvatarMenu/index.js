@@ -57,7 +57,7 @@ export const DropDown = (props) => {
 		<>
 			{isVisible && (
 			<div 
-			className='absolute left-auto right-0 top-0 p-2 border-l border-b border-gray-400 rounded-bl w-40 h-56 flex flex-col bg-secondary'
+			className={`absolute left-auto right-0 top-0 p-2 border-l border-b border-gray-400 rounded-bl w-40 h-56 flex flex-col bg-secondary ${props.className}`}
 			>
 				<div className='flex-1'>
 					<UserAvatar/>

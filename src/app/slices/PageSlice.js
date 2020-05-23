@@ -5,10 +5,11 @@ export const PageSlice = createSlice({
 	initialState: {
 		title: 'Vertua | #BuildTheFuture',
 		scrollLock: false,
+		superbar: true,
 		dimmer: false,
 		modal: false,
 		sideNav: false,
-		superbar: true,
+		searchDropdown: false,
 		avatarMenu: false,
 		path: {
 			current: '',
@@ -18,6 +19,14 @@ export const PageSlice = createSlice({
 	reducers: {
 		toggle: (state, action) => {
 			state[action.payload] = !state[action.payload]
+		},
+		menuToggle: (state, action) => {
+			state.menu[action.payload] = !state.menu[action.payload]
+		},
+		menuMultiToggle: (state, action) => {
+			action.payload.forEach((item) => {
+				// state.menu[item] state.menu[item]
+			})
 		},
 		setTitle: (state, action) => {
 			state.title = action.payload
