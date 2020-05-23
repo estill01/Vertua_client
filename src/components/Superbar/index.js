@@ -7,10 +7,8 @@ import { LogInButton, LogOutButton } from '../buttons/account'
 import LogoGlyph from '../utils/LogoGlyph'
 import * as Search from './Searchbar'
 import * as AvatarMenu from '../menus/AvatarMenu'
-
 import Dimmer from '../utils/Dimmer'
 
-					
 // <LogoGlyph className='w-6 h-6'/>
 
 const Superbar = ({ props } ) => {

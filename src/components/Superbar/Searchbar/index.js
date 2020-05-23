@@ -8,7 +8,6 @@ import LogoGlyph from '../../utils/LogoGlyph'
 import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
 import { toggle } from '../../../app/slices/PageSlice'
 
-					
 
 export const InputBar = (props) => {
 	let containerRef = React.createRef()
@@ -17,6 +16,7 @@ export const InputBar = (props) => {
 	let history = useHistory()
 	let isDropDownVisible = useSelector(state => state.page.searchDropdown)
 	const [hasInput, toggleHasInput] = useState(false)
+	const [inputCache, updateInputCache] = useState('')
 
 	function focusContainer() {
 		containerRef.current.classList.add('border-blue-500')
@@ -25,17 +25,25 @@ export const InputBar = (props) => {
 		containerRef.current.classList.remove('border-blue-500')
 	}
 	function handleInput(e) {
-		if (inputRef.current.value === '') {
+		if (inputRef.current.value.trim() === '') {
+			if (hasInput) { toggleHasInput(false) }
 			if (isDropDownVisible) {
 				dispatch(toggle('dimmer'))
 				dispatch(toggle('searchDropdown'))
 			}
-			toggleHasInput(false)
 		} else {
-			toggleHasInput(true)
-			if (!isDropDownVisible) {
-				dispatch(toggle('dimmer'))
-				dispatch(toggle('searchDropdown'))
+
+			console.log("inputRef.current.value.trim(): ", inputRef.current.value.trim())
+			console.log("inputCache: ", inputCache)
+
+			if (!hasInput) { toggleHasInput(true) }
+			if (inputRef.current.value.trim() != inputCache) {
+				console.log("// New input, taking actions...")
+				updateInputCache(inputRef.current.value.trim())
+				if (!isDropDownVisible) {
+					dispatch(toggle('dimmer'))
+					dispatch(toggle('searchDropdown'))
+				}
 			}
 		}
 	}
@@ -48,15 +56,15 @@ export const InputBar = (props) => {
 				dispatch(toggle('dimmer'))
 				dispatch(toggle('searchDropdown'))
 			}
-			history.push({
-				pathname: '/search',
-				search: `?query=${query}`,
-			})
+			if (query === '') { history.push('/') }
+			else {
+				history.push({
+					pathname: '/search',
+					search: `?query=${query}`,
+				})
+			}
 		}
 	}
-
-
-	// TODO If click on the dimmer when search dropdown is showing, hide search dropdown.
 
 	return (
 		<div 
@@ -73,6 +81,7 @@ export const InputBar = (props) => {
 				onBlur={() => blurContainer()}
 				onInput={() => handleInput()}
 				onKeyPress={(e) => handleKeyPress(e)}
+				autocomplete='false'
 				/>
 			</div>
 			<div className='p-1'>
@@ -143,7 +152,7 @@ export const DropDown = (props) => {
 	)
 }
 
-const EnterIndicator = (props) => {
+export const EnterIndicator = (props) => {
 	return (
 		<div className={`bg-secondary px-1 py-px border border-gray-300 rounded text-gray-400 text-xs flex flex-row ${props.className}`}>
 			Enter <span className='text-xs ml-2'>⮐</span>

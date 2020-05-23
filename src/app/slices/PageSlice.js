@@ -20,13 +20,12 @@ export const PageSlice = createSlice({
 		toggle: (state, action) => {
 			state[action.payload] = !state[action.payload]
 		},
-		menuToggle: (state, action) => {
-			state.menu[action.payload] = !state.menu[action.payload]
-		},
-		menuMultiToggle: (state, action) => {
-			action.payload.forEach((item) => {
-				// state.menu[item] state.menu[item]
-			})
+		nukeOverlays: (state, actions) => {
+			state.dimmer = false
+			state.modal = false
+			state.sideNav = false
+			state.searchDropdown = false
+			state.avatarMenu = false
 		},
 		setTitle: (state, action) => {
 			state.title = action.payload
@@ -40,6 +39,6 @@ export const PageSlice = createSlice({
 	}
 })
 
-export const { toggle, setTitle } = PageSlice.actions
+export const { toggle, nukeOverlays, setTitle } = PageSlice.actions
 
 export default PageSlice.reducer
