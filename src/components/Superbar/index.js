@@ -1,28 +1,24 @@
 import React, { useState } from 'react'
 import { useSelector } from 'react-redux'
-import { MenuToggle } from '../menus/utils'
 import { Link } from 'react-router-dom'
-import { LogInButton, LogOutButton } from '../buttons/account'
 import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
+import { MenuToggle } from '../menus/utils'
+import { LogInButton, LogOutButton } from '../buttons/account'
 import LogoGlyph from '../utils/LogoGlyph'
+import * as Search from './Searchbar'
+import * as AvatarMenu from '../menus/AvatarMenu'
 
-import { ReactComponent as Avatar } from '../../assets/images/avatar/noun_User_2187511.svg'
+import Dimmer from '../utils/Dimmer'
 
-import { AvatarMenuTrigger, AvatarMenuDropDown } from '../menus/AvatarMenu'
 					
 // <LogoGlyph className='w-6 h-6'/>
 
-const SuperBar = ({ props } ) => {
+const Superbar = ({ props } ) => {
 	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
-	// let isLoggedIn = useSelector(state => state.session.isLoggedIn)
-	// let isAnonymous = useSelector(state => state.session.
-	console.log("---- SUPERBAR DEBUG ----")
-	console.log("isAnonymous: ", isAnonymous )
-	// bg-primary
+	
 	return (
 		<div className='relative' style={{zIndex:2000}}>
 			<div className='fixed w-full'>
-
 				<div className='bg-primary px-4 py-2 flex flex-row items-center border-b border-gray-300 top-0' { ...props }>
 					<MenuToggle className='flex self-center cursor-pointer' style={{marginTop: '-0.125em'}} color='grey'/>
 
@@ -31,7 +27,7 @@ const SuperBar = ({ props } ) => {
 					</Link>
 
 					<div className='flex flex-1 flex-row items-center'>
-						<SearchBar className='mx-4 flex-1'/>
+						<Search.InputBar className='mx-4 flex-1'/>
 					</div>
 
 					<div> 
@@ -40,101 +36,19 @@ const SuperBar = ({ props } ) => {
 					</div>
 
 					<div>
-						<AvatarMenuTrigger className='ml-4'/>
+						<AvatarMenu.Trigger className='ml-4'/>
 					</div>
 				</div>
-
-
-			
+				<div className='relative mt-0'>
+					<AvatarMenu.DropDown className='z-50'/>
+					<Search.DropDown className='z-40'/>
+					<Dimmer className='z-30'/>
+				</div>
 			</div>
 		</div>
 	)
 }
 
-// <SearchDropDown/>
-
-const SearchDropDown = (props) => {
-	return (
-		<div 
-		className='w-4/5 rounded border border-gray-400 mx-auto bg-secondary mt-2 flex flex-col' 
-		style={{ minHeight: '20em'}}
-		>
-			<div className='flex-1 p-4'>
-				<span style={{fontVariant:'small-caps'}}>projects</span>
-			</div>
-
-			<div className='flex-1 p-4'>
-				<span style={{fontVariant:'small-caps'}}>protocols</span>
-			</div>
-
-			<div className='flex-1 p-4'>
-				<span style={{fontVariant:'small-caps'}}>users</span>
-			</div>
-			<hr/>
-			<div className='p-4'>
-			</div>
-		</div>
-	)
-}
-
-export default SuperBar
+export default Superbar
 
 
-const AvatarDropDownMenu = (props) => {
-	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
-					return (
-					<Dropdown 
-					trigger={<AvatarDropDown className='ml-4'/>}
-					icon={null}
-					>
-						<Dropdown.Menu style={{position:'absolute', left:'auto', right:0}}>
-							<div
-							className='p-2 border border-gray-400 rounded'
-							>
-								{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
-								{ (isAnonymous === false) && (<LogOutButton/>)}
-
-							</div>
-						</Dropdown.Menu>
-					</Dropdown>
-					)
-}
-
-const AvatarDropDown = (props) => {
-	return (
-		<div {...props}> 
-			<div className='w-10 h-10 rounded-full border border-gray-500 p-1 cursor-pointer bg-white'>
-				<Avatar/>
-			</div>
-		</div>
-	)
-}
-
-
-const SearchBar = (props) => {
-	let containerRef = React.createRef()
-
-	function focusContainer() {
-		containerRef.current.classList.add('border-blue-500')
-	}
-	function blurContainer() {
-		containerRef.current.classList.remove('border-blue-500')
-	}
-	
-	return (
-		<div {...props}>
-			<div 
-			className="p-2 bg-white rounded border border-gray-400 hover:border-blue-400 flex flex-row flex-1"
-			ref={containerRef}
-			>
-				<Icon name='search mr-2'/>
-				<input 
-				className='flex-1'
-				style={{ outline: 'none' }} 
-				onFocus={() => focusContainer()}
-				onBlur={() => blurContainer()}
-				/>
-			</div>
-		</div>
-	)
-}

@@ -9,6 +9,7 @@ export const PageSlice = createSlice({
 		modal: false,
 		sideNav: false,
 		superbar: true,
+		avatarMenu: false,
 		path: {
 			current: '',
 			previous: '',
