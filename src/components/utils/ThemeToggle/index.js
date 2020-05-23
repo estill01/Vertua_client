@@ -10,7 +10,7 @@ function toggleTheme() {
 
 	if (m === 'dark') {
 		d.classList.add('theme-dark')
-	}
+	} 
 
 	if (d.classList.contains("theme-dark")) {
 		d.classList.remove("theme-dark")

@@ -14,12 +14,7 @@ const App = ({ store }) => (
 		<Provider store={store}>
 			<Metadata/>
 			<BrowserRouter>
-				<Sidebar.Pushable>
-					<SideNav/>
-					<Sidebar.Pusher>
-						<Page/>
-					</Sidebar.Pusher>
-				</Sidebar.Pushable>
+				<Page/>
 			</BrowserRouter>
 		</Provider>
 	</React.StrictMode>
@@ -27,3 +22,10 @@ const App = ({ store }) => (
 
 
 export default App;
+
+				// <Sidebar.Pushable>
+				// 	<SideNav/>
+				// 	<Sidebar.Pusher>
+				// 	</Sidebar.Pusher>
+				// </Sidebar.Pushable>
+        //

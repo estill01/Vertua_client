@@ -1,6 +1,9 @@
 import React from 'react'
 import { Menu, Image } from 'semantic-ui-react'
 
+// import { ReactComponent as Logo } from '../../../assets/images/logo/noun_Network_1305442.svg'
+import { ReactComponent as Logo } from '../../../assets/images/logo/noun_networking_2362699.svg'
+
 // import {  ReactComponent as Logo } from '../../assets/images/logo/noun_fast_3119713.svg'  
 // import {  ReactComponent as Logo } from '../../assets/images/logo/noun_fractal_224058.svg' 
 // import {  ReactComponent as Logo } from '../../assets/images/logo/noun_labyrinth_3202515.svg'
@@ -39,7 +42,7 @@ import { Menu, Image } from 'semantic-ui-react'
 // import {  ReactComponent as Logo } from '../../assets/images/logo/noun_DIY_1953984.svg'
 // import {  ReactComponent as Logo } from '../../assets/images/logo/noun_DIY_1953984.svg'
 
-import { ReactComponent as Logo } from '../../../assets/images/logo/circle_dots@2x.svg'
+// import { ReactComponent as Logo } from '../../../assets/images/logo/circle_dots@2x.svg'
 
 // # Glyph Based on:
 // https://looka.com/editor/47519277
