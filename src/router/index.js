@@ -15,6 +15,11 @@ const HomePage = loadable(
 	{ fallback: <Loading/> }
 )
 
+const SearchResultsPage = loadable(
+	() => timeout(import('../views/SearchResultsPage'), 5000),
+	{ fallback: <Loading/> }
+)
+
 const AccountPage = loadable(
 	() => timeout(import('../views/AccountPage'), 5000),
 	{ fallback: <Loading/> }
@@ -68,6 +73,7 @@ const Router = () => {
 				<Suspense>
 					<Switch>
 						<Route exact path='/' component={HomePage}/>
+						<Route path='/search' component={SearchResultsPage}/>
 						<Route exact path='/account' component={AccountPage}/>
 						<Route path='/project/:id' component={ProjectPage}/>
 
