@@ -14,21 +14,51 @@ import { toggle } from '../../../app/slices/PageSlice'
 
 export const InputBar = (props) => {
 	let containerRef = React.createRef()
+	let inputRef = React.createRef()
 	let dispatch = useDispatch()
 
 	function focusContainer() {
 		containerRef.current.classList.add('border-blue-500')
-		dispatch(toggle('dimmer'))
-		dispatch(toggle('searchDropdown'))
 	}
 	function blurContainer() {
 		containerRef.current.classList.remove('border-blue-500')
-		dispatch(toggle('dimmer'))
-		dispatch(toggle('searchDropdown'))
+		// TODO Maybe make an action that does this all bundled up so in case they're not on they don't turn on..
+		// dispatch(toggle('dimmer'))
+		// dispatch(toggle('searchDropdown'))
 	}
 
-	// when you start typing open the DropDown
+	// dispatch(toggle('dimmer'))
+	// dispatch(toggle('searchDropdown'))
+
+	// function handleKeyPress() {
+	// 	console.log("-- KeyPress --")
+	// 	console.log(inputRef.current.value)
+	// }
+  //
+	// function handleKeyDown() {
+	// 	console.log("-- KeyDown --")
+	// 	console.log(inputRef.current.value)
+	// }
 	
+	let isDropDownVisible = useSelector(state => state.page.searchDropdown)
+
+	function handleInput() {
+		if (inputRef.current.value === '') {
+			if (isDropDownVisible) {
+				dispatch(toggle('dimmer'))
+				dispatch(toggle('searchDropdown'))
+			}
+		} else {
+			if (!isDropDownVisible) {
+				dispatch(toggle('dimmer'))
+				dispatch(toggle('searchDropdown'))
+			}
+		}
+	}
+
+
+
+
 	return (
 		<div {...props}>
 			<div 
@@ -38,9 +68,11 @@ export const InputBar = (props) => {
 				<Icon name='search mr-2'/>
 				<input 
 				className='flex-1'
+				ref={inputRef}
 				style={{ outline: 'none' }} 
 				onFocus={() => focusContainer()}
 				onBlur={() => blurContainer()}
+				onInput={() => handleInput()}
 				/>
 			</div>
 		</div>
