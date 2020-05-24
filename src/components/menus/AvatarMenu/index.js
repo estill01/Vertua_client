@@ -1,36 +1,59 @@
-import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import React, { useState, useEffect } from 'react'
+import { useLocation } from 'react-router-dom'
+import { useStore, useSelector, useDispatch, } from 'react-redux'
 import { toggle } from '../../../app/slices/PageSlice.js'
 import { ReactComponent as AnonymousAvatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
- import { LogInButton, LogOutButton } from '../../buttons/account'
+import { LogInButton, LogOutButton } from '../../buttons/account'
+import watch from 'redux-watch'
 
 import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 
+// TODO Fix the avatar rendering when you logout -- doesn't revert to the anonymous user svg.
 export const Trigger = (props) => {
+	const store = useStore()
 	const dispatch = useDispatch()
-	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
 	let currentUser = useSelector(state => state.session.currentUser)
+	let isAnonymous = currentUser.isAnonymous
+	let isMenuOpen = useSelector(state => state.page.avatarMenu)
+	let isActive
+	if (isMenuOpen) { isActive = true } else { isActive = false }
 	let containerRef = React.createRef()
 
+	useEffect(() => {
+		let watchAvatarMenu = watch(store.getState, 'page.avatarMenu')
+		let unsubscribeWatchAvatarMenu = store.subscribe(watchAvatarMenu((newVal, oldVal) => {
+			isActive = newVal
+			toggleContainerFocus(isActive)
+		}))
+
+		let watchURLPath = watch(store.getState, 'page.path')
+		let unsubscribeWatchURLPath = store.subscribe(watchURLPath((newVal, oldVal) => {
+			if (isActive) { dispatch(toggle('avatarMenu')) }
+		}))
+
+		return () => {
+			unsubscribeWatchAvatarMenu()
+			unsubscribeWatchURLPath()
+		}
+	})
+
+	function toggleIsActive(val = !isActive) {
+		isActive = val
+		toggleContainerFocus(val)
+	}
 	function toggleContainerFocus(val) {
-		if (val) { containerRef.current.classList.add('border-blue-500') }
+		if (val) { containerRef.current.classList.add('border-blue-500') } 
 		else { containerRef.current.classList.remove('border-blue-500') }
 	}
 
-			// style={{
-			// 	backgroundImage: `url(${currentUser.photoURL})`
-			// }}
-
-		// onClick={()=> dispatch(multiToggle())}
-		
 	return (
-		<div 
-		{...props} 
-		onClick={()=> dispatch(toggle('avatarMenu'))}
-		>
+		<div {...props}>
 			<div 
-			className="w-10 h-10 rounded-full border border-gray-500 cursor-pointer bg-white flex"
-			style={{ padding: '1px' }}
+			className="w-10 h-10 rounded-full border border-gray-500 cursor-pointer bg-white flex p-px"
+			onClick={() => dispatch(toggle('avatarMenu'))}
+			onMouseEnter={() => { if (!isActive) { toggleIsActive() } }}
+			onMouseLeave={() => { if (!isMenuOpen && isActive) { toggleIsActive() } }}
+			ref={containerRef}
 			>
 				{ isAnonymous && (<AnonymousAvatar className='flex-1 rounded-full'/>) }
 				{ !isAnonymous && (<img src={currentUser.photoURL} className='flex-1 rounded-full'/>) }
@@ -50,14 +73,36 @@ const UserAvatar = (props) => {
 	)
 }
 
-export const DropDown = (props) => {
-	let isVisible = useSelector(state => state.page.avatarMenu)
+export const DropDown = React.forwardRef ((props, ref) => {
+	// let isVisible = useSelector(state => state.page.avatarMenu)
 	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
+
+	// const store = useStore()
+	// let avatarMenu = store.getState().page.avatarMenu
+
+	const [isVisible, setIsVisible] = useState(false)
+	// const [isVisible, setIsVisible] = useState(useSelector(state => state.page.avatarMenu))
+
+	// let w = watch(store.getState, 'page.avatarMenu')
+	// let unsubscribe = store.subscribe(w((newVal, oldVal, objectPath) => {
+	// 	console.log(" -- DropDown --")
+	// 	console.log("newVal: ", newVal)
+	// 	console.log("oldVal: ", oldVal)
+	// 	setIsVisible(newVal)
+	// }))
+
+	function toggle(val) { val ? setIsVisible(true) : setIsVisible(false) }
+
+	useEffect(() => {
+		console.log(">> DropDown:useEffect()")
+	})
+
 	return (
 		<>
 			{isVisible && (
 			<div 
 			className={`absolute left-auto right-0 top-0 p-2 border-l border-b border-gray-400 rounded-bl w-40 h-56 flex flex-col bg-secondary ${props.className}`}
+			ref={ref}
 			>
 				<div className='flex-1'>
 					<UserAvatar/>
@@ -70,57 +115,5 @@ export const DropDown = (props) => {
 			)}
 		</>
 	)
-}
+})
 
-
-// 						<Dropdown.Menu style={{position:'absolute', left:'auto', right:0}}>
-// 							<div
-// 							className='p-2 border border-gray-400 rounded'
-// 							>
-// 								{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
-// 								{ (isAnonymous === false) && (<LogOutButton/>)}
-//
-// 							</div>
-// 						</Dropdown.Menu>
-// 					</Dropdown>
-// 					)
-// }
-
-// const AvatarDropDown = (props) => {
-// 	return (
-// 		<div {...props}> 
-// 			<div className='w-10 h-10 rounded-full border border-gray-500 p-1 cursor-pointer bg-white'>
-// 				<Avatar/>
-// 			</div>
-// 		</div>
-// 	)
-// }
-//
-//
-// const SearchBar = (props) => {
-// 	let containerRef = React.createRef()
-//
-// 	function focusContainer() {
-// 		containerRef.current.classList.add('border-blue-500')
-// 	}
-// 	function blurContainer() {
-// 		containerRef.current.classList.remove('border-blue-500')
-// 	}
-// 	
-// 	return (
-// 		<div {...props}>
-// 			<div 
-// 			className="p-2 bg-white rounded border border-gray-400 hover:border-blue-400 flex flex-row flex-1"
-// 			ref={containerRef}
-// 			>
-// 				<Icon name='search mr-2'/>
-// 				<input 
-// 				className='flex-1'
-// 				style={{ outline: 'none' }} 
-// 				onFocus={() => focusContainer()}
-// 				onBlur={() => blurContainer()}
-// 				/>
-// 			</div>
-// 		</div>
-// 	)
-// }

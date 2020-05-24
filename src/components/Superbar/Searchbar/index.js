@@ -7,8 +7,9 @@ import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 import LogoGlyph from '../../utils/LogoGlyph'
 import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
 import { toggle } from '../../../app/slices/PageSlice'
+import watch from 'redux-watch'
 
-
+// TODO Make into 'React.forwardRef' (?)
 export const InputBar = (props) => {
 	let containerRef = React.createRef()
 	let inputRef = React.createRef()
@@ -17,6 +18,7 @@ export const InputBar = (props) => {
 	let isDropDownVisible = useSelector(state => state.page.searchDropdown)
 	const [hasInput, toggleHasInput] = useState(false)
 	const [inputCache, updateInputCache] = useState('')
+
 
 	function focusContainer() {
 		containerRef.current.classList.add('border-blue-500')
@@ -72,7 +74,7 @@ export const InputBar = (props) => {
 		ref={containerRef}
 		>
 			<div className='p-2 flex flex-row flex-1 items-center'>
-				<Icon name='search mr-2' style={{marginTop:'-0.125em'}}/>
+				<Icon name='search' className='mr-2' style={{marginTop:'-0.125em'}}/>
 				<input 
 				className='flex-1 text-xl'
 				ref={inputRef}
@@ -85,14 +87,14 @@ export const InputBar = (props) => {
 				/>
 			</div>
 			<div className='p-1'>
-				{ hasInput && (<EnterIndicator className='ml-2 mr-1'/>) }
+				{ hasInput && (<EnterIndicator inputRef={inputRef} className='ml-2 mr-1'/>) }
 			</div>
 		</div>
 	)
 }
 
 
-export const DropDown = (props) => {
+export const DropDown = React.forwardRef((props, ref) => {
 	let isVisible = useSelector(state => state.page.searchDropdown)
 	return (
 		<>
@@ -143,18 +145,31 @@ export const DropDown = (props) => {
 						<Link to='/search' style={{fontVariant:'small-caps'}}>
 							more results 
 						</Link>
-						<EnterIndicator className='ml-2'/>
+						<EnterIndicator inputRef={props.inputBarRef} className='ml-2'/>
 					</div>
 				</div>
 			</div>
 			)}
 		</>
 	)
-}
+})
 
 export const EnterIndicator = (props) => {
+
+	// can check if what's passed in has teh goods, great;
+	// otherwise, drill down to get to the good.
+
+	function handleClick(e) {
+		console.log("-- EnterIndicator:Click --")
+		// console.log("props.inputRef.current.value: ", props.inputRef.current.value) // Works for superbar instance, not for dropdown instance
+		console.log("props.inputRef: ", props.inputRef) 
+	}
+
 	return (
-		<div className={`bg-secondary px-1 py-px border border-gray-300 rounded text-gray-400 text-xs flex flex-row ${props.className}`}>
+		<div 
+		className={`bg-secondary px-1 py-px border rounded border-gray-300 text-gray-400 hover:border-gray-500 hover:text-gray-600 text-xs flex flex-row cursor-pointer select-none ${props.className}`}
+		onClick={(e) => handleClick(e)}
+		>
 			Enter <span className='text-xs ml-2'>⮐</span>
 		</div>
 	)

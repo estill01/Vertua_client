@@ -3,8 +3,9 @@ import { Route, Switch } from 'react-router-dom'
 import loadable from '@loadable/component'
 import { timeout } from 'promise-timeout'
 import PageErrorBoundary from '../views/PageErrorBoundary'
-import { useStore } from 'react-redux'
+import { useStore, useDispatch } from 'react-redux'
 import { store } from '../app/index'
+import { setPath } from '../app/slices/PageSlice'
 
 const Loading = () => (
 	<div>Loading...</div>
@@ -62,26 +63,32 @@ const NotFoundPage = loadable(
 
 
 const Router = () => {
-
-	// HomePage.preload()
-	// AccountPage.preload()
-	// ProjectPage.preload()
-
+	let dispatch = useDispatch()
 	return (
 		<>
 			<PageErrorBoundary>
 				<Suspense>
 					<Switch>
-						<Route exact path='/' component={HomePage}/>
-						<Route path='/search' component={SearchResultsPage}/>
-						<Route exact path='/account' component={AccountPage}/>
+						<Route exact path='/' 
+						render={() => { dispatch(setPath('/')); return (<HomePage/>)}}
+						/>
+
+						<Route path='/search' 
+						render={() => { dispatch(setPath('/search')); return (<SearchResultsPage/>)}}
+						/>
+
+						<Route exact path='/account' 
+						render={() => { dispatch(setPath('/account')); return (<AccountPage/>)}}
+						/>
+
 						<Route path='/project/:id' component={ProjectPage}/>
 
 						<Route 
 						exact 
 						path='/login' 
-						// component={LogInPage}
 						render={ routeProps => {
+							dispatch(setPath('login'))
+
 							console.log("=== ROUTER DEBUG +++")
 							console.log("session: ", store.getState().session)
 							
@@ -103,6 +110,7 @@ const Router = () => {
 						<Route exact path='/tos' component={TermsOfServicePage}/>
 						<Route exact path='/privacy' component={PrivacyPolicyPage}/>
 						<Route component={NotFoundPage}/>
+
 					</Switch>
 				</Suspense>
 			</PageErrorBoundary>

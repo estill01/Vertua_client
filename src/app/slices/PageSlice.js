@@ -11,10 +11,7 @@ export const PageSlice = createSlice({
 		sideNav: false,
 		searchDropdown: false,
 		avatarMenu: false,
-		path: {
-			current: '',
-			previous: '',
-		}
+		path: ''
 	},
 	reducers: {
 		toggle: (state, action) => {
@@ -30,8 +27,8 @@ export const PageSlice = createSlice({
 		setTitle: (state, action) => {
 			state.title = action.payload
 		},
-		setCurrentPath: (state, action) => {
-			state.path.current = action.payload
+		setPath: (state, action) => {
+			if (state.path != action.payload ) { state.path = action.payload }
 		},
 		setPreviousPath: (state, action) => {
 			state.path.previous = action.payload
@@ -39,6 +36,11 @@ export const PageSlice = createSlice({
 	}
 })
 
-export const { toggle, nukeOverlays, setTitle } = PageSlice.actions
+export const { 
+	toggle, 
+	nukeOverlays, 
+	setTitle,
+	setPath,
+} = PageSlice.actions
 
 export default PageSlice.reducer
