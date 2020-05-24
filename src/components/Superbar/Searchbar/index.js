@@ -9,16 +9,14 @@ import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_Use
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import watch from 'redux-watch'
 
-// TODO Make into 'React.forwardRef' (?)
-export const InputBar = (props) => {
+export const InputBar = React.forwardRef((props, ref) => {
 	let containerRef = React.createRef()
-	let inputRef = React.createRef()
+	// let inputRef = React.createRef()
 	let dispatch = useDispatch()
 	let history = useHistory()
 	let isDropDownVisible = useSelector(state => state.page.searchDropdown)
 	const [hasInput, toggleHasInput] = useState(false)
 	const [inputCache, updateInputCache] = useState('')
-
 
 	function focusContainer() {
 		containerRef.current.classList.add('border-blue-500')
@@ -27,21 +25,16 @@ export const InputBar = (props) => {
 		containerRef.current.classList.remove('border-blue-500')
 	}
 	function handleInput(e) {
-		if (inputRef.current.value.trim() === '') {
+		if (ref.current.value.trim() === '') {
 			if (hasInput) { toggleHasInput(false) }
 			if (isDropDownVisible) {
 				dispatch(toggle('dimmer'))
 				dispatch(toggle('searchDropdown'))
 			}
 		} else {
-
-			console.log("inputRef.current.value.trim(): ", inputRef.current.value.trim())
-			console.log("inputCache: ", inputCache)
-
 			if (!hasInput) { toggleHasInput(true) }
-			if (inputRef.current.value.trim() != inputCache) {
-				console.log("// New input, taking actions...")
-				updateInputCache(inputRef.current.value.trim())
+			if (ref.current.value.trim() != inputCache) {
+				updateInputCache(ref.current.value.trim())
 				if (!isDropDownVisible) {
 					dispatch(toggle('dimmer'))
 					dispatch(toggle('searchDropdown'))
@@ -51,7 +44,7 @@ export const InputBar = (props) => {
 	}
 	function handleKeyPress(e) {
 		if (e.charCode === 13) {
-			let query = encodeURIComponent(inputRef.current.value.trim())
+			let query = encodeURIComponent(ref.current.value.trim())
 			// TODO Integrate search client and fetch data
 
 			if (isDropDownVisible) {
@@ -77,7 +70,7 @@ export const InputBar = (props) => {
 				<Icon name='search' className='mr-2' style={{marginTop:'-0.125em'}}/>
 				<input 
 				className='flex-1 text-xl'
-				ref={inputRef}
+				ref={ref}
 				style={{ outline: 'none' }} 
 				onFocus={() => focusContainer()}
 				onBlur={() => blurContainer()}
@@ -87,23 +80,22 @@ export const InputBar = (props) => {
 				/>
 			</div>
 			<div className='p-1'>
-				{ hasInput && (<EnterIndicator inputRef={inputRef} className='ml-2 mr-1'/>) }
+				{ hasInput && (<EnterIndicator inputBarRef={ref} className='ml-2 mr-1'/>) }
 			</div>
 		</div>
 	)
-}
+})
 
 
-export const DropDown = React.forwardRef((props, ref) => {
+export const DropDown = (props) => {
 	const dispatch = useDispatch()
-
 	let isVisible = useSelector(state => state.page.searchDropdown)
 	let isUserMenuOpen = useStore().getState().page.userMenu
+
 
 	function _userMenuUXToggle() {
 		if (isUserMenuOpen) { dispatch(toggle('userMenu')) }
 	}
-
 
 	return (
 		<>
@@ -156,7 +148,7 @@ export const DropDown = React.forwardRef((props, ref) => {
 						<Link to='/search' style={{fontVariant:'small-caps'}}>
 							more results 
 						</Link>
-						<EnterIndicator inputRef={props.inputBarRef} className='ml-2'/>
+						<EnterIndicator inputBarRef={props.inputBarRef} className='ml-2'/>
 					</div>
 				</div>
 
@@ -165,17 +157,26 @@ export const DropDown = React.forwardRef((props, ref) => {
 			)}
 		</>
 	)
-})
+}
 
 export const EnterIndicator = (props) => {
-
-	// can check if what's passed in has teh goods, great;
-	// otherwise, drill down to get to the good.
+	const dispatch = useDispatch()
+	const history = useHistory()
+	let isDropDownVisible = useSelector(state => state.page.searchDropdown)
 
 	function handleClick(e) {
-		console.log("-- EnterIndicator:Click --")
-		// console.log("props.inputRef.current.value: ", props.inputRef.current.value) // Works for superbar instance, not for dropdown instance
-		console.log("props.inputRef: ", props.inputRef) 
+		let query = encodeURIComponent(props.inputBarRef.current.value.trim())
+		if (isDropDownVisible) {
+			dispatch(toggle('dimmer'))
+			dispatch(toggle('searchDropdown'))
+		}
+		if (query === '') { history.push('/') }
+		else {
+			history.push({
+				pathname: '/search',
+				search: `?query=${query}`,
+			})
+		} 
 	}
 
 	return (
@@ -187,3 +188,14 @@ export const EnterIndicator = (props) => {
 		</div>
 	)
 }
+
+
+
+
+
+
+
+
+
+
+
