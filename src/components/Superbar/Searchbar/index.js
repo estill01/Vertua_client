@@ -97,6 +97,12 @@ export const DropDown = (props) => {
 		if (isUserMenuOpen) { dispatch(toggle('userMenu')) }
 	}
 
+	function _composeQueryParams(location) {
+		let path = '/search'
+		let query = encodeURIComponent(props.inputBarRef.current.value.trim())
+		return `${path}?query=${query}`
+	}
+
 	return (
 		<>
 		{ isVisible && (
@@ -145,7 +151,11 @@ export const DropDown = (props) => {
 					</div>
 					<hr/>
 					<div className='p-4 flex flex-row bg-primary'>
-						<Link to='/search' style={{fontVariant:'small-caps'}}>
+						<Link 
+						to={_composeQueryParams}
+						style={{fontVariant:'small-caps'}}
+						onClick={() => dispatch(nukeOverlays())}
+						>
 							more results 
 						</Link>
 						<EnterIndicator inputBarRef={props.inputBarRef} className='ml-2'/>
