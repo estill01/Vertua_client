@@ -14,13 +14,13 @@ export const Trigger = (props) => {
 	const dispatch = useDispatch()
 	let currentUser = useSelector(state => state.session.currentUser)
 	let isAnonymous = currentUser.isAnonymous
-	let isMenuOpen = useSelector(state => state.page.avatarMenu)
+	let isMenuOpen = useSelector(state => state.page.userMenu)
 	let isActive
 	if (isMenuOpen) { isActive = true } else { isActive = false }
 	let containerRef = React.createRef()
 
 	useEffect(() => {
-		let watchAvatarMenu = watch(store.getState, 'page.avatarMenu')
+		let watchAvatarMenu = watch(store.getState, 'page.userMenu')
 		let unsubscribeWatchAvatarMenu = store.subscribe(watchAvatarMenu((newVal, oldVal) => {
 			isActive = newVal
 			toggleContainerFocus(isActive)
@@ -28,7 +28,7 @@ export const Trigger = (props) => {
 
 		let watchURLPath = watch(store.getState, 'page.path')
 		let unsubscribeWatchURLPath = store.subscribe(watchURLPath((newVal, oldVal) => {
-			if (isActive) { dispatch(toggle('avatarMenu')) }
+			if (isActive) { dispatch(toggle('userMenu')) }
 		}))
 
 		return () => {
@@ -50,7 +50,7 @@ export const Trigger = (props) => {
 		<div {...props}>
 			<div 
 			className="w-10 h-10 rounded-full border border-gray-500 cursor-pointer bg-white flex p-px"
-			onClick={() => dispatch(toggle('avatarMenu'))}
+			onClick={() => dispatch(toggle('userMenu'))}
 			onMouseEnter={() => { if (!isActive) { toggleIsActive() } }}
 			onMouseLeave={() => { if (!isMenuOpen && isActive) { toggleIsActive() } }}
 			ref={containerRef}
@@ -73,36 +73,15 @@ const UserAvatar = (props) => {
 	)
 }
 
-export const DropDown = React.forwardRef ((props, ref) => {
-	// let isVisible = useSelector(state => state.page.avatarMenu)
+export const DropDown = (props) => {
+	let isVisible = useSelector(state => state.page.userMenu)
 	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
-
-	// const store = useStore()
-	// let avatarMenu = store.getState().page.avatarMenu
-
-	const [isVisible, setIsVisible] = useState(false)
-	// const [isVisible, setIsVisible] = useState(useSelector(state => state.page.avatarMenu))
-
-	// let w = watch(store.getState, 'page.avatarMenu')
-	// let unsubscribe = store.subscribe(w((newVal, oldVal, objectPath) => {
-	// 	console.log(" -- DropDown --")
-	// 	console.log("newVal: ", newVal)
-	// 	console.log("oldVal: ", oldVal)
-	// 	setIsVisible(newVal)
-	// }))
-
-	function toggle(val) { val ? setIsVisible(true) : setIsVisible(false) }
-
-	useEffect(() => {
-		console.log(">> DropDown:useEffect()")
-	})
 
 	return (
 		<>
 			{isVisible && (
 			<div 
 			className={`absolute left-auto right-0 top-0 p-2 border-l border-b border-gray-400 rounded-bl w-40 h-56 flex flex-col bg-secondary ${props.className}`}
-			ref={ref}
 			>
 				<div className='flex-1'>
 					<UserAvatar/>
@@ -115,5 +94,4 @@ export const DropDown = React.forwardRef ((props, ref) => {
 			)}
 		</>
 	)
-})
-
+}

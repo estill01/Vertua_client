@@ -10,7 +10,7 @@ export const PageSlice = createSlice({
 		modal: false,
 		sideNav: false,
 		searchDropdown: false,
-		avatarMenu: false,
+		userMenu: false,
 		path: ''
 	},
 	reducers: {
@@ -22,7 +22,7 @@ export const PageSlice = createSlice({
 			state.modal = false
 			state.sideNav = false
 			state.searchDropdown = false
-			state.avatarMenu = false
+			state.userMenu = false
 		},
 		setTitle: (state, action) => {
 			state.title = action.payload

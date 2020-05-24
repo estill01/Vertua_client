@@ -1,12 +1,12 @@
 import React, { useState } from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useStore, useSelector, useDispatch } from 'react-redux'
 import { MenuToggle } from '../../menus/utils'
 import { Link, useHistory, useLocation } from 'react-router-dom'
 import { LogInButton, LogOutButton } from '../../buttons/account'
 import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 import LogoGlyph from '../../utils/LogoGlyph'
 import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
-import { toggle } from '../../../app/slices/PageSlice'
+import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import watch from 'redux-watch'
 
 // TODO Make into 'React.forwardRef' (?)
@@ -95,14 +95,25 @@ export const InputBar = (props) => {
 
 
 export const DropDown = React.forwardRef((props, ref) => {
+	const dispatch = useDispatch()
+
 	let isVisible = useSelector(state => state.page.searchDropdown)
+	let isUserMenuOpen = useStore().getState().page.userMenu
+
+	function _userMenuUXToggle() {
+		if (isUserMenuOpen) { dispatch(toggle('userMenu')) }
+	}
+
+
 	return (
 		<>
 		{ isVisible && (
-			<div className={`absolute w-full mx-auto pt-3 ${props.className}`} >
+			<div className={`absolute w-full pt-3 flex flex-row ${props.className}`} >
+				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
 				<div 
-				className='w-4/5 rounded border border-gray-400 mx-auto bg-secondary flex flex-col' 
+				className='w-4/5 rounded border border-gray-400 bg-secondary flex flex-col' 
 				style={{ minHeight: '20em'}}
+				onClick={_userMenuUXToggle}
 				>
 					<div className='flex-1 p-4'>
 						<span style={{fontVariant:'small-caps'}}>projects</span>
@@ -148,6 +159,8 @@ export const DropDown = React.forwardRef((props, ref) => {
 						<EnterIndicator inputRef={props.inputBarRef} className='ml-2'/>
 					</div>
 				</div>
+
+				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
 			</div>
 			)}
 		</>
