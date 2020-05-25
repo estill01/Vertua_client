@@ -10,6 +10,7 @@ const PlusButton = (props) => {
 
 
 	function handleClick(e) {
+		e.stopPropagation()
 
 		if (isVisibleDimmer) { // dimmer on
 			if (isVisibleCreationModal) { // dimmer on : modal on

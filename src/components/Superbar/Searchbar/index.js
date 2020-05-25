@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import { useStore, useSelector, useDispatch } from 'react-redux'
 import { MenuToggle } from '../../menus/utils'
 import { Link, useHistory } from 'react-router-dom'
@@ -8,6 +8,12 @@ import LogoGlyph from '../../utils/LogoGlyph'
 import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import watch from 'redux-watch'
+
+// import Expand from 'react-expand-animated' // TODO Uninstall packages
+import { useSpring, useChain, animated, config } from 'react-spring'
+import { Spring } from 'react-spring/renderprops'
+   
+
 
 export const InputBar = React.forwardRef((props, ref) => {
 	let containerRef = React.createRef()
@@ -27,19 +33,26 @@ export const InputBar = React.forwardRef((props, ref) => {
 		containerRef.current.classList.remove('border-blue-500')
 	}
 	function handleInput(e) {
+		// TODO Fix bug where CreationModal turns off if you put blanks into Search / something like that
 		if (ref.current.value.trim() === '') {
 			if (hasInput) { toggleHasInput(false) }
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
 			if (!isVisibleCreationModal && isVisibleDimmer) { dispatch(toggle('dimmer')) }
+		} 
+		else {
+			// if we're getting input, creation modal should be off
+			
 
-		} else {
+			
 			if (!hasInput) { toggleHasInput(true) }
 			if (isVisibleCreationModal) { dispatch(toggle('creationModal')) }
+
 			if (ref.current.value.trim() != inputCache) {
 				updateInputCache(ref.current.value.trim())
 				if (!isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
 				if (!isVisibleDimmer) { dispatch(toggle('dimmer')) }
 			}
+
 		}
 	}
 	function handleKeyPress(e) {
@@ -88,20 +101,98 @@ export const InputBar = React.forwardRef((props, ref) => {
 export const DropDown = (props) => {
 	const dispatch = useDispatch()
 	const history = useHistory()
+	const store = useStore()
 	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 	let isUserMenuOpen = useStore().getState().page.userMenu
+
+	
+	// useEffect(() => {
+	// 	let watchSearchDropDown = watch(store.getState, 'page.searchDropdown')
+	// 	let unsubscribeWatchSearchDropDown = store.subscribe(watchSearchDropDown((newVal, oldVal) => {
+	// 		//isVisibleDropDown = newVal
+	// 		setIsOpen(newVal)
+  //
+	// 	}))
+  //
+	// 	return () => {
+	// 		unsubscribeWatchSearchDropDown()
+	// 	}
+	// })
+
+	const [isOpen, setIsOpen] = useState(isVisibleDropDown)
 
 
 	function _userMenuUXToggle() {
 		if (isUserMenuOpen) { dispatch(toggle('userMenu')) }
 	}
 
-	// function _composeQueryParams(location) {
-	// 	let path = '/search'
-	// 	let query = encodeURIComponent(props.inputBarRef.current.value.trim())
-	// 	return `${path}?query=${query}`
-	// }
+
+	return (
+		<>
+		{ isVisibleDropDown && (
+			<div className={`absolute w-full flex flex-row ${props.className}`} style={props}>
+				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
+				<div
+				className='w-4/5 rounded-b border-l border-b border-r border-gray-400 bg-secondary flex flex-col shadow' 
+				onClick={_userMenuUXToggle}
+				>
+					<SearchContent style={props}/>
+					<hr/>
+					<BottomBar inputBarRef={props.inputBarRef}/> 
+				</div>
+				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
+			</div>
+		)}
+		</>
+	)
+}
+
+const SearchContent = (props) => (
+	<>
+		<div className='flex-1 p-4'>
+			<span style={{fontVariant:'small-caps'}}>projects</span>
+			<div className='flex flex-row'>
+				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-15 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+			</div>
+		</div>
+
+		<div className='flex-1 p-4'>
+			<span style={{fontVariant:'small-caps'}}>experiments</span>
+			<div className='flex flex-row'>
+				<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+			</div>
+		</div>
+
+		<div className='flex-1 p-4'>
+			<span style={{fontVariant:'small-caps'}}>protocols</span>
+			<div className='flex flex-row'>
+				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+			</div>
+		</div>
+	</>
+)
+
+const BottomBar = (props) => {
+	const dispatch = useDispatch()
+	const history = useHistory()
+
+	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
+	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 
 	function handelClickMoreResults() {
 		let path = '/search'
@@ -111,82 +202,21 @@ export const DropDown = (props) => {
 		history.push(`${path}?query=${query}`)
 	}
 
-
 	return (
 		<>
-		{ isVisibleDropDown && (
-			<div className={`absolute w-full pt-3 flex flex-row ${props.className}`} >
-				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
-				<div 
-				className='w-4/5 rounded border border-gray-400 bg-secondary flex flex-col' 
-				style={{ minHeight: '20em'}}
-				onClick={_userMenuUXToggle}
+			<div className='p-4 flex flex-row bg-primary'>
+				<a 
+				className='no-underline cursor-pointer hover:text-blue-500'
+				style={{fontVariant:'small-caps'}} 
+				onClick={handelClickMoreResults} 
 				>
-					<div className='flex-1 p-4'>
-						<span style={{fontVariant:'small-caps'}}>projects</span>
-						<div className='flex flex-row'>
-							<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-15 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-						</div>
-					</div>
-
-					<div className='flex-1 p-4'>
-						<span style={{fontVariant:'small-caps'}}>experiments</span>
-						<div className='flex flex-row'>
-							<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
-						</div>
-
-					</div>
-
-					<div className='flex-1 p-4'>
-						<span style={{fontVariant:'small-caps'}}>protocols</span>
-						<div className='flex flex-row'>
-							<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-							<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-						</div>
-
-					</div>
-					<hr/>
-					<div className='p-4 flex flex-row bg-primary'>
-
-						<a 
-						className='no-underline cursor-pointer hover:text-blue-500'
-						style={{fontVariant:'small-caps'}} 
-						onClick={handelClickMoreResults} 
-						>
-							more results
-						</a>
-
-						<EnterIndicator inputBarRef={props.inputBarRef} className='ml-2'/>
-					</div>
-				</div>
-
-				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
+					more results
+				</a>
+				<EnterIndicator inputBarRef={props.inputBarRef} className='ml-2'/>
 			</div>
-			)}
 		</>
 	)
 }
-
-						// <Link 
-						// to={(location) => _composeQueryParams(location)}
-						// style={{fontVariant:'small-caps'}}
-						// onClick={() => dispatch(nukeOverlays())}
-						// >
-						// 	more results 
-						// </Link>
 
 
 export const EnterIndicator = (props) => {

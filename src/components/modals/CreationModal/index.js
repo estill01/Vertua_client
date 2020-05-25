@@ -1,7 +1,10 @@
 import React, { useState } from 'react'
 import { useStore, useSelector, useDispatch } from 'react-redux'
+import { Icon } from 'semantic-ui-react'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import watch from 'redux-watch'
+
+import { useHistory } from 'react-router-dom'
 
 export const CreationModal = (props) => {
 	const dispatch = useDispatch()
@@ -11,9 +14,7 @@ export const CreationModal = (props) => {
 
 
 	function handleClickContainer(e) {
-		console.log("--- Click: OUTER--")
-		dispatch(toggle('dimmer'))
-		dispatch(toggle('userMenu'))
+		dispatch(nukeOverlays())
 	}
 	function handleClickModal(e) {
 		console.log("--- Click: INNER --")
@@ -41,7 +42,8 @@ export const CreationModal = (props) => {
 
 					<hr/>
 
-					<div className='p-4 flex flex-row bg-primary'>
+					<div className='p-2 flex flex-row bg-primary'>
+						<ExpandButton/>
 					</div>
 				</div>
 
@@ -52,6 +54,34 @@ export const CreationModal = (props) => {
 	)
 }
 export default CreationModal
+
+const ExpandButton = (props) => {
+	const history = useHistory()
+	const dispatch = useDispatch()
+
+	function handleClick() {
+		// make sure you grab whatever content has been entered in the form
+		dispatch(toggle('dimmer'))
+		dispatch(toggle('creationModal'))
+		history.push('/new')
+	}
+	return (
+		<>
+			<div 
+			className='flex flex-col items-center cursor-pointer select-none'
+			onClick={handleClick}
+			>
+				<Icon name='expand' color='blue'/>
+				<a 
+				className='hover:text-blue-500 active:text-blue-300'
+				style={{fontVariant:'small-caps'}}
+				>
+					expand
+				</a>
+			</div>
+		</>
+	)
+}
 
 				// <div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
 				// <div 

@@ -18,6 +18,7 @@
   "dependencies": {
     "@loadable/component": "^5.12.0",
     "@reduxjs/toolkit": "^1.1.0",
+    "algoliasearch": "^4.2.0",
     "firebase": "^7.14.2",
     "firebaseui": "^4.5.0",
     "formik": "^2.1.4",
@@ -32,6 +33,7 @@
     "react-router-dom": "^5.1.2",
     "react-scripts": "3.4.1",
     "react-scrolllock": "^5.0.1",
+    "react-spring": "^8.0.27",
     "react-textarea-autosize": "^7.1.2",
     "redux": "^4.0.5",
     "redux-logger": "^3.0.6",
