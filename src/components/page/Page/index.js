@@ -4,6 +4,7 @@ import { useStore, useDispatch, useSelector } from 'react-redux'
 import { nukeOverlays } from '../../../app/slices/PageSlice'
 import Router from '../../../router'
 import Superbar from '../../Superbar'
+import PlusButton from '../../buttons/PlusButton'
 import { Footer } from '../utils'
 import watch from 'redux-watch'
 
@@ -13,7 +14,7 @@ const Page = () => {
 	let userMenuOpen = useSelector(state => state.page.userMenu)
 
 	function handlePageClick(e) { 
-			if (userMenuOpen) { dispatch(nukeOverlays()) }
+		if (userMenuOpen) { dispatch(nukeOverlays()) }
 	}
 
 	useEffect(() => {
@@ -30,10 +31,11 @@ const Page = () => {
 		<>
 			<Superbar/>
 			<div 
-			className='bg-secondary text-primary flex-1 p-4 min-h-screen'
+			className='bg-secondary text-primary flex-1 p-4 min-h-screen relative'
 			onClick={(e) => handlePageClick(e)}
 			>
 				<Router/>
+				<PlusButton/>
 			</div>
 			<Footer/>
 		</>

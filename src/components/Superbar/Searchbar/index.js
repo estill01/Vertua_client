@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { useStore, useSelector, useDispatch } from 'react-redux'
 import { MenuToggle } from '../../menus/utils'
-import { Link, useHistory, useLocation } from 'react-router-dom'
+import { Link, useHistory } from 'react-router-dom'
 import { LogInButton, LogOutButton } from '../../buttons/account'
 import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 import LogoGlyph from '../../utils/LogoGlyph'
@@ -76,7 +76,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 				onBlur={() => blurContainer()}
 				onInput={() => handleInput()}
 				onKeyPress={(e) => handleKeyPress(e)}
-				autocomplete='false'
+				autoComplete='false'
 				/>
 			</div>
 			<div className='p-1'>
@@ -89,6 +89,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 
 export const DropDown = (props) => {
 	const dispatch = useDispatch()
+	const history = useHistory()
 	let isVisible = useSelector(state => state.page.searchDropdown)
 	let isUserMenuOpen = useStore().getState().page.userMenu
 
@@ -97,11 +98,22 @@ export const DropDown = (props) => {
 		if (isUserMenuOpen) { dispatch(toggle('userMenu')) }
 	}
 
-	function _composeQueryParams(location) {
+	// function _composeQueryParams(location) {
+	// 	let path = '/search'
+	// 	let query = encodeURIComponent(props.inputBarRef.current.value.trim())
+	// 	return `${path}?query=${query}`
+	// }
+
+	function handelClickMoreResults() {
 		let path = '/search'
 		let query = encodeURIComponent(props.inputBarRef.current.value.trim())
-		return `${path}?query=${query}`
+		if (isVisible) {
+			dispatch(toggle('dimmer'))
+			dispatch(toggle('searchDropdown'))
+		}
+		history.push(`${path}?query=${query}`)
 	}
+
 
 	return (
 		<>
@@ -151,13 +163,15 @@ export const DropDown = (props) => {
 					</div>
 					<hr/>
 					<div className='p-4 flex flex-row bg-primary'>
-						<Link 
-						to={_composeQueryParams}
-						style={{fontVariant:'small-caps'}}
-						onClick={() => dispatch(nukeOverlays())}
+
+						<a 
+						className='no-underline cursor-pointer hover:text-blue-500'
+						style={{fontVariant:'small-caps'}} 
+						onClick={handelClickMoreResults} 
 						>
-							more results 
-						</Link>
+							more results
+						</a>
+
 						<EnterIndicator inputBarRef={props.inputBarRef} className='ml-2'/>
 					</div>
 				</div>
@@ -168,6 +182,15 @@ export const DropDown = (props) => {
 		</>
 	)
 }
+
+						// <Link 
+						// to={(location) => _composeQueryParams(location)}
+						// style={{fontVariant:'small-caps'}}
+						// onClick={() => dispatch(nukeOverlays())}
+						// >
+						// 	more results 
+						// </Link>
+
 
 export const EnterIndicator = (props) => {
 	const dispatch = useDispatch()

@@ -4,17 +4,17 @@ import { Link } from 'react-router-dom'
 import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 import { MenuToggle } from '../menus/utils'
 import { LogInButton, LogOutButton } from '../buttons/account'
-import LogoGlyph from '../utils/LogoGlyph'
 import * as Search from './Searchbar'
-import * as AvatarMenu from '../menus/AvatarMenu'
+import * as UserMenu from '../menus/UserMenu'
 import Dimmer from '../utils/Dimmer'
 
-// <LogoGlyph className='w-6 h-6'/>
+// import LogoGlyph from '../utils/LogoGlyph'
+
 
 const Superbar = ({ props } ) => {
 	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
 	let inputBarRef = React.createRef()
-	
+
 	return (
 		<div className='relative' style={{zIndex:2000}}>
 			<div className='fixed w-full'>
@@ -35,12 +35,12 @@ const Superbar = ({ props } ) => {
 					</div>
 
 					<div>
-						<AvatarMenu.Trigger className='ml-4'/>
+						<UserMenu.Trigger className='ml-4'/>
 					</div>
 				</div>
 				<div className='relative mt-0'>
-					<AvatarMenu.DropDown className='z-50'/>
 					<Search.DropDown className='z-40' inputBarRef={inputBarRef}/>
+					<UserMenu.DropDown className='z-50'/>
 					<Dimmer className='z-30'/>
 				</div>
 			</div>
@@ -49,5 +49,3 @@ const Superbar = ({ props } ) => {
 }
 
 export default Superbar
-
-// need to drill down into the inputbar ref to get to the input element
