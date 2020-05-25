@@ -14,8 +14,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 	// let inputRef = React.createRef()
 	let dispatch = useDispatch()
 	let history = useHistory()
-	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
-	let isVisibleDimmer = useSelector(state => state.page.dimmer)
+	let isDropDownVisible = useSelector(state => state.page.searchDropdown)
 	const [hasInput, toggleHasInput] = useState(false)
 	const [inputCache, updateInputCache] = useState('')
 
@@ -28,14 +27,18 @@ export const InputBar = React.forwardRef((props, ref) => {
 	function handleInput(e) {
 		if (ref.current.value.trim() === '') {
 			if (hasInput) { toggleHasInput(false) }
-			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-			if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+			if (isDropDownVisible) {
+				dispatch(toggle('dimmer'))
+				dispatch(toggle('searchDropdown'))
+			}
 		} else {
 			if (!hasInput) { toggleHasInput(true) }
 			if (ref.current.value.trim() != inputCache) {
 				updateInputCache(ref.current.value.trim())
-				if (!isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-				if (!isVisibleDimmer) { dispatch(toggle('dimmer')) }
+				if (!isDropDownVisible) {
+					dispatch(toggle('dimmer'))
+					dispatch(toggle('searchDropdown'))
+				}
 			}
 		}
 	}
@@ -44,8 +47,10 @@ export const InputBar = React.forwardRef((props, ref) => {
 			let query = encodeURIComponent(ref.current.value.trim())
 			// TODO Integrate search client and fetch data
 
-			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-			if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+			if (isDropDownVisible) {
+				dispatch(toggle('dimmer'))
+				dispatch(toggle('searchDropdown'))
+			}
 			if (query === '') { history.push('/') }
 			else {
 				history.push({
@@ -85,8 +90,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 export const DropDown = (props) => {
 	const dispatch = useDispatch()
 	const history = useHistory()
-	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
-	let isVisibleDimmer = useSelector(state => state.page.dimmer)
+	let isVisible = useSelector(state => state.page.searchDropdown)
 	let isUserMenuOpen = useStore().getState().page.userMenu
 
 
@@ -103,15 +107,17 @@ export const DropDown = (props) => {
 	function handelClickMoreResults() {
 		let path = '/search'
 		let query = encodeURIComponent(props.inputBarRef.current.value.trim())
-		if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-		if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+		if (isVisible) {
+			dispatch(toggle('dimmer'))
+			dispatch(toggle('searchDropdown'))
+		}
 		history.push(`${path}?query=${query}`)
 	}
 
 
 	return (
 		<>
-		{ isVisibleDropDown && (
+		{ isVisible && (
 			<div className={`absolute w-full pt-3 flex flex-row ${props.className}`} >
 				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
 				<div 
@@ -189,13 +195,14 @@ export const DropDown = (props) => {
 export const EnterIndicator = (props) => {
 	const dispatch = useDispatch()
 	const history = useHistory()
-	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
-	let isVisibleDimmer = useSelector(state => state.page.dimmer)
+	let isDropDownVisible = useSelector(state => state.page.searchDropdown)
 
 	function handleClick(e) {
 		let query = encodeURIComponent(props.inputBarRef.current.value.trim())
-		if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-		if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+		if (isDropDownVisible) {
+			dispatch(toggle('dimmer'))
+			dispatch(toggle('searchDropdown'))
+		}
 		if (query === '') { history.push('/') }
 		else {
 			history.push({
@@ -214,3 +221,14 @@ export const EnterIndicator = (props) => {
 		</div>
 	)
 }
+
+
+
+
+
+
+
+
+
+
+

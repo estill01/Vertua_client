@@ -29,13 +29,13 @@ export const InputBar = React.forwardRef((props, ref) => {
 		if (ref.current.value.trim() === '') {
 			if (hasInput) { toggleHasInput(false) }
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-			if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+			if (isVisibleDropDown) { dispatch(toggle('dimmer')) }
 		} else {
 			if (!hasInput) { toggleHasInput(true) }
 			if (ref.current.value.trim() != inputCache) {
 				updateInputCache(ref.current.value.trim())
 				if (!isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-				if (!isVisibleDimmer) { dispatch(toggle('dimmer')) }
+				if (!isVisibleDropDown) { dispatch(toggle('dimmer')) }
 			}
 		}
 	}
@@ -111,7 +111,7 @@ export const DropDown = (props) => {
 
 	return (
 		<>
-		{ isVisibleDropDown && (
+		{ isVisible && (
 			<div className={`absolute w-full pt-3 flex flex-row ${props.className}`} >
 				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
 				<div 
@@ -195,7 +195,7 @@ export const EnterIndicator = (props) => {
 	function handleClick(e) {
 		let query = encodeURIComponent(props.inputBarRef.current.value.trim())
 		if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-		if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+		if (isVisibleDimmer) { dispatch(toggle('dimmer'))
 		if (query === '') { history.push('/') }
 		else {
 			history.push({
@@ -214,3 +214,14 @@ export const EnterIndicator = (props) => {
 		</div>
 	)
 }
+
+
+
+
+
+
+
+
+
+
+
