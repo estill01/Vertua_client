@@ -6,7 +6,8 @@ import { MenuToggle } from '../menus/utils'
 import { LogInButton, LogOutButton } from '../buttons/account'
 import * as Search from './Searchbar'
 import * as UserMenu from '../menus/UserMenu'
-import Dimmer from '../utils/Dimmer'
+
+//import Dimmer from '../utils/Dimmer'
 
 // import LogoGlyph from '../utils/LogoGlyph'
 
@@ -41,7 +42,6 @@ const Superbar = ({ props } ) => {
 				<div className='relative mt-0'>
 					<Search.DropDown className='z-40' inputBarRef={inputBarRef}/>
 					<UserMenu.DropDown className='z-50'/>
-					<Dimmer className='z-30'/>
 				</div>
 			</div>
 		</div>

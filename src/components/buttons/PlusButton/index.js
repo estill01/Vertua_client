@@ -4,15 +4,32 @@ import { toggle } from '../../../app/slices/PageSlice'
 
 const PlusButton = (props) => {
 	const dispatch = useDispatch()
+	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
 	let isVisibleSearchDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 
 
-	function handleClick() {
-		// if the search drop down is open, turn it off
-		dispatch(toggle('modal'))
-		if (!isVisibleDimmer) { dispatch(toggle('dimmer')) }
-		if (isVisibleSearchDropDown) { dispatch(toggle('searchDropdown')) }
+	function handleClick(e) {
+
+		if (isVisibleDimmer) { // dimmer on
+			if (isVisibleCreationModal) { // dimmer on : modal on
+				dispatch(toggle('dimmer'))
+				dispatch(toggle('creationModal'))
+			} 
+			else { // dimmer on : modal off
+				dispatch(toggle('creationModal'))
+				if (isVisibleSearchDropDown) { // dimmer on : modal off : search on
+					dispatch(toggle('searchDropdown'))
+				}
+			}
+		} 
+		else { // dimmer off
+			dispatch(toggle('dimmer'))
+			if (!isVisibleCreationModal) { // dimmer off : modal off
+				dispatch(toggle('creationModal'))
+			}
+		}
+
 	}
 
 	return (
@@ -24,7 +41,7 @@ const PlusButton = (props) => {
 				bottom: '2em',
 				zIndex: 2500,
 			}}
-			onClick={handleClick}
+			onClick={(e) => handleClick(e)}
 			>
 				<span 
 				className='text-white text-3xl text-bold mx-auto'

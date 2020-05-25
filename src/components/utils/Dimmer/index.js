@@ -10,7 +10,7 @@ const Dimmer = (props) => {
 		<>
 		{ isVisible && (
 			<div 
-			className={`absolute top-0 left-0 h-screen w-screen opacity-25 bg-inverse ${props.className}`}
+			className={`fixed h-screen w-screen top-0 left-0 opacity-25 bg-inverse ${props.className}`}
 			onClick={() => dispatch(nukeOverlays())}
 			/>
 		)}

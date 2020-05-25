@@ -15,6 +15,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 	let dispatch = useDispatch()
 	let history = useHistory()
 	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
+	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 	const [hasInput, toggleHasInput] = useState(false)
 	const [inputCache, updateInputCache] = useState('')
@@ -29,9 +30,11 @@ export const InputBar = React.forwardRef((props, ref) => {
 		if (ref.current.value.trim() === '') {
 			if (hasInput) { toggleHasInput(false) }
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-			if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+			if (!isVisibleCreationModal && isVisibleDimmer) { dispatch(toggle('dimmer')) }
+
 		} else {
 			if (!hasInput) { toggleHasInput(true) }
+			if (isVisibleCreationModal) { dispatch(toggle('creationModal')) }
 			if (ref.current.value.trim() != inputCache) {
 				updateInputCache(ref.current.value.trim())
 				if (!isVisibleDropDown) { dispatch(toggle('searchDropdown')) }

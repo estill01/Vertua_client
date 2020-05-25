@@ -7,6 +7,8 @@ import Superbar from '../../Superbar'
 import PlusButton from '../../buttons/PlusButton'
 import { Footer } from '../utils'
 import watch from 'redux-watch'
+import CreationModal from '../../modals/CreationModal'
+import Dimmer from '../../utils/Dimmer'
 
 const Page = () => {
 	let store = useStore()
@@ -36,6 +38,8 @@ const Page = () => {
 			>
 				<Router/>
 				<PlusButton/>
+				<CreationModal className='z-40'/>
+				<Dimmer/>
 			</div>
 			<Footer/>
 		</>

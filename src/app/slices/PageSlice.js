@@ -7,7 +7,7 @@ export const PageSlice = createSlice({
 		scrollLock: false,
 		superbar: true,
 		dimmer: false,
-		modal: false,
+		creationModal: false,
 		sideNav: false,
 		searchDropdown: false,
 		userMenu: false,
@@ -19,7 +19,7 @@ export const PageSlice = createSlice({
 		},
 		nukeOverlays: (state, actions) => {
 			state.dimmer = false
-			state.modal = false
+			state.creationModal = false
 			state.sideNav = false
 			state.searchDropdown = false
 			state.userMenu = false
