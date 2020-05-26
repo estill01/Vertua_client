@@ -4,10 +4,11 @@
   "private": true,
   "license": "SEE LICENSE IN LICENSE",
   "scripts": {
-    "start": "craco start",
+    "start": "npm run vars:development && craco start",
     "build": "craco build",
     "build:staging": "cp .env.staging .env && npm run build",
     "build:production": "cp .env.prod .env && npm run build",
+		"vars:development": "cp .env.development .env",
     "test": "craco test",
     "use:staging": "firebase use vertua--staging",
     "use:production": "firebase use vertua--production",

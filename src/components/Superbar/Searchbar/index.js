@@ -8,10 +8,10 @@ import LogoGlyph from '../../utils/LogoGlyph'
 import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import watch from 'redux-watch'
+import { algolia } from '../../../app/remote'
 
-// import Expand from 'react-expand-animated' // TODO Uninstall packages
-import { useSpring, useChain, animated, config } from 'react-spring'
-import { Spring } from 'react-spring/renderprops'
+// import { useSpring, useChain, animated, config } from 'react-spring'
+// import { Spring } from 'react-spring/renderprops'
    
 
 
@@ -33,33 +33,28 @@ export const InputBar = React.forwardRef((props, ref) => {
 		containerRef.current.classList.remove('border-blue-500')
 	}
 	function handleInput(e) {
-		// TODO Fix bug where CreationModal turns off if you put blanks into Search / something like that
+		// TODO FIX: bug where CreationModal turns off if you put blanks into Search / something like that
+		// TODO FIX: bug where if you do a single character and delete it, and then re-type the same character, search dropdown does not show
 		if (ref.current.value.trim() === '') {
 			if (hasInput) { toggleHasInput(false) }
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
 			if (!isVisibleCreationModal && isVisibleDimmer) { dispatch(toggle('dimmer')) }
 		} 
 		else {
-			// if we're getting input, creation modal should be off
-			
-
-			
 			if (!hasInput) { toggleHasInput(true) }
 			if (isVisibleCreationModal) { dispatch(toggle('creationModal')) }
-
 			if (ref.current.value.trim() != inputCache) {
-				updateInputCache(ref.current.value.trim())
 				if (!isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
 				if (!isVisibleDimmer) { dispatch(toggle('dimmer')) }
 			}
-
+			updateInputCache(ref.current.value.trim())
 		}
 	}
-	function handleKeyPress(e) {
-		if (e.charCode === 13) {
-			let query = encodeURIComponent(ref.current.value.trim())
-			// TODO Integrate search client and fetch data
+	async function handleKeyPress(e) {
+		let query = ref.current.value.trim()
 
+		if (e.charCode === 13) {
+			query = encodeURIComponent(query)
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
 			if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
 			if (query === '') { history.push('/') }
@@ -69,6 +64,20 @@ export const InputBar = React.forwardRef((props, ref) => {
 					search: `?query=${query}`,
 				})
 			}
+		} else {
+
+			console.log("# Search Client:", algolia)
+
+			let users = await algolia.users.search(query)
+			console.log("# Search Results (Users): ", users)
+
+			let projects = await algolia.projects.search(query)
+			console.log("# Search Results (Projects): ", projects)
+
+			console.log("# container client: ", algolia.client)
+			let client = await algolia.client.search([{index: 'users', params: query}, {index:'projects', params:query}])
+			console.log("# Search Results (Client): ", client)
+			// t.map is not a function
 		}
 	}
 
@@ -107,20 +116,6 @@ export const DropDown = (props) => {
 	let isUserMenuOpen = useStore().getState().page.userMenu
 
 	
-	// useEffect(() => {
-	// 	let watchSearchDropDown = watch(store.getState, 'page.searchDropdown')
-	// 	let unsubscribeWatchSearchDropDown = store.subscribe(watchSearchDropDown((newVal, oldVal) => {
-	// 		//isVisibleDropDown = newVal
-	// 		setIsOpen(newVal)
-  //
-	// 	}))
-  //
-	// 	return () => {
-	// 		unsubscribeWatchSearchDropDown()
-	// 	}
-	// })
-
-	const [isOpen, setIsOpen] = useState(isVisibleDropDown)
 
 
 	function _userMenuUXToggle() {
