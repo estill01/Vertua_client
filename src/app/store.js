@@ -5,6 +5,7 @@ import {
 	SessionReducer,
 	FirebaseReducer,
 	EntitiesReducer,
+	SearchReducer,
 } from './slices'
 
 
@@ -21,6 +22,7 @@ export default configureStore({
 		session: SessionReducer,
 		firebase: FirebaseReducer,
 		entities: EntitiesReducer,
+		search: SearchReducer,
 	},
 	middleware
 })

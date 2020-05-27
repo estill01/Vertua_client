@@ -7,8 +7,10 @@ import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 import LogoGlyph from '../../utils/LogoGlyph'
 import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
+import { search } from '../../../app/slices/SearchSlice'
 import watch from 'redux-watch'
-import { algolia } from '../../../app/remote'
+
+// import { algolia } from '../../../app/remote'
 
 // import { useSpring, useChain, animated, config } from 'react-spring'
 // import { Spring } from 'react-spring/renderprops'
@@ -33,9 +35,10 @@ export const InputBar = React.forwardRef((props, ref) => {
 		containerRef.current.classList.remove('border-blue-500')
 	}
 	function handleInput(e) {
+		// ERROR: "state mutation detected inside a dispatch, in the path: query
+		let query = ref.current.value.trim()
 		// TODO FIX: bug where CreationModal turns off if you put blanks into Search / something like that
-		// TODO FIX: bug where if you do a single character and delete it, and then re-type the same character, search dropdown does not show
-		if (ref.current.value.trim() === '') {
+		if (query === '') {
 			if (hasInput) { toggleHasInput(false) }
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
 			if (!isVisibleCreationModal && isVisibleDimmer) { dispatch(toggle('dimmer')) }
@@ -43,16 +46,21 @@ export const InputBar = React.forwardRef((props, ref) => {
 		else {
 			if (!hasInput) { toggleHasInput(true) }
 			if (isVisibleCreationModal) { dispatch(toggle('creationModal')) }
-			if (ref.current.value.trim() != inputCache) {
+			if (query != inputCache) {
 				if (!isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
 				if (!isVisibleDimmer) { dispatch(toggle('dimmer')) }
 			}
-			updateInputCache(ref.current.value.trim())
+			updateInputCache(query)
+
+			console.log("# Input")
+			console.log("cache: ", inputCache)
+			console.log("query:" , query)
+
+			dispatch(search(query))
 		}
 	}
-	async function handleKeyPress(e) {
+	function handleKeyPress(e) {
 		let query = ref.current.value.trim()
-
 		if (e.charCode === 13) {
 			query = encodeURIComponent(query)
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
@@ -64,22 +72,8 @@ export const InputBar = React.forwardRef((props, ref) => {
 					search: `?query=${query}`,
 				})
 			}
-		} else {
-
-			console.log("# Search Client:", algolia)
-
-			let users = await algolia.users.search(query)
-			console.log("# Search Results (Users): ", users)
-
-			let projects = await algolia.projects.search(query)
-			console.log("# Search Results (Projects): ", projects)
-
-			console.log("# container client: ", algolia.client)
-			let client = await algolia.client.search([{index: 'users', params: query}, {index:'projects', params:query}])
-			console.log("# Search Results (Client): ", client)
-			// t.map is not a function
-		}
-	}
+		} 
+  }
 
 	return (
 		<div 
@@ -113,7 +107,8 @@ export const DropDown = (props) => {
 	const store = useStore()
 	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
-	let isUserMenuOpen = useStore().getState().page.userMenu
+	let isUserMenuOpen = useSelector(state => state.page.userMenu)
+
 
 	
 
@@ -143,44 +138,62 @@ export const DropDown = (props) => {
 	)
 }
 
-const SearchContent = (props) => (
-	<>
-		<div className='flex-1 p-4'>
-			<span style={{fontVariant:'small-caps'}}>projects</span>
-			<div className='flex flex-row'>
-				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-15 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-			</div>
-		</div>
+const SearchContent = (props) => {
+  let searchQuery = useSelector(state => state.search.query)
+	let queryRuntime = useSelector(state => state.search.queryRuntime)
+	let resultsCount = useSelector(state => state.search.results.length)
 
-		<div className='flex-1 p-4'>
-			<span style={{fontVariant:'small-caps'}}>experiments</span>
-			<div className='flex flex-row'>
-				<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
-			</div>
-		</div>
+	return (
+		<>
+			<div className='flex-1 p-4'>
+				<div className='flex flex-col'>
+					<div>
+						Query: {searchQuery}
+					</div>
+					<div className='text-xs'>
+						Results: {resultsCount}
+					</div>
+					<div className='text-xs'>
+						Runtime: {queryRuntime} milliseconds
+					</div>
 
-		<div className='flex-1 p-4'>
-			<span style={{fontVariant:'small-caps'}}>protocols</span>
-			<div className='flex flex-row'>
-				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-				<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+				</div>
+				<span style={{fontVariant:'small-caps'}}>projects</span>
+				<div className='flex flex-row'>
+					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-15 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+				</div>
 			</div>
-		</div>
-	</>
-)
+
+			<div className='flex-1 p-4'>
+				<span style={{fontVariant:'small-caps'}}>experiments</span>
+				<div className='flex flex-row'>
+					<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+				</div>
+			</div>
+
+			<div className='flex-1 p-4'>
+				<span style={{fontVariant:'small-caps'}}>protocols</span>
+				<div className='flex flex-row'>
+					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+				</div>
+			</div>
+		</>
+	)
+}
 
 const BottomBar = (props) => {
 	const dispatch = useDispatch()

@@ -1,5 +1,13 @@
 import boot from './boot'
 import store from './store'
-import firebase, { initializeFirebaseUI, firebaseui } from './remote/firebase'
+import { algolia, firebase, initializeFirebaseUI, firebaseui } from './remote'
+// import firebase, { initializeFirebaseUI, firebaseui } from './remote/firebase'
 
-export { boot, store, firebase, initializeFirebaseUI, firebaseui }
+export { 
+	boot, 
+	store, 
+	algolia,
+	firebase, 
+	initializeFirebaseUI, 
+	firebaseui,
+}
