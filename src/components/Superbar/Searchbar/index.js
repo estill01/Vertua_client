@@ -7,7 +7,7 @@ import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 import LogoGlyph from '../../utils/LogoGlyph'
 import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
-import { search } from '../../../app/slices/SearchSlice'
+import { search, stashSearch } from '../../../app/slices/SearchSlice'
 import watch from 'redux-watch'
 
 // import { algolia } from '../../../app/remote'
@@ -31,11 +31,13 @@ export const InputBar = React.forwardRef((props, ref) => {
 	function focusContainer() {
 		containerRef.current.classList.add('border-blue-500')
 	}
-	function blurContainer() {
+	function blurContainer(e) {
 		containerRef.current.classList.remove('border-blue-500')
+
+		if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
+		if (!isVisibleCreationModal && isVisibleDimmer) { dispatch(toggle('dimmer')) }
 	}
 	function handleInput(e) {
-		// ERROR: "state mutation detected inside a dispatch, in the path: query
 		let query = ref.current.value.trim()
 		// TODO FIX: bug where CreationModal turns off if you put blanks into Search / something like that
 		if (query === '') {
@@ -51,22 +53,19 @@ export const InputBar = React.forwardRef((props, ref) => {
 				if (!isVisibleDimmer) { dispatch(toggle('dimmer')) }
 			}
 			updateInputCache(query)
-
-			console.log("# Input")
-			console.log("cache: ", inputCache)
-			console.log("query:" , query)
-
 			dispatch(search(query))
+			// dispatch(searchPreview(query))
 		}
 	}
-	function handleKeyPress(e) {
+	function handleKeyDown(e) {
 		let query = ref.current.value.trim()
-		if (e.charCode === 13) {
+		if (e.charCode === 13 || e.key === 'Enter') {
 			query = encodeURIComponent(query)
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
 			if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
 			if (query === '') { history.push('/') }
 			else {
+				dispatch(stashSearch())
 				history.push({
 					pathname: '/search',
 					search: `?query=${query}`,
@@ -87,9 +86,9 @@ export const InputBar = React.forwardRef((props, ref) => {
 				ref={ref}
 				style={{ outline: 'none' }} 
 				onFocus={() => focusContainer()}
-				onBlur={() => blurContainer()}
-				onInput={() => handleInput()}
-				onKeyPress={(e) => handleKeyPress(e)}
+				onBlur={(e) => blurContainer(e)}
+				onInput={(e) => handleInput(e)}
+				onKeyDown={(e) => handleKeyDown(e)}
 				autoComplete='false'
 				/>
 			</div>
@@ -109,14 +108,9 @@ export const DropDown = (props) => {
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 	let isUserMenuOpen = useSelector(state => state.page.userMenu)
 
-
-	
-
-
 	function _userMenuUXToggle() {
 		if (isUserMenuOpen) { dispatch(toggle('userMenu')) }
 	}
-
 
 	return (
 		<>
@@ -140,7 +134,7 @@ export const DropDown = (props) => {
 
 const SearchContent = (props) => {
   let searchQuery = useSelector(state => state.search.query)
-	let queryRuntime = useSelector(state => state.search.queryRuntime)
+	let runtime = useSelector(state => state.search.runtime)
 	let resultsCount = useSelector(state => state.search.results.length)
 
 	return (
@@ -154,7 +148,7 @@ const SearchContent = (props) => {
 						Results: {resultsCount}
 					</div>
 					<div className='text-xs'>
-						Runtime: {queryRuntime} milliseconds
+						Runtime: {runtime} milliseconds
 					</div>
 
 				</div>
@@ -198,7 +192,6 @@ const SearchContent = (props) => {
 const BottomBar = (props) => {
 	const dispatch = useDispatch()
 	const history = useHistory()
-
 	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 
