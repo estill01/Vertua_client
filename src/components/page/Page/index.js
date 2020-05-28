@@ -38,10 +38,12 @@ const Page = () => {
 			let urlQuery = location.search.replace('?query=', '')
 			urlQuery = decodeURIComponent(urlQuery)
 			const inputEl = document.getElementById('superbar_search_input')
-			if ((urlQuery != '') && (urlQuery != srpQuery)) {
-				dispatch(clearSearch())
-				dispatch(search(urlQuery))
-				dispatch(stashSearch())
+			if (urlQuery != '') {
+				if (urlQuery != srpQuery) {
+					dispatch(clearSearch())
+					dispatch(search(urlQuery))
+					dispatch(stashSearch())
+				}
 				inputEl.value = urlQuery
 			}
 		})

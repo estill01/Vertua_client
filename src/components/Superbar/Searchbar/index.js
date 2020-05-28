@@ -87,19 +87,19 @@ export const InputBar = React.forwardRef((props, ref) => {
 			}
 		} 
   }
+	// TODO Make this work so that the 'Enter' indicator doesn't show when you click logo to go home & clear search input
+	function handleChange(e) {
+		console.log("&&&&&&& Search Input : change")
+		console.log(e.target.value)
+		console.log(ref.current.value)
+		if (ref.current.value === '') {
+			console.log("EMPTY INPUT")
+			console.log("hasInput? (prev): ", hasInput)
+			toggleHasInput(false)
+			console.log("hasInput? (now): ", hasInput)  // Not working, b/c value cahnges on element re-render
+		}
+	}
 
-	// Reset value of text in input bar to urlQuery value on history PUSH/POP / browser forward/back button.
-	// useEffect(() => {
-	// 	let unlisten = history.listen((location, action) => {
-	// 		let urlQuery = location.search.replace('?query=', '')
-	// 		urlQuery = decodeURIComponent(urlQuery)
-	// 		document.getElementById('superbar_search_input').value = urlQuery
-	// 	})
-	// 	return () => {
-	// 		unlisten()
-	// 	}
-	// })
-  //
 	return (
 		<div 
 		className={`bg-secondary text-primary rounded border border-gray-400 hover:border-blue-400 flex flex-row items-center ${props.className}`}
@@ -116,6 +116,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 				onBlur={(e) => blurContainer()}
 				onInput={(e) => handleInput(e)}
 				onKeyDown={(e) => handleKeyDown(e)}
+				onChange={(e) => handleChange(e)}
 				autoComplete='false'
 				placeholder='search...'
 				/>

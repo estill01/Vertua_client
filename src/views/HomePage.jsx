@@ -7,27 +7,19 @@ import { firebase } from '../app'
 
 const HomePage = () => {
 
-	// clear search input
 	useEffect(() => {
 		const inputEl = document.getElementById('superbar_search_input')
 		inputEl.value = ''
-		return () => {
-		}
 	})
 
 	return (
 		<>
 			<PageErrorBoundary>
 				<FeaturedProjects/>
-
 				<NewProjectForm/>
-
 				<hr/>
 				<h3>Users Activity</h3>
 				<UserList/>
-
-
-
 			</PageErrorBoundary>
 		</>
 	)
