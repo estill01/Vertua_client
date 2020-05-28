@@ -1,45 +1,40 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState, useEffect, useCallback } from 'react'
 import { useStore, useSelector, useDispatch } from 'react-redux'
 import { MenuToggle } from '../../menus/utils'
 import { Link, useHistory } from 'react-router-dom'
 import { LogInButton, LogOutButton } from '../../buttons/account'
-import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
+import { Menu, Image, Icon, Dropdown, Loader } from 'semantic-ui-react'
 import LogoGlyph from '../../utils/LogoGlyph'
 import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import { search, stashSearch } from '../../../app/slices/SearchSlice'
 import watch from 'redux-watch'
 
-// import { algolia } from '../../../app/remote'
-
 // import { useSpring, useChain, animated, config } from 'react-spring'
 // import { Spring } from 'react-spring/renderprops'
    
 
-
 export const InputBar = React.forwardRef((props, ref) => {
-	let containerRef = React.createRef()
-	// let inputRef = React.createRef()
-	let dispatch = useDispatch()
-	let history = useHistory()
+	const containerRef = React.createRef()
+	const dispatch = useDispatch()
+	const history = useHistory()
 	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 	const [hasInput, toggleHasInput] = useState(false)
 	const [inputCache, updateInputCache] = useState('')
 
+
 	function focusContainer() {
 		containerRef.current.classList.add('border-blue-500')
 	}
 	function blurContainer(e) {
 		containerRef.current.classList.remove('border-blue-500')
-
-		if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-		if (!isVisibleCreationModal && isVisibleDimmer) { dispatch(toggle('dimmer')) }
 	}
 	function handleInput(e) {
+		console.log("-- handleInput")
+		console.log(e.key)
 		let query = ref.current.value.trim()
-		// TODO FIX: bug where CreationModal turns off if you put blanks into Search / something like that
 		if (query === '') {
 			if (hasInput) { toggleHasInput(false) }
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
@@ -54,12 +49,22 @@ export const InputBar = React.forwardRef((props, ref) => {
 			}
 			updateInputCache(query)
 			dispatch(search(query))
-			// dispatch(searchPreview(query))
 		}
 	}
 	function handleKeyDown(e) {
-		let query = ref.current.value.trim()
+		console.log("---- handleKeyDown")
+		
+		if (e.keyCode === 27 || e.key === 'Escape') {
+			console.log("> Escape key pressed")
+			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
+			if (!isVisibleCreationModal && isVisibleDimmer) { dispatch(toggle('dimmer')) }
+			// blur the  input
+			ref.current.blur()
+		}
+
+
 		if (e.charCode === 13 || e.key === 'Enter') {
+			let query = ref.current.value.trim()
 			query = encodeURIComponent(query)
 			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
 			if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
@@ -80,16 +85,17 @@ export const InputBar = React.forwardRef((props, ref) => {
 		ref={containerRef}
 		>
 			<div className='p-2 flex flex-row flex-1 items-center'>
-				<Icon name='search' className='mr-2' style={{marginTop:'-0.125em'}}/>
+				<Icon name='search' style={{marginTop:'-0.125em'}}/>
 				<input 
-				className='flex-1 text-xl'
+				className='ml-1 flex-1 text-xl'
 				ref={ref}
 				style={{ outline: 'none' }} 
 				onFocus={() => focusContainer()}
-				onBlur={(e) => blurContainer(e)}
+				onBlur={(e) => blurContainer()}
 				onInput={(e) => handleInput(e)}
 				onKeyDown={(e) => handleKeyDown(e)}
 				autoComplete='false'
+				placeholder='search...'
 				/>
 			</div>
 			<div className='p-1'>
@@ -99,7 +105,6 @@ export const InputBar = React.forwardRef((props, ref) => {
 	)
 })
 
-
 export const DropDown = (props) => {
 	const dispatch = useDispatch()
 	const history = useHistory()
@@ -108,18 +113,15 @@ export const DropDown = (props) => {
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 	let isUserMenuOpen = useSelector(state => state.page.userMenu)
 
-	function _userMenuUXToggle() {
-		if (isUserMenuOpen) { dispatch(toggle('userMenu')) }
-	}
-
 	return (
 		<>
 		{ isVisibleDropDown && (
 			<div className={`absolute w-full flex flex-row ${props.className}`} style={props}>
-				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
+				<div className='flex-1' onClick={() => {
+					dispatch(nukeOverlays())
+				}}/>
 				<div
 				className='w-4/5 rounded-b border-l border-b border-r border-gray-400 bg-secondary flex flex-col shadow' 
-				onClick={_userMenuUXToggle}
 				>
 					<SearchContent style={props}/>
 					<hr/>
@@ -133,25 +135,29 @@ export const DropDown = (props) => {
 }
 
 const SearchContent = (props) => {
+	const dispatch = useDispatch()
   let searchQuery = useSelector(state => state.search.query)
 	let runtime = useSelector(state => state.search.runtime)
 	let resultsCount = useSelector(state => state.search.results.length)
 
+	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
+	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
+	let isVisibleDimmer = useSelector(state => state.page.dimmer)
+
 	return (
 		<>
 			<div className='flex-1 p-4'>
-				<div className='flex flex-col'>
-					<div>
-						Query: {searchQuery}
-					</div>
-					<div className='text-xs'>
-						Results: {resultsCount}
-					</div>
-					<div className='text-xs'>
-						Runtime: {runtime} milliseconds
-					</div>
 
+				<div className='flex flex-col'>
+					<div className='flex flex-row'>
+						<div className='flex flex-1 italic'>{searchQuery}</div>
+					</div>
+					<div className='flex flex-row'>
+						<div className='text-xs mr-2'>{resultsCount} results.</div>
+						<div className='text-xs'>Completed in {runtime} milliseconds</div>
+					</div>
 				</div>
+
 				<span style={{fontVariant:'small-caps'}}>projects</span>
 				<div className='flex flex-row'>
 					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
@@ -245,6 +251,28 @@ export const EnterIndicator = (props) => {
 		onClick={(e) => handleClick(e)}
 		>
 			Enter <span className='text-xs ml-2'>⮐</span>
+		</div>
+	)
+}
+
+export const CancelSearch = () => {
+	const dispatch = useDispatch()
+	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
+	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
+	let isVisibleDimmer = useSelector(state => state.page.dimmer)
+
+	function handleClickCancel() {
+		if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
+		if (!isVisibleCreationModal && isVisibleDimmer) { dispatch(toggle('dimmer')) }
+	}
+	return (
+		<div 
+		style={{fontVariant:'small-caps'}}
+		className='text-gray-500 hover:text-gray-700 active:text-gray-300 text-sm cursor-pointer flex flex-row border rounded border-gray-500 hover:border-gray-700 active:border-gray-300 px-1'
+		onClick={() => handleClickCancel()}
+		>
+			<span className='mr-1' style={{ marginRight: '0.25em', marginTop: '-0.05em' }}>cancel</span>
+			<Icon name='cancel' style={{ marginRight: 0 }}/>
 		</div>
 	)
 }

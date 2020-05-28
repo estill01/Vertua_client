@@ -1,11 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import PageErrorBoundary from './PageErrorBoundary'
-import { useSelector } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
+import { useLocation } from 'react-router-dom'
+import { search, stashSearch } from '../app/slices/SearchSlice'
 
 const SearchResultsPage = () => {
+	const location = useLocation()
+	const dispatch = useDispatch()
+
+	// TODO make this a watcher / subscribe to store (?) -- It's not updating when the query changes when you 
 	let query = useSelector(state => state.search.srp.query)
+	let previewQuery = useSelector(state => state.search.query)
 	let results = useSelector(state => state.search.srp.results)
 	let runtime = useSelector(state => state.search.srp.runtime)
+
+	useEffect(() => {
+		console.log("-- Search Results Page")
+		let urlQuery = location.search.replace('?query=','')
+		urlQuery  = decodeURIComponent(urlQuery)
+
+		if ((query === '' || previewQuery === '') && (urlQuery != '')) {
+			(async function() {
+				await dispatch(search(urlQuery)); dispatch(stashSearch());
+			})()
+
+		}
+
+		return () => {
+		}
+	})
+
+
 	return (
 		<>
 			<PageErrorBoundary>

@@ -70,24 +70,43 @@ const NotFoundPage = loadable(
 
 const Router = () => {
 	let dispatch = useDispatch()
+	const store = useStore()
 	return (
 		<>
 			<PageErrorBoundary>
 				<Suspense>
 					<Switch>
 						<Route exact path='/' 
-						render={() => { dispatch(setPath('/')); return (<HomePage/>)}}
+						render={(routeProps) => { 
+							dispatch(setPath('/')); 
+							window.scrollTo(0,0)
+							return (<HomePage/>)
+							}}
 						/>
 
 						<Route path='/search' 
-						render={() => { dispatch(setPath('/search')); return (<SearchResultsPage/>)}}
+						render={(routeProps) => { 
+							dispatch(setPath('/search')); 
+							window.scrollTo(0,0)
+							return (<SearchResultsPage/>)
+						}}
 						/>
 
 						<Route exact path='/account' 
-						render={() => { dispatch(setPath('/account')); return (<AccountPage/>)}}
+						render={(routeProps) => { 
+							dispatch(setPath('/account')); 
+							window.scrollTo(0,0)
+							return (<AccountPage/>)
+						}}
 						/>
 
-						<Route exact path='/new' component={CreatePage}/>
+						<Route exact path='/new' 
+						render={(routeProps) => {
+							dispatch(setPath('/new')); 
+							window.scrollTo(0,0)
+							return (<CreatePage/>)
+						}}
+						/>
 						<Route path='/project/:id' component={ProjectPage}/>
 
 						<Route 

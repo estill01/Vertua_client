@@ -9,7 +9,6 @@ import { firebase } from '../app'
 
 const HomePage = () => {
 
-
 	return (
 		<>
 			<PageErrorBoundary>
