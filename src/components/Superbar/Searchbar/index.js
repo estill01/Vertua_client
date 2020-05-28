@@ -25,6 +25,14 @@ export const InputBar = React.forwardRef((props, ref) => {
 	const [inputCache, updateInputCache] = useState('')
 
 
+	function handleFocus() {
+		focusContainer()
+		let query = ref.current.value.trim()
+		if (query != '') {
+			if (!isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
+			if (!isVisibleDimmer) { dispatch(toggle('dimmer')) }
+		}
+	}
 	function focusContainer() {
 		containerRef.current.classList.add('border-blue-500')
 	}
@@ -90,7 +98,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 				className='ml-1 flex-1 text-xl'
 				ref={ref}
 				style={{ outline: 'none' }} 
-				onFocus={() => focusContainer()}
+				onFocus={() => handleFocus()}
 				onBlur={(e) => blurContainer()}
 				onInput={(e) => handleInput(e)}
 				onKeyDown={(e) => handleKeyDown(e)}
