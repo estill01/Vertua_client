@@ -36,7 +36,7 @@ const PlusButton = (props) => {
 	return (
 		<>
 			<div 
-			className='rounded-full bg-blue-300 hover:bg-blue-500 active:bg-blue-300 border border-blue-400 p-3 w-16 h-16 fixed cursor-pointer select-none flex items-center shadow'
+			className='rounded-full bg-blue-500 hover:bg-blue-400 active:bg-blue-600 border border-blue-400 p-3 w-16 h-16 fixed cursor-pointer select-none flex items-center shadow'
 			style={{
 				right: '2em',
 				bottom: '2em',

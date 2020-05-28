@@ -18,6 +18,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 	const containerRef = React.createRef()
 	const dispatch = useDispatch()
 	const history = useHistory()
+	const store = useStore()
 	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
@@ -87,6 +88,18 @@ export const InputBar = React.forwardRef((props, ref) => {
 		} 
   }
 
+	// Reset value of text in input bar to urlQuery value on history PUSH/POP / browser forward/back button.
+	useEffect(() => {
+		let unlisten = history.listen((location, action) => {
+			let urlQuery = location.search.replace('?query=', '')
+			urlQuery = decodeURIComponent(urlQuery)
+			document.getElementById('search_input').value = urlQuery
+		})
+		return () => {
+			unlisten()
+		}
+	})
+
 	return (
 		<div 
 		className={`bg-secondary text-primary rounded border border-gray-400 hover:border-blue-400 flex flex-row items-center ${props.className}`}
@@ -95,6 +108,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 			<div className='p-2 flex flex-row flex-1 items-center'>
 				<Icon name='search' style={{marginTop:'-0.125em'}}/>
 				<input 
+				id='search_input'
 				className='ml-1 flex-1 text-xl'
 				ref={ref}
 				style={{ outline: 'none' }} 

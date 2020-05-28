@@ -68,6 +68,18 @@ export const SearchSlice = createSlice({
 			state.srp.runtime = state.runtime
 			state.srp.results = state.results
 		},
+		clearSearch: (state, action) => {
+			state.srp.query = ''
+			state.srp.executedAt = ''
+			state.srp.fulfilledAt = ''
+			state.srp.runtime = ''
+			state.srp.results = ''
+			state.query = ''
+			state.executedAt = ''
+			state.fulfilledAt = ''
+			state.runtime = ''
+			state.results = ''
+		},
 		// setExectuedAt: (state, action) => {
 		// 	state.executedAt = action.payload
 		// 	state.fulfilledAt = ''
@@ -116,6 +128,7 @@ export const SearchSlice = createSlice({
 export const {
 	setQuery,
 	stashSearch,
+	clearSearch,
 } = SearchSlice.actions
 
 export default SearchSlice.reducer

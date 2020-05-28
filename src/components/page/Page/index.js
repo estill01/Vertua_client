@@ -1,7 +1,8 @@
 import React, { useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter, useHistory } from 'react-router-dom'
 import { useStore, useDispatch, useSelector } from 'react-redux'
 import { nukeOverlays } from '../../../app/slices/PageSlice'
+import { search, stashSearch, clearSearch } from '../../../app/slices/SearchSlice'
 import Router from '../../../router'
 import Superbar from '../../Superbar'
 import PlusButton from '../../buttons/PlusButton'
@@ -11,8 +12,9 @@ import CreationModal from '../../modals/CreationModal'
 import Dimmer from '../../utils/Dimmer'
 
 const Page = () => {
-	let store = useStore()
-	let dispatch = useDispatch()
+	const store = useStore()
+	const dispatch = useDispatch()
+	const history = useHistory()
 	let userMenuOpen = useSelector(state => state.page.userMenu)
 
 	function handlePageClick(e) { 
@@ -26,6 +28,25 @@ const Page = () => {
 		}))
 		return () => { 
 			unsubscribeWatchUserMenu() 
+		}
+	})
+
+	// TODO Move this to just the SearchResultsPage (?)
+	useEffect(() => {
+		let unlisten = history.listen((location, action) => {
+			let srpQuery = store.getState().search.srp.query
+			let urlQuery = location.search.replace('?query=', '')
+			urlQuery = decodeURIComponent(urlQuery)
+
+			if ((urlQuery != '') && (urlQuery != srpQuery)) {
+				dispatch(clearSearch())
+		  	dispatch(search(urlQuery))
+		  	dispatch(stashSearch())
+			}
+		})
+
+		return () => {
+			unlisten()
 		}
 	})
 
