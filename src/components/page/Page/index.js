@@ -31,24 +31,21 @@ const Page = () => {
 		}
 	})
 
-	// TODO Move this to just the SearchResultsPage (?)
+	// TODO Move to SearchResultsPage(?); listener there is doing the querying.
 	useEffect(() => {
 		let unlisten = history.listen((location, action) => {
 			let srpQuery = store.getState().search.srp.query
 			let urlQuery = location.search.replace('?query=', '')
 			urlQuery = decodeURIComponent(urlQuery)
-
+			const inputEl = document.getElementById('superbar_search_input')
 			if ((urlQuery != '') && (urlQuery != srpQuery)) {
 				dispatch(clearSearch())
-		  	dispatch(search(urlQuery))
-		  	dispatch(stashSearch())
+				dispatch(search(urlQuery))
+				dispatch(stashSearch())
+				inputEl.value = urlQuery
 			}
-			document.getElementById('superbar_search_input').value = urlQuery
 		})
-
-		return () => {
-			unlisten()
-		}
+		return () => unlisten()
 	})
 
 	return (

@@ -1,13 +1,19 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import PageErrorBoundary from './PageErrorBoundary'
-
 import LogInForm from '../components/forms/LogInForm'
 import NewProjectForm from '../components/forms/ProjectForm'
-
 import { useStore } from 'react-redux'
 import { firebase } from '../app'
 
 const HomePage = () => {
+
+	// clear search input
+	useEffect(() => {
+		const inputEl = document.getElementById('superbar_search_input')
+		inputEl.value = ''
+		return () => {
+		}
+	})
 
 	return (
 		<>

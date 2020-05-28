@@ -7,10 +7,8 @@ import { search, stashSearch } from '../app/slices/SearchSlice'
 const SearchResultsPage = () => {
 	const location = useLocation()
 	const dispatch = useDispatch()
-
-	// TODO make this a watcher / subscribe to store (?) -- It's not updating when the query changes when you 
-	let query = useSelector(state => state.search.srp.query)
-	let previewQuery = useSelector(state => state.search.query)
+	let query = useSelector(state => state.search.srp.query) 
+	let previewQuery = useSelector(state => state.search.query) 
 	let results = useSelector(state => state.search.srp.results)
 	let runtime = useSelector(state => state.search.srp.runtime)
 
@@ -23,7 +21,7 @@ const SearchResultsPage = () => {
 			(async function() {
 				await dispatch(search(urlQuery)); dispatch(stashSearch());
 			})()
-
+			document.getElementById('superbar_search_input').value = urlQuery
 		}
 
 		return () => {
