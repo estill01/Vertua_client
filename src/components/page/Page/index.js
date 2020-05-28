@@ -43,6 +43,7 @@ const Page = () => {
 		  	dispatch(search(urlQuery))
 		  	dispatch(stashSearch())
 			}
+			document.getElementById('superbar_search_input').value = urlQuery
 		})
 
 		return () => {
