@@ -87,18 +87,32 @@ export const InputBar = React.forwardRef((props, ref) => {
 			}
 		} 
   }
+	
 	// TODO Make this work so that the 'Enter' indicator doesn't show when you click logo to go home & clear search input
 	function handleChange(e) {
-		console.log("&&&&&&& Search Input : change")
-		console.log(e.target.value)
-		console.log(ref.current.value)
+		// console.log("&&&&&&& Search Input : change")
+		// console.log(e.target.value)
+		// console.log(ref.current.value)
+		// if (ref.current.value === '') {
+		// 	console.log("EMPTY INPUT")
+		// 	console.log("hasInput? (prev): ", hasInput)
+		// 	toggleHasInput(false)
+		// 	console.log("hasInput? (now): ", hasInput)  // Not working, b/c value cahnges on element re-render
+		// }
+	}
+
+	// WHy is this triggering when the dimmer/modal shows(?)
+	// B/c input.value is being set somewhere?
+	useEffect(() => {
+		console.log(" --- hasInput toggler")
+		console.log("ref.current.value: ", ref.current.value)
+		console.log("ref.current.value === '': ", ref.current.value === '')
 		if (ref.current.value === '') {
-			console.log("EMPTY INPUT")
 			console.log("hasInput? (prev): ", hasInput)
 			toggleHasInput(false)
 			console.log("hasInput? (now): ", hasInput)  // Not working, b/c value cahnges on element re-render
 		}
-	}
+	})
 
 	return (
 		<div 

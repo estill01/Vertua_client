@@ -9,20 +9,22 @@ import * as UserMenu from '../menus/UserMenu'
 
 //import Dimmer from '../utils/Dimmer'
 
-// import LogoGlyph from '../utils/LogoGlyph'
+import LogoGlyph from '../utils/LogoGlyph'
 
 
 const Superbar = ({ props } ) => {
 	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
 	let inputBarRef = React.createRef()
 
+	// <MenuToggle className='flex self-center cursor-pointer' style={{marginTop: '-0.125em'}} color='grey'/>
+
 	return (
 		<div className='relative' style={{zIndex:2000}}>
 			<div className='fixed w-full'>
 				<div className='bg-primary px-4 py-2 flex flex-row items-center border-b border-gray-300 top-0' { ...props }>
-					<MenuToggle className='flex self-center cursor-pointer' style={{marginTop: '-0.125em'}} color='grey'/>
+					<LogoGlyph style={{ height: '1.75rem', width: '1.75rem' }} />
 
-					<Link to='/' className='text-gray-800 flex flex-row items-center ml-2'>
+					<Link to='/' className='text-gray-800 flex flex-row items-center'>
 						<span className='ml-1 text-2xl font-logo-bold' style={{marginTop:'0.125em'}}>Vertua</span>
 					</Link>
 

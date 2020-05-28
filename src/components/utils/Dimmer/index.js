@@ -1,10 +1,10 @@
 import React from 'react'
-import { useSelector, useDispatch } from 'react-redux'
+import { useStore, useSelector, useDispatch } from 'react-redux'
 import { nukeOverlays } from '../../../app/slices/PageSlice'
 
 const Dimmer = (props) => {
-	let isVisible = useSelector(state => state.page.dimmer)
 	const dispatch = useDispatch()
+	const isVisible = useSelector(state => state.page[props.storePath])
 
 	return (
 		<>
@@ -12,6 +12,7 @@ const Dimmer = (props) => {
 			<div 
 			className={`fixed h-screen w-screen top-0 left-0 opacity-25 bg-inverse ${props.className}`}
 			onClick={() => dispatch(nukeOverlays())}
+			style={props.style}
 			/>
 		)}
 		</>

@@ -54,7 +54,15 @@ import { ReactComponent as Logo } from '../../../assets/images/logo/noun_network
 
 const LogoGlyph = (props) => (					
 	<>
-		<Logo {...props}/>
+		<div 
+		className='p-1 rounded border border-gray-400'
+		style={{
+			backgroundColor:'white',
+			backgroundImage: 'linear-gradient(to bottom right, #42e2ac, #4299e2)'
+		}}
+		>
+			<Logo {...props} style={{fill:'white'}}/>
+		</div>
 	</>
 )
 

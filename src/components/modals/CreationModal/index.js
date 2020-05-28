@@ -28,21 +28,25 @@ export const CreationModal = (props) => {
 
 			<div 
 			className={`fixed w-screen h-screen top-0 left-0 flex flex-row items-center ${props.className}`} 
+			style={props.style}
 			onClick={(e) => handleClickContainer(e)}
 			>
 
 				<div
-				className='mx-auto w-4/5 rounded border border-gray-500 shadow bg-secondary flex flex-col' 
-				style={{ minHeight: '20em'}}
+				className='mx-auto w-4/5 rounded border border-gray-500 shadow-md bg-secondary flex flex-col' 
+				style={{ 
+					minHeight: '20em',
+					height: '80%',
+				}}
 				onClick={(e) => handleClickModal(e)}
 				>
-					<div className='flex-1 flex flex-col p-4'>
+					<div className='flex-1 flex flex-col p-4 rounded-t'>
 						<h1>Add Project</h1>
 					</div>
 
 					<hr/>
 
-					<div className='p-2 flex flex-row bg-primary'>
+					<div className='p-2 flex flex-row bg-primary rounded-b'>
 						<ExpandButton/>
 					</div>
 				</div>

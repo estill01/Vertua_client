@@ -5,32 +5,16 @@ import { toggle } from '../../../app/slices/PageSlice'
 const PlusButton = (props) => {
 	const dispatch = useDispatch()
 	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
+	let isVisibleGlobalDimmer = useSelector(state => state.page.globalDimmer)
 	let isVisibleSearchDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 
-
 	function handleClick(e) {
 		e.stopPropagation()
-
-		if (isVisibleDimmer) { // dimmer on
-			if (isVisibleCreationModal) { // dimmer on : modal on
-				dispatch(toggle('dimmer'))
-				dispatch(toggle('creationModal'))
-			} 
-			else { // dimmer on : modal off
-				dispatch(toggle('creationModal'))
-				if (isVisibleSearchDropDown) { // dimmer on : modal off : search on
-					dispatch(toggle('searchDropdown'))
-				}
-			}
-		} 
-		else { // dimmer off
-			dispatch(toggle('dimmer'))
-			if (!isVisibleCreationModal) { // dimmer off : modal off
-				dispatch(toggle('creationModal'))
-			}
-		}
-
+		dispatch(toggle('globalDimmer'))
+		dispatch(toggle('creationModal'))
+		if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+		if (isVisibleSearchDropDown) { dispatch(toggle('searchDropdown')) }
 	}
 
 	return (
@@ -40,7 +24,9 @@ const PlusButton = (props) => {
 			style={{
 				right: '2em',
 				bottom: '2em',
-				zIndex: 2500,
+				// zIndex: props.style.zIndex,
+				zIndex: 2100,
+
 			}}
 			onClick={(e) => handleClick(e)}
 			>

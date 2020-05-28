@@ -52,17 +52,41 @@ const Page = () => {
 
 	return (
 		<>
-			<Superbar/>
-			<div 
-			className='bg-secondary text-primary flex-1 p-4 min-h-screen relative'
-			onClick={(e) => handlePageClick(e)}
-			>
-				<Router/>
-				<PlusButton/>
-				<CreationModal className='z-40'/>
-				<Dimmer/>
+			<div className='relative' id='outer_container'>
+				<Superbar 
+				id='superbar'
+				style={{
+					zIndex:1000
+				}}
+				/>
+				<div 
+				className='bg-secondary text-primary flex-1 p-4 min-h-screen relative'
+				onClick={(e) => handlePageClick(e)}
+				id='inner_container'
+				>
+					<Router/>
+					<PlusButton
+					style={{
+						zIndex:2100
+					}}
+					/>
+					<Dimmer storePath='dimmer'/>
+				</div>
+				<Footer/>
+				<CreationModal
+				style={{
+					zIndex:2001
+				}}
+				/>
+				<Dimmer 
+				id='global_dimmer' 
+				storePath='globalDimmer' 
+				className='opacity-50'
+				style={{
+					zIndex:2000
+				}}
+				/>
 			</div>
-			<Footer/>
 		</>
 	)
 }
