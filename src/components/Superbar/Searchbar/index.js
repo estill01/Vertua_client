@@ -88,7 +88,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 		} 
   }
 	
-	// TODO Make this work so that the 'Enter' indicator doesn't show when you click logo to go home & clear search input
+	// TODO BUG: 'Enter' indicator stays on when you click logo to clear input and go to '/';  input clearing isn't getting picked up in time to toggle 'hasInput' => false.
 	function handleChange(e) {
 		// console.log("&&&&&&& Search Input : change")
 		// console.log(e.target.value)
@@ -175,7 +175,11 @@ const SearchContent = (props) => {
 	const dispatch = useDispatch()
   let searchQuery = useSelector(state => state.search.query)
 	let runtime = useSelector(state => state.search.runtime)
-	let resultsCount = useSelector(state => state.search.results.length)
+
+	let resultsUserIndexCount = useSelector(state => state.search.results.users.length)
+	let resultsProjectIndexCount = useSelector(state => state.search.results.projects.length)
+	//let resultsCount = useSelector(state => state.search.results.length)
+
 
 	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
@@ -190,7 +194,7 @@ const SearchContent = (props) => {
 						<div className='flex flex-1 italic'>{searchQuery}</div>
 					</div>
 					<div className='flex flex-row'>
-						<div className='text-xs mr-2'>{resultsCount} results.</div>
+						<div className='text-xs mr-2'>{resultsUserIndexCount + resultsProjectIndexCount} results.</div>
 						<div className='text-xs'>Completed in {runtime} milliseconds</div>
 					</div>
 				</div>

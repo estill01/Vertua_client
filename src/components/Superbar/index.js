@@ -21,7 +21,7 @@ const Superbar = ({ props } ) => {
 	return (
 		<div className='relative' style={{zIndex:2000}}>
 			<div className='fixed w-full'>
-				<div className='bg-primary px-4 py-2 flex flex-row items-center border-b border-gray-300 top-0' { ...props }>
+				<div className='bg-primary px-4 py-2 flex flex-row items-center border-b border-gray-300 top-0 shadow-sm' { ...props }>
 					<LogoGlyph style={{ height: '1.75rem', width: '1.75rem' }} />
 
 					<Link to='/' className='text-gray-800 flex flex-row items-center'>
@@ -34,7 +34,6 @@ const Superbar = ({ props } ) => {
 
 					<div> 
 						{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
-						{ (isAnonymous === false) && (<LogOutButton/>)}
 					</div>
 
 					<div>

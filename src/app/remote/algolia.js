@@ -19,7 +19,7 @@ const configShared = {
 
 const configIndexes = {
 	'users': {
-		attributesToRetrieve: ['name', 'uid', 'photoURL', 'createdAt'],
+		attributesToRetrieve: ['displayName', 'uid', 'photoURL', 'createdAt'],
 		// distinct: 3,
 		// attributeForDistinct: 'name',
 	},
@@ -41,14 +41,14 @@ function _buildIndexes(container) {
 		container[arr[0]].search = async (query = '', indexConfig = {}, useSharedConfigs = true) => {
 			let configs = {}
 			if (useSharedConfigs) {
-				// supplied configs:
+				// Supplied configs:
 				// - supplement default index configs
 				// - overwrite default index configs
 				// - overwrite default shared configs
 				Object.assign(configs, arr[1], configShared, indexConfig)
 			}
 			else {
-				// supplied configs:
+				// Supplied configs:
 				// - supplement default index configs
 				// - overwrite default index configs
 				Object.assign(configs, arr[1], indexConfig)

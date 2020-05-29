@@ -100,9 +100,17 @@ export const DropDown = (props) => {
 					>
 						<UserAvatar className='cursor-pointer'/>
 					</div>
-					<div>
-					{ isAnonymous && <span style={{fontVariant:'small-caps'}} className='italic'>logged in anonymously</span> }
-					{ !isAnonymous && <span>{currentUser.displayName}</span> }
+					<div className='text-center'>
+					{ isAnonymous && 
+						<span style={{fontVariant:'small-caps'}} className='italic'>
+							logged in anonymously 
+						</span> 
+					}
+					{ !isAnonymous && 
+						<span>
+							{currentUser.displayName}
+						</span> 
+					}
 					</div>
 					<hr/>
 					<div>

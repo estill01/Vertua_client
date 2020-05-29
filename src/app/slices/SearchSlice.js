@@ -17,18 +17,30 @@ export const search =
 		console.log("# Search:search")
 		thunkAPI.dispatch(setQuery(arg)) 
 
+
 		// TODO debug Promise.all / etc so that these get executed in parallel
 		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
-		//
-		// let promises = []
-		// thunkAPI.action.payload.index.map((index) => {
-		// 	promises.push(new Promise((resolve, reject) => { 
-		// 		resolve(algolia[index].search(arg))
-		// 	}))
-		// })
 
-		// return Promise.all(promises)
-		return algolia.users.search(arg)
+		let promises = []
+
+		promises.push(new Promise((resolve, reject) => { 
+			try { resolve(algolia.users.search(arg)) }
+			catch (err) { reject('[Error] : users search index') }
+
+		}))
+		promises.push(new Promise((resolve, reject) => {
+			try { resolve(algolia.projects.search(arg)) }
+			catch (err) { reject('[Error] : users search index') }
+		}))
+
+		// TODO Need post-procesing to settle restults to proper index stash
+		// payload: Array(2)
+		// 0: {hits: ... , indexUsed: 'users', ...}
+		// 1: {hits: ... , indexUsed: 'projects', ...}
+		
+
+		return Promise.all(promises)
+		// return algolia.users.search(arg)
 	},
 	{ condition: () => {
 		// TODO When not trigger? Review API for 'condition'
@@ -46,13 +58,21 @@ export const SearchSlice = createSlice({
 			executedAt: '',
 			fulfilledAt: '',
 			runtime: '',
-			results: [],
+			// results: [],
+			results: {
+				users: [],
+				projects: []
+			}
 		},
 		query: '',
 		executedAt: '',
 		fulfilledAt: '',
 		runtime: '',
-		results: [],
+		// results: [],
+		results: {
+			users: [],
+			projects: [],
+		}
 	},
 	reducers: {
 		// isLoading: (state, action) => { state.isFetching = action.payload },
@@ -73,12 +93,12 @@ export const SearchSlice = createSlice({
 			state.srp.executedAt = ''
 			state.srp.fulfilledAt = ''
 			state.srp.runtime = ''
-			state.srp.results = ''
+			state.srp.results = {}
 			state.query = ''
 			state.executedAt = ''
 			state.fulfilledAt = ''
 			state.runtime = ''
-			state.results = ''
+			state.results = {}
 		},
 		// setExectuedAt: (state, action) => {
 		// 	state.executedAt = action.payload
@@ -96,31 +116,43 @@ export const SearchSlice = createSlice({
 	},
 	extraReducers: {
 		[search.pending]: (state, action) => { 
+			console.log("[ SEARCH : PENDING ]")
+			// console.log("Action: ", action)
+
 			state.isLoading = true
 			state.status = 'pending'
 			state.executedAt = Date.now()
 		 	state.fulfilledAt = ''
 		 	state.runtime = ''
 
-			console.log(" --- SeachSlice:seach.pending")
-			console.log(state)
 		},
 		[search.rejected]: (state, action) => { 
+			console.log("[ SEARCH : REJECTED ]")
+			console.log("Action: ", action)
+
 			state.isLoading = false
 			state.loading = 'error'
 		 	state.fulfilledAt = Date.now()
 		 	state.runtime = state.fulfilledAt - state.executedAt
 		},
 		[search.fulfilled]: (state, action) => { 
+			console.log("[ SEARCH : FULFILLED ]")
+			console.log("Action: ", action)
+
 			state.isLoading = false
 			state.loading = 'idle'
 			state.fulfilledAt = Date.now()
 		 	state.runtime = state.fulfilledAt - state.executedAt
-			state.results = action.payload.hits
-	
-			console.log("> search.fulfilled")
-			console.log("state.fulfilledAt: ", state.fulfilledAt)
-			console.log("action.payload: ", action.payload)
+			// ------------------------------------------------
+			// TODO  Need to make this more advanced to deal with multiple search indexes
+
+			action.payload.map((payload) => {
+				console.log("payload: ", payload)
+				console.log("indexUsed: ", payload.indexUsed)
+				state.results[payload.indexUsed] = payload.hits
+			})
+			// state.results = action.payload.hits
+			// ------------------------------------------------
 		},
 	}
 })
