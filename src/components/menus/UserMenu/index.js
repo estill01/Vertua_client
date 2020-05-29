@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { useLocation } from 'react-router-dom'
+import { useLocation, useHistory, Link } from 'react-router-dom'
 import { useStore, useSelector, useDispatch, } from 'react-redux'
 import { toggle } from '../../../app/slices/PageSlice.js'
 import { ReactComponent as AnonymousAvatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
@@ -25,16 +25,15 @@ export const Trigger = (props) => {
 			isActive = newVal
 			toggleContainerFocus(isActive)
 		}))
+		return () => unsubscribeWatchAvatarMenu()
+	})
 
+	useEffect(() => {
 		let watchURLPath = watch(store.getState, 'page.path')
 		let unsubscribeWatchURLPath = store.subscribe(watchURLPath((newVal, oldVal) => {
 			if (isActive) { dispatch(toggle('userMenu')) }
 		}))
-
-		return () => {
-			unsubscribeWatchAvatarMenu()
-			unsubscribeWatchURLPath()
-		}
+		return () => unsubscribeWatchURLPath()
 	})
 
 	function toggleIsActive(val = !isActive) {
@@ -66,31 +65,56 @@ const UserAvatar = (props) => {
 	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
 	let currentUser = useSelector(state => state.session.currentUser)
 	return (
-		<div className='relative w-full h-1/3 flex border border-gray-500 rounded'>
+		<>
 			{ isAnonymous && (<AnonymousAvatar className='flex-1'/>) }
 			{ !isAnonymous && (<img src={currentUser.photoURL} className='flex-1'/>) }
-		</div>
+		</>
 	)
 }
 
+
+
 export const DropDown = (props) => {
-	let isVisible = useSelector(state => state.page.userMenu)
-	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
+	const isVisible = useSelector(state => state.page.userMenu)
+	const isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
+	const currentUser = useSelector(state => state.session.currentUser)
+	const history = useHistory()
+
+	function handleUserAvatarClick(e) {
+		console.log("-- handleUserAvatarClick --")
+		console.log(e)
+		history.push('/account')
+	}
 
 	return (
 		<>
 			{isVisible && (
+
 			<div 
 			className={`absolute left-auto right-0 top-0 p-2 border-l border-b border-gray-400 rounded-bl w-40 h-56 flex flex-col bg-secondary ${props.className}`}
 			>
 				<div className='flex-1'>
-					<UserAvatar/>
+					<div 
+					className='relative w-full h-24 flex border border-gray-500 rounded cursor-pointer hover:border-blue-300 active:border-blue-500'
+					onClick={(e) => handleUserAvatarClick(e)}
+					>
+						<UserAvatar className='cursor-pointer'/>
+					</div>
+					<div>
+					{ isAnonymous && <span style={{fontVariant:'small-caps'}} className='italic'>logged in anonymously</span> }
+					{ !isAnonymous && <span>{currentUser.displayName}</span> }
+					</div>
+					<hr/>
+					<div>
+						<Link to='/account'>Account</Link>
+					</div>
 				</div>
 
 				<hr/>
 				{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true) && (<LogInButton/>))}
 				{ (isAnonymous === false) && (<LogOutButton/>) }	
 			</div>
+
 			)}
 		</>
 	)

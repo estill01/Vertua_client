@@ -11,7 +11,7 @@ export const PageSlice = createSlice({
 		creationModal: false,
 		sideNav: false,
 		searchDropdown: false,
-		userMenu: false,
+		userMenu: true,
 		path: ''
 	},
 	reducers: {

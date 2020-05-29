@@ -79,7 +79,7 @@ const Router = () => {
 						<Route exact path='/' 
 						render={(routeProps) => { 
 							dispatch(setPath('/')); 
-							window.scrollTo(0,0)
+							// window.scrollTo(0,0)
 							return (<HomePage/>)
 							}}
 						/>
@@ -87,7 +87,7 @@ const Router = () => {
 						<Route path='/search' 
 						render={(routeProps) => { 
 							dispatch(setPath('/search')); 
-							window.scrollTo(0,0)
+							// window.scrollTo(0,0)
 							return (<SearchResultsPage/>)
 						}}
 						/>
@@ -95,7 +95,7 @@ const Router = () => {
 						<Route exact path='/account' 
 						render={(routeProps) => { 
 							dispatch(setPath('/account')); 
-							window.scrollTo(0,0)
+							// window.scrollTo(0,0)
 							return (<AccountPage/>)
 						}}
 						/>
@@ -103,7 +103,7 @@ const Router = () => {
 						<Route exact path='/new' 
 						render={(routeProps) => {
 							dispatch(setPath('/new')); 
-							window.scrollTo(0,0)
+							// window.scrollTo(0,0)
 							return (<CreatePage/>)
 						}}
 						/>

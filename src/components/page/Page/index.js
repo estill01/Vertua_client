@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter, useHistory } from 'react-router-dom'
 import { useStore, useDispatch, useSelector } from 'react-redux'
-import { nukeOverlays } from '../../../app/slices/PageSlice'
+import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import { search, stashSearch, clearSearch } from '../../../app/slices/SearchSlice'
 import Router from '../../../router'
 import Superbar from '../../Superbar'
@@ -21,6 +21,22 @@ const Page = () => {
 		if (userMenuOpen) { dispatch(nukeOverlays()) }
 	}
 
+	function keyDownListener(e) {
+		if (e.keyCode === 27 || e.key === 'Escape') {
+			if (store.getState().page.creationModal) {
+				dispatch(nukeOverlays())
+			}
+		}
+	}
+
+
+	// Keydown listener - pick up e.g. 'esc' key for modal toggle
+	useEffect(() => {
+		document.addEventListener('keydown', keyDownListener)
+		return () => document.removeEventListener('keydown', keyDownListener)
+	})
+
+	// UserMenu open/close toggle
 	useEffect(() => {
 		let watchUserMenu = watch(store.getState, 'page.userMenu')
 		let unsubscribeWatchUserMenu = store.subscribe(watchUserMenu((newVal, oldVal) => {
