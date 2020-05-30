@@ -5,6 +5,7 @@ import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import watch from 'redux-watch'
 
 import { useHistory } from 'react-router-dom'
+import { ProjectForm } from '../../forms/ProjectForm'
 
 export const CreationModal = (props) => {
 	const dispatch = useDispatch()
@@ -41,9 +42,11 @@ export const CreationModal = (props) => {
 				onClick={(e) => handleClickModal(e)}
 				>
 					<div className='flex-1 flex flex-col p-4 rounded-t'>
-						<h1>Add Project</h1>
+						<div style={{fontVariant:'small-caps'}} className='font-extrabold mb-4'>
+							new project
+						</div>
+						<ProjectForm/>
 					</div>
-
 					<hr/>
 
 					<div className='p-2 flex flex-row bg-primary rounded-b'>

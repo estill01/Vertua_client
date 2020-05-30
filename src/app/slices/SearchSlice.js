@@ -13,12 +13,9 @@ export const search =
   createAsyncThunk('search/search',
 	async (arg, thunkAPI) => {
 		let state = thunkAPI.getState()
-
-		console.log("# Search:search")
 		thunkAPI.dispatch(setQuery(arg)) 
 
 		let promises = []
-		
 		promises.push(new Promise((resolve, reject) => { 
 			try { resolve(algolia.users.search(arg)) }
 			catch (err) { reject('[Error] : users search index') }
@@ -28,17 +25,10 @@ export const search =
 			try { resolve(algolia.projects.search(arg)) }
 			catch (err) { reject('[Error] : users search index') }
 		}))
-
-		// TODO Need post-procesing to settle restults to proper index stash
-		// payload: Array(2)
-		// 0: {hits: ... , indexUsed: 'users', ...}
-		// 1: {hits: ... , indexUsed: 'projects', ...}
-
 		return Promise.all(promises)
 	},
 	{ condition: () => {
 		// TODO When not trigger? Review API for 'condition'
-		
 	}}
 )
 
@@ -52,7 +42,6 @@ export const SearchSlice = createSlice({
 			executedAt: '',
 			fulfilledAt: '',
 			runtime: '',
-			// results: [],
 			results: {
 				users: [],
 				projects: []
@@ -62,7 +51,6 @@ export const SearchSlice = createSlice({
 		executedAt: '',
 		fulfilledAt: '',
 		runtime: '',
-		// results: [],
 		results: {
 			users: [],
 			projects: [],
@@ -111,19 +99,14 @@ export const SearchSlice = createSlice({
 	extraReducers: {
 		[search.pending]: (state, action) => { 
 			console.log("[ SEARCH : PENDING ]")
-			// console.log("Action: ", action)
-
 			state.isLoading = true
 			state.status = 'pending'
 			state.executedAt = Date.now()
 		 	state.fulfilledAt = ''
 		 	state.runtime = ''
-
 		},
 		[search.rejected]: (state, action) => { 
 			console.log("[ SEARCH : REJECTED ]")
-			console.log("Action: ", action)
-
 			state.isLoading = false
 			state.loading = 'error'
 		 	state.fulfilledAt = Date.now()
@@ -131,22 +114,22 @@ export const SearchSlice = createSlice({
 		},
 		[search.fulfilled]: (state, action) => { 
 			console.log("[ SEARCH : FULFILLED ]")
-			console.log("Action: ", action)
-
 			state.isLoading = false
 			state.loading = 'idle'
 			state.fulfilledAt = Date.now()
 		 	state.runtime = state.fulfilledAt - state.executedAt
+			
 			// ------------------------------------------------
 			// TODO  Need to make this more advanced to deal with multiple search indexes
+
+			console.log("-- search payload")
+			console.log(action.payload)
 
 			action.payload.map((payload) => {
 				console.log("payload: ", payload)
 				console.log("indexUsed: ", payload.indexUsed)
 				state.results[payload.indexUsed] = payload.hits
 			})
-			// state.results = action.payload.hits
-			// ------------------------------------------------
 		},
 	}
 })

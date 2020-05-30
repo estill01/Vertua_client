@@ -21,13 +21,10 @@ const UserPage = loadable(
 	{ fallback: <Loading/> }
 )
 
-
-
 const CreatePage = loadable(
 	() => timeout(import('../views/CreatePage'), 5000),
 	{ fallback: <Loading/> }
 )
-
 
 const SearchResultsPage = loadable(
 	() => timeout(import('../views/SearchResultsPage'), 5000),

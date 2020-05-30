@@ -6,9 +6,9 @@ export const PageSlice = createSlice({
 		title: 'Vertua | #BuildTheFuture',
 		scrollLock: false,
 		superbar: true,
-		dimmer: false,
+		dimmer: true,
 		globalDimmer: false,
-		creationModal: false,
+		creationModal: true, // TMP
 		sideNav: false,
 		searchDropdown: false,
 		userMenu: false,
