@@ -153,7 +153,8 @@ const SearchResultsPage = () => {
 					results.users.map((result, i) => {
 						console.log("> got result: ", result)
 						return (
-						<div key={i}>
+						<div key={i} className='flex flex-row'>
+							<img src={result.photoURL} className='w-10 h-10 rounded mr-2'/>
 							{result.displayName}
 						</div>
 						)

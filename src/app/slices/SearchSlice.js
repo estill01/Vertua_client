@@ -17,12 +17,8 @@ export const search =
 		console.log("# Search:search")
 		thunkAPI.dispatch(setQuery(arg)) 
 
-
-		// TODO debug Promise.all / etc so that these get executed in parallel
-		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise/all
-
 		let promises = []
-
+		
 		promises.push(new Promise((resolve, reject) => { 
 			try { resolve(algolia.users.search(arg)) }
 			catch (err) { reject('[Error] : users search index') }
@@ -37,10 +33,8 @@ export const search =
 		// payload: Array(2)
 		// 0: {hits: ... , indexUsed: 'users', ...}
 		// 1: {hits: ... , indexUsed: 'projects', ...}
-		
 
 		return Promise.all(promises)
-		// return algolia.users.search(arg)
 	},
 	{ condition: () => {
 		// TODO When not trigger? Review API for 'condition'

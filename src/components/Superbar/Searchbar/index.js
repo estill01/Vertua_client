@@ -176,61 +176,71 @@ const SearchContent = (props) => {
   let searchQuery = useSelector(state => state.search.query)
 	let runtime = useSelector(state => state.search.runtime)
 
-	let resultsUserIndexCount = useSelector(state => state.search.results.users.length)
-	let resultsProjectIndexCount = useSelector(state => state.search.results.projects.length)
-	//let resultsCount = useSelector(state => state.search.results.length)
-
+	let resultsUserIndex = useSelector(state => state.search.results.users)
+	let resultsProjectIndex = useSelector(state => state.search.results.projects)
+	// let resultsUserIndexCount = useSelector(state => state.search.results.users.length)
+	// let resultsProjectIndexCount = useSelector(state => state.search.results.projects.length)
 
 	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
 
+
 	return (
 		<>
-			<div className='flex-1 p-4'>
+			<div className='flex-1 px-4 py-2'>
 
 				<div className='flex flex-col'>
 					<div className='flex flex-row'>
 						<div className='flex flex-1 italic'>{searchQuery}</div>
 					</div>
 					<div className='flex flex-row'>
-						<div className='text-xs mr-2'>{resultsUserIndexCount + resultsProjectIndexCount} results.</div>
+						<div className='text-xs mr-2'>{resultsUserIndex.length + resultsProjectIndex.length} results.</div>
 						<div className='text-xs'>Completed in {runtime} milliseconds</div>
 					</div>
 				</div>
 
-				<span style={{fontVariant:'small-caps'}}>projects</span>
-				<div className='flex flex-row'>
-					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-15 w-16 flex flex-none bg-blue-700 rounded mr-2 cursor-pointer'/>
+				{ resultsProjectIndex.length > 0 && ( 
+				<div className='flex-1 py-2'>
+					<span style={{fontVariant:'small-caps'}}>projects</span>
+					<div className='flex flex-row'>
+						{ resultsUserIndex.map((item, i) =>  {
+						return (
+						<div className='h-16 cursor-pointer rounded p-2 shadow flex flex-row' key={i}>
+							<img src={item.photoURL} className='w-12 h-12 rounded'/>
+							<div className='ml-2'>{item.name}</div>
+						</div>
+						)
+						})}
+					</div>
 				</div>
-			</div>
+				)}
 
-			<div className='flex-1 p-4'>
-				<span style={{fontVariant:'small-caps'}}>experiments</span>
-				<div className='flex flex-row'>
-					<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+				<div className='flex-1 py-2'>
+					<span style={{fontVariant:'small-caps'}}>experiments</span>
+					<div className='flex flex-row'>
+						<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+						<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+						<div className='h-16 w-16 flex flex-none bg-orange-700 rounded mr-2 cursor-pointer'/>
+					</div>
 				</div>
-			</div>
 
-			<div className='flex-1 p-4'>
-				<span style={{fontVariant:'small-caps'}}>protocols</span>
-				<div className='flex flex-row'>
-					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
-					<div className='h-16 w-16 flex flex-none bg-yellow-700 rounded mr-2 cursor-pointer'/>
+				{ resultsUserIndex.length > 0 && ( 
+				<div className='flex-1 py-2'>
+					<span style={{fontVariant:'small-caps'}}>users</span>
+					<div className='flex flex-row'>
+						{ resultsUserIndex.map((item, i) =>  {
+						return (
+						<div className='h-16 cursor-pointer rounded p-2 shadow flex flex-row' key={i}>
+							<img src={item.photoURL} className='w-12 h-12 rounded' />
+							<div className='ml-2'>{item.displayName}</div>
+						</div>
+						)
+						})}
+					</div>
 				</div>
+				)}
+
 			</div>
 		</>
 	)
