@@ -16,6 +16,13 @@ const HomePage = loadable(
 	{ fallback: <Loading/> }
 )
 
+const UserPage = loadable(
+	() => timeout(import('../views/UserPage'), 5000),
+	{ fallback: <Loading/> }
+)
+
+
+
 const CreatePage = loadable(
 	() => timeout(import('../views/CreatePage'), 5000),
 	{ fallback: <Loading/> }
@@ -97,6 +104,15 @@ const Router = () => {
 							dispatch(setPath('/account')); 
 							// window.scrollTo(0,0)
 							return (<AccountPage/>)
+						}}
+						/>
+
+						<Route path='/user/:id' 
+						render={(routeProps) => {
+							console.log("routeProps: ", routeProps)
+							// dispatch(setPath('/user/'))
+
+							return (<UserPage/>)
 						}}
 						/>
 

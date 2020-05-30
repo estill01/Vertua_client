@@ -231,16 +231,33 @@ const SearchContent = (props) => {
 					<div className='flex flex-row'>
 						{ resultsUserIndex.map((item, i) =>  {
 						return (
-						<div className='h-16 cursor-pointer rounded p-2 shadow flex flex-row' key={i}>
-							<img src={item.photoURL} className='w-12 h-12 rounded' />
-							<div className='ml-2'>{item.displayName}</div>
-						</div>
+							<MiniSearchItem data={item} type='user' key={i}/>
 						)
 						})}
 					</div>
 				</div>
 				)}
 
+			</div>
+		</>
+	)
+}
+
+const MiniSearchItem = (props) => {
+	const history = useHistory()
+	const dispatch = useDispatch()
+
+	function handleClick(e) {
+		history.push(`${props.type}/${props.data.uid}`)
+		dispatch(nukeOverlays())
+		// populate a 'currentItem' in user store
+	}
+
+	return (
+		<>
+			<div className='h-16 cursor-pointer rounded p-2 shadow flex flex-row' onClick={() => handleClick()}>
+				<img src={props.data.photoURL} className='w-12 h-12 rounded' />
+				<div className='ml-2'>{props.data.displayName}</div>
 			</div>
 		</>
 	)
