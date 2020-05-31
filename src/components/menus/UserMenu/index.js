@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import { useLocation, useHistory, Link } from 'react-router-dom'
 import { useStore, useSelector, useDispatch, } from 'react-redux'
-import { toggle } from '../../../app/slices/PageSlice.js'
-import { ReactComponent as AnonymousAvatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
-import { LogInButton, LogOutButton } from '../../buttons/account'
 import watch from 'redux-watch'
+import { toggle } from '../../../app/slices/PageSlice.js'
+import { LogInButton, LogOutButton } from '../../buttons/account'
+import CurrentUserAvatar from '../../utils/CurrentUserAvatar'
 
 import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 
@@ -54,25 +54,11 @@ export const Trigger = (props) => {
 			onMouseLeave={() => { if (!isMenuOpen && isActive) { toggleIsActive() } }}
 			ref={containerRef}
 			>
-				{ isAnonymous && (<AnonymousAvatar className='flex-1 rounded-full'/>) }
-				{ !isAnonymous && (<img src={currentUser.photoURL} className='flex-1 rounded-full'/>) }
+				<CurrentUserAvatar className='flex-1 rounded-full'/>
 			</div>
 		</div>
 	)
 }
-
-const UserAvatar = (props) => {
-	let isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
-	let currentUser = useSelector(state => state.session.currentUser)
-	return (
-		<>
-			{ isAnonymous && (<AnonymousAvatar className='flex-1'/>) }
-			{ !isAnonymous && (<img src={currentUser.photoURL} className='flex-1'/>) }
-		</>
-	)
-}
-
-
 
 export const DropDown = (props) => {
 	const isVisible = useSelector(state => state.page.userMenu)
@@ -98,7 +84,7 @@ export const DropDown = (props) => {
 					className='relative w-full h-24 flex border border-gray-500 rounded cursor-pointer hover:border-blue-300 active:border-blue-500'
 					onClick={(e) => handleUserAvatarClick(e)}
 					>
-						<UserAvatar className='cursor-pointer'/>
+						<CurrentUserAvatar className='cursor-pointer'/>
 					</div>
 					<div className='text-center'>
 					{ isAnonymous && 

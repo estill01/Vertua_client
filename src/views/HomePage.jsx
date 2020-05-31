@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import PageErrorBoundary from './PageErrorBoundary'
 import LogInForm from '../components/forms/LogInForm'
-import NewProjectForm from '../components/forms/ProjectForm'
+import ProjectForm from '../components/forms/ProjectForm'
 import { useStore } from 'react-redux'
 import { firebase } from '../app'
+import Card from '../components/utils/Card'
 
 const HomePage = () => {
 
@@ -23,7 +24,9 @@ const HomePage = () => {
 
 				<FeaturedProjects/>
 				<SponsorResearch/>
-				<NewProjectForm/>
+				<Card>
+					<ProjectForm/>
+				</Card>
 
 				<hr/>
 

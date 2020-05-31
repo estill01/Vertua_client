@@ -1,6 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { nukeOverlays, toggle } from '../app/slices/PageSlice'
+import { ProjectFormFull } from '../components/forms/ProjectForm'
 
 const CreatePage = () => {
 	const dispatch = useDispatch()
@@ -9,17 +10,15 @@ const CreatePage = () => {
 	const isDimmerVisible = useSelector(state => state.page.dimmer)
 	const isSearchDropDownVisible = useSelector(state => state.page.searchDropdown)
 
-	if (isGlobalDimmerVisible) { dispatch(toggle('globalDimmer')) }
-	if (isCreationModalVisible) { dispatch(toggle('creationModal')) }
-	if (isDimmerVisible) { dispatch(toggle('dimmer')) }
-	if (isSearchDropDownVisible) { dispatch(toggle('searchDropdown')) }
+	// if (isGlobalDimmerVisible) { dispatch(toggle('globalDimmer')) }
+	// if (isCreationModalVisible) { dispatch(toggle('creationModal')) }
+	// if (isDimmerVisible) { dispatch(toggle('dimmer')) }
+	// if (isSearchDropDownVisible) { dispatch(toggle('searchDropdown')) }
 
 	return (
 		<>
-			<h1>CreatePage</h1>
-			<h2>Create new stuff here</h2>
-			<div className='h-20 w-40 bg-orange-400 rounded shadow'>
-			</div>
+			<div className='h-16'/>
+			<ProjectFormFull/>
 		</>
 	)
 }
