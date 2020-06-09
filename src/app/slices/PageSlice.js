@@ -12,6 +12,7 @@ export const PageSlice = createSlice({
 		sideNav: false,
 		searchDropdown: false,
 		userMenu: false,
+		plusButton: true,
 		path: ''
 	},
 	reducers: {

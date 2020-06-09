@@ -8,9 +8,17 @@ const CurrentUserAvatar = (props) => {
 	let currentUser = useSelector(state => state.session.currentUser)
 	return (
 		<>
-			{ isAnonymous && (<AnonymousAvatar className={`${props.className}`}/>) }
-			{ !isAnonymous && (<img src={currentUser.photoURL} className={`${props.className}`}/>) }
+			{ isAnonymous && (<AnonymousAvatar className={`flex-1 rounded-full ${props.className}`}/>) }
+			{ !isAnonymous && (<img src={currentUser.photoURL} className={`flex-1 rounded-full ${props.className}`}/>) }
 		</>
 	)
 }
 export default CurrentUserAvatar
+
+export const AvatarFrame = (props) => {
+	return (
+		<div className={`p-px border border-gray-400 rounded-full flex ${props.className}`}>
+			{props.children}
+		</div>
+	)
+}

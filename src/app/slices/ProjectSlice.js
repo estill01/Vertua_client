@@ -1,10 +1,22 @@
-import { createSlice, createEntity } from '@reduxjs/toolkit'
+import { createAsyncThunk, createSlice, createEntity } from '@reduxjs/toolkit'
+import { firebase } from '../remote'
 
-export const ItemSlice = createSlice({
-	name: 'items',
+
+export const createProject = 
+	createAsyncThunk('project/create',
+	async (arg, thunkAPI) => {
+	},
+	{ condition: () => {
+	}}
+)
+
+export const ProjectSlice = createSlice({
+	name: 'projects',
 	initialState: {
+		status: 'idle',
 	},
 	reducers: {
+		
 	},
 	extraReducers: {
 	}

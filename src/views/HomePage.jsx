@@ -1,29 +1,31 @@
 import React, { useState, useEffect } from 'react'
 import PageErrorBoundary from './PageErrorBoundary'
 import LogInForm from '../components/forms/LogInForm'
-import ProjectForm from '../components/forms/ProjectForm'
+import { ProjectForm } from '../components/forms/ProjectForm'
 import { useStore } from 'react-redux'
 import { firebase } from '../app'
 import Card from '../components/utils/Card'
 
-const HomePage = () => {
+import SponsorResearchCard from '../components/cards/SponsorResearch'
+import BuildTheFutureCard from '../components/cards/BuildTheFuture'
+import RegisterCROCard from '../components/cards/RegisterCRO'
 
+const HomePage = () => {
 	useEffect(() => {
 		const inputEl = document.getElementById('superbar_search_input')
-		inputEl.value = ''
+		if (inputEl) { inputEl.value = '' }
 	})
 
 	return (
 		<>
 			<PageErrorBoundary>
-				<div className='h-20'/>
-
-				<div>
-					<h1></h1>
-				</div>
+				<BuildTheFutureCard/>
+				<RegisterCROCard/>
+				<SponsorResearchCard/>
 
 				<FeaturedProjects/>
-				<SponsorResearch/>
+
+
 				<Card>
 					<ProjectForm/>
 				</Card>
@@ -41,21 +43,8 @@ const HomePage = () => {
 export default HomePage
 
 
-const SponsorResearch = () => {
 
-	return (
-		<>
-			<h3>Sponsor Research</h3>
-			<ul>
-				<li>- Commission one-off experiments of-interest.</li>
-				<li>- Advance research agendas to further development of products or IP.</li>
-				<li>- Back promising researchers, groups, or areas of study.</li>
-				<li>- Participate in IP-share aragnements for potential future IP derived from work you sponsor.</li>
-				<li>- Donate materials or resources to projects and causes you support.</li>
-			</ul>
-		</>
-	)
-}
+
 
 const UserList = () => {
 	const [loading, setLoading ] = useState('idle')

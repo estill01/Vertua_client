@@ -1,13 +1,57 @@
-import React from 'react'
+import React, { useEffect, useImperativeHandle } from 'react'
 import { useDispatch } from 'react-redux'
 import { Formik, Form, Field, FieldArray, ErrorMessage } from 'formik'
 import { string as YupString, object as YupObject } from 'yup'
 import { Input } from 'semantic-ui-react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Icon } from 'semantic-ui-react'
+import CurrentUserAvatar, { AvatarFrame } from '../utils/CurrentUserAvatar'
+import { nanoid } from 'nanoid'
 
 import Card from '../utils/Card'
 
+// FORM:AGGREGATE
+// ----------------------------------
+export const ProjectFormFull = (props) => {
+	let formRef = React.createRef
+
+	function submitForm() {
+		console.log("TODO -- SUBMIT FORM")
+	}
+
+	useEffect(() => {
+		console.log(">> ProjectFormFull")
+		console.log("props.formRef: ", props.formRef)
+	})
+
+	return (
+		<>
+			<div className={`flex flex-col ${props.className}`}>
+
+				<Card className='flex flex-row'>
+					<ThumbnailUploader/>
+					<ProjectForm className='flex-1 ml-4' autoSelect={true} ref={formRef}/>
+				</Card>
+
+				<div className='p-2 flex-1 flex flex-col mt-1'>
+					<ItemDetailsMultiForm className='flex-1'/>
+				</div>
+
+				<div className='px-4'>
+					<span style={{fontVariant:'small-caps'}} className='text-blue-400 hover:text-blue-300 active:text-blue-500 cursor-pointer select-none'>
+					+ add approach
+					</span>
+				</div>
+
+			</div>
+		</>
+	)
+}
+
+
+
+// FORM:CORE:SCHEMA
+// ----------------------------------
 const ProjectSchema = YupObject().shape({
 	name: YupString()
 		.min(1, "Project name must be between 1 and 100 characters.")
@@ -17,93 +61,87 @@ const ProjectSchema = YupObject().shape({
 		.max(500, "Project description cannot exceed 500 characters.")
 })
 
-
-
-export const ProjectForm= (props) => {
+// FORM:CORE
+// ----------------------------------
+export const ProjectForm = React.forwardRef((props, ref) => {
 	const dispatch = useDispatch()
-	function submitForm(values) {
+	const id = nanoid()
+	let formValues = null
+
+	const handleSubmit = (values, actions) => {
+		console.log("-- PROJECT FORM: handleSubmit() --")
+		// console.log("values: ", values)
+		// console.log("actions: ", actions)
 	}
 
+	// useImperativeHandle(ref, () => ({
+	// 	submitForm,
+	// }))
+
+	useEffect(() => {
+		if (props.autoSelect === true) {
+			document.getElementById(id).focus()
+		}
+	})
+
 	return (
 		<>
-			<Formik
-				initialValues = {{
-					name:'',
-					description:''
-				}}
-				validationSchema={ProjectSchema}
-				onSubmit={ (values, bag)  => {
-					console.log("-- Submit: Project Form")
-					console.log(values)
-					console.log("bag: ", bag)
-					bag.setTouched(false)
-					bag.resetForm()
-					// TODO -- how reset 'touched' to not trigger error?
-					submitForm(values)
-				}}
+			<div 
+			className={`flex flex-col ${props.className}`}
 			>
-				<Form 
-				className={`flex flex-col ${props.className}`}
+				<Formik
+					initialValues = {{
+						name:'',
+						description:''
+					}}
+					validationSchema={ProjectSchema}
+					onSubmit={handleSubmit}
+					innerRef={ref}
 				>
-					<div className='flex flex-row'>
-						<ThumbnailUploader/>
-						<div className='flex-1 flex flex-col ml-4 pt-1'>
-							<Field 
-							type='text' 
-							name='name' 
-							placeholder='Name' 
-							className='border-b border-gray-400 text-2xl pb-2'
-							style={{ outline: 'none' }}
-							autoComplete='off'
-							/>
-							<ErrorMessage name='name' component='div' className='text-red-400'/>
+					<Form 
+					className={'flex flex-col flex-1'}
+					>
+						
+						<div className='flex flex-row'>
+							<div className='flex-1 flex flex-col pt-1'>
+								<Field 
+								type='text' 
+								name='name' 
+								id={id}
+								placeholder='Name' 
+								className='border-b border-gray-400 text-2xl pb-2'
+								style={{ outline: 'none' }}
+								autoComplete='off'
+								/>
+								<ErrorMessage name='name' component='div' className='text-red-400'/>
 
-							<Field 
-							name='description'
-							placeholder='Description' 
-							className='resize-none mt-4'
-							style={{ outline: 'none' }}
-							minRows={2}
-							as={TextareaAutosize}
-							/>
+								<Field 
+								name='description'
+								placeholder='Description' 
+								className='resize-none mt-4 flex-1'
+								style={{ outline: 'none' }}
+								minRows={2}
+								as={TextareaAutosize}
+								/>
+							</div>
 						</div>
-					</div>
-				</Form>
-			</Formik>
-		</>
-	)
-}
-export default ProjectForm
-
-export const ProjectFormFull = (props) => {
-	return (
-		<>
-			<div className={`flex flex-col ${props.className}`}>
-				<Card>
-					<ProjectForm/>
-				</Card>
-				<div className='p-2 flex-1 flex flex-col mt-1'>
-					<ItemDetailsMultiForm className='flex-1'/>
-				</div>
-				<div className='px-4'>
-					<span style={{fontVariant:'small-caps'}} className='text-blue-400 hover:text-blue-300 active:text-blue-500 cursor-pointer select-none'>
-					+ add approach
-					</span>
-				</div>
+					</Form>
+				</Formik>
 			</div>
 		</>
 	)
-}
+})
 
-const ApproachBuilder = (props) => {
-	return (
-		<>
-			<span style={{fontVariant:'small-caps'}} className='text-blue-400 hover:text-blue-300 active:text-blue-500 cursor-pointer select-none'>
-			+ add approach
-			</span>
-		</>
-	)
-}
+
+// const ApproachBuilder = (props) => {
+// 	return (
+// 		<>
+// 			<span style={{fontVariant:'small-caps'}} className='text-blue-400 hover:text-blue-300 active:text-blue-500 cursor-pointer select-none'>
+// 			+ add approach
+// 			</span>
+// 		</>
+// 	)
+// }
 
 const ItemDetailsMultiForm = (props) => {
 	return (

@@ -50,8 +50,6 @@ export const SessionSlice = createSlice({
 	},
 	reducers: {
 		setCurrentUser: (state, action) => {
-			console.log("-- setCurrentUser")
-			console.log('action.payload: ', action.payload)
 			state.isLoggedIn = true
 			let user = action.payload
 			state.currentUser = {
@@ -60,10 +58,12 @@ export const SessionSlice = createSlice({
 				email: user.email,
 				emailVerified: user.emailVerified,
 				isAnonymous: user.isAnonymous,
-				creationTime: user.metadata.creationTime,
-				lastSignInTime: user.metadata.lastSignInTime,
+				creationTime: user.creationTime,
+				lastSignInTime: user.lastSignInTime,
 				photoURL: user.photoURL,
 			}
+
+
 		},
 		clearCurrentUser: (state, action) => {
 			state.currentUser = {

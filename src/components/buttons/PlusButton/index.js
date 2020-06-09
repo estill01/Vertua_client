@@ -15,6 +15,7 @@ const PlusButton = (props) => {
 		dispatch(toggle('creationModal'))
 		if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
 		if (isVisibleSearchDropDown) { dispatch(toggle('searchDropdown')) }
+		dispatch(toggle('plusButton'))
 	}
 
 	return (

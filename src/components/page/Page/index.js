@@ -16,6 +16,8 @@ const Page = () => {
 	const dispatch = useDispatch()
 	const history = useHistory()
 	let userMenuOpen = useSelector(state => state.page.userMenu)
+	let superbarOpen = useSelector(state => state.page.superbar)
+	let plusButtonVisible = useSelector(state => state.page.plusButton)
 
 	function handlePageClick(e) { 
 		if (userMenuOpen) { dispatch(nukeOverlays()) }
@@ -25,6 +27,9 @@ const Page = () => {
 		if (e.keyCode === 27 || e.key === 'Escape') {
 			if (store.getState().page.creationModal) {
 				dispatch(nukeOverlays())
+			}
+			if (!plusButtonVisible) {
+				dispatch(toggle('plusButton'))
 			}
 		}
 	}
@@ -69,23 +74,29 @@ const Page = () => {
 	return (
 		<>
 			<div className='relative' id='outer_container'>
+			{ superbarOpen && (
 				<Superbar 
 				id='superbar'
 				style={{
 					zIndex:1000
 				}}
 				/>
+				)}
 				<div 
-				className='bg-secondary text-primary flex-1 p-4 min-h-screen relative'
+				className='bg-secondary text-primary flex-1 min-h-screen relative'
 				onClick={(e) => handlePageClick(e)}
 				id='inner_container'
 				>
+					{ superbarOpen && (<div style={{height:'3.5em'}}/>) }
 					<Router/>
+					
+					{ plusButtonVisible && (
 					<PlusButton
 					style={{
 						zIndex:2100
 					}}
 					/>
+					)}
 					<Dimmer storePath='dimmer'/>
 				</div>
 				<Footer/>

@@ -90,19 +90,14 @@ function _onAuthStateChangedListener() {
 
 		if (user) {
 			console.log("-- User logged in: ", user)
-			// console.log("Current User: ", firebase.auth().currentUser)
+			console.log("Current User: ", firebase.auth().currentUser)
 
-			store.dispatch(setCurrentUser(firebase.auth().currentUser))
+			let userObj = _buildUserObject(user)
+			store.dispatch(setCurrentUser(userObj))
 
 			// if isAnonymous
 			//
 			// else 
-
-
-			// TODO need to format 'user' object / extract the importat bits
-			// store.dispatch(createSession(user))
-			// > what's this going to do?
-			// - make: store.session.currentUser
 
 		} else {
 			console.log("-- User NOT logged in: ", user)
@@ -113,6 +108,19 @@ function _onAuthStateChangedListener() {
 			})
 		}
 	})
+}
+
+function _buildUserObject(doc) {
+	return {
+		uid: doc.uid,
+		displayName: doc.displayName,
+		photoURL: doc.photoURL,
+		email: doc.email,
+		emailVerified: doc.emailVerified,
+		isAnonymous: doc.isAnonymous,
+		creationTime: doc.metadata.creationTime,
+		lastSignInTime: doc.metadata.lastSignInTime,
+	}
 }
 
 

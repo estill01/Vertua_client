@@ -6,6 +6,7 @@ import {
 	FirebaseReducer,
 	EntitiesReducer,
 	SearchReducer,
+	ItemsReducer,
 } from './slices'
 
 
@@ -23,6 +24,7 @@ export default configureStore({
 		firebase: FirebaseReducer,
 		entities: EntitiesReducer,
 		search: SearchReducer,
+		items: ItemsReducer,
 	},
 	middleware
 })

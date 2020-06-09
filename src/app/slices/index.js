@@ -3,6 +3,7 @@ import PageReducer from './PageSlice'
 import FirebaseReducer from './FirebaseSlice'
 import EntitiesReducer from './EntitiesSlice'
 import SearchReducer from './SearchSlice'
+import ItemsReducer from './ItemsSlice'
 
 export { 
 	SessionReducer, 
@@ -10,4 +11,5 @@ export {
 	FirebaseReducer,
 	EntitiesReducer,
 	SearchReducer,
+	ItemsReducer,
 }

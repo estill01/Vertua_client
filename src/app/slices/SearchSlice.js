@@ -25,6 +25,9 @@ export const search =
 			try { resolve(algolia.projects.search(arg)) }
 			catch (err) { reject('[Error] : users search index') }
 		}))
+
+		// TODO Refactor? 
+		// > Seems like supposed to await fetch in method: https://redux-toolkit.js.org/api/createAsyncThunk
 		return Promise.all(promises)
 	},
 	{ condition: () => {

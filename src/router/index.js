@@ -6,9 +6,17 @@ import PageErrorBoundary from '../views/PageErrorBoundary'
 import { useStore, useDispatch } from 'react-redux'
 import { store } from '../app/index'
 import { setPath } from '../app/slices/PageSlice'
+import { Loader } from 'semantic-ui-react'
 
 const Loading = () => (
-	<div>Loading...</div>
+	<div 
+	className='h-screen w-full flex flex-row items-center'
+	style={{ backgroundImage: 'linear-gradient(to bottom right, #42e2ac, #4299e2)' }}
+	>
+		<div className='mx-auto'>
+			<Loader active inverted size='big'content='Loading'/>
+		</div>
+	</div>
 )
 
 const HomePage = loadable(
@@ -80,6 +88,11 @@ const Router = () => {
 			<PageErrorBoundary>
 				<Suspense>
 					<Switch>
+						<Route exact path='/load'
+						render={(routeProps) => {
+							return ( <Loading/>)
+						}}
+						/>
 						<Route exact path='/' 
 						render={(routeProps) => { 
 							dispatch(setPath('/')); 

@@ -21,6 +21,12 @@ module.exports = {
 				display: ["Helvetica", "sans-serif"],
 				body: ["Helvetica", "sans-serif"],
 			},
+			backgroundOpacity: {
+			  '25': '0.25',
+			  '50': '0.5',
+			  '75': '0.75',
+				'100': '1.0',
+			}
 			// fontWeights: {
 			// 	normal: "var(--font-weight-normal)",
 			// 	display: "var(--font-weight-display)",
@@ -33,7 +39,9 @@ module.exports = {
 		}
   },
 	variants: {
-		backgroundColor: ['hover', 'active']
+		backgroundColor: ['hover', 'active'],
+		backgroundOpacity: ['hover', 'active'],
+		textColor: ['hover', 'active'],
 	},
   plugins: [],
 }
