@@ -110,6 +110,7 @@ function _onAuthStateChangedListener() {
 	})
 }
 
+// TODO REFACTOR: Move somewhere else; maybe 'app/utils/'
 function _buildUserObject(doc) {
 	return {
 		uid: doc.uid,

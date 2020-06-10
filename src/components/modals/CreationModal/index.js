@@ -11,48 +11,26 @@ import { createItem, Collection } from '../../../app/utils'
 import { nanoid } from 'nanoid'
 
 // TODO Save WIP drafts
-// TODO Disable multi-submit
 export const CreationModal = (props) => {
 	const dispatch = useDispatch()
 	const projectId = nanoid()
-	const [isSubmitting, setSubmitting] = useState(false)
 	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
-	let refForm = React.createRef()
+	let isSubmitting = false
+	let refForm = null // NB. ref set via component callback, not 'useRef', b/c was null when set via 'useRef' in conjunction with 'isSubmitting' state var check in 'submitForm()'. 
 
-	
+	// TODO Refactor: Extract 'submitForm' to more generalized usage
   async function submitForm() {
-		console.log("[CreationModal] submitForm()")
-
-		// if (!isSubmitting) {
-		// 	setSubmitting(true)
-
-			let valid = await refForm.current.validateForm()
+		if (!isSubmitting) {
+			isSubmitting = true
+			let values = refForm.values
+			let valid = await refForm.validateForm() // NB. this sets ref to null.
 			if (Object.entries(valid).length === 0) {
-				console.log("form: ", refForm.current)
-				refForm.current.submitForm()
-				let values = refForm.current.values
-				console.log("values: ", values) 
 				createItem({ values: values, collection: Collection.PROJECTS, itemId: projectId })
-				refForm.current.resetForm()
-
-				// setSubmitting(false)
+				refForm.resetForm()
 			} 
-		// }
+			isSubmitting = false
+		}
 	}
-
-
-
-
-				// let doc = {
-				// 	data: {
-				// 		...refForm.current.values,
-				// 		uid: projectId,
-				// 		creatorId: currentUser.uid,
-				// 	},
-				// 	collection: Collection.PROJECTS, // TODO use enum e.g. Types.PROJECT
-				// }
-				// try { await dispatch(createItem(doc)) }
-				// catch (err) { throw new Error(err) }
 
 	return (
 		<>
@@ -60,7 +38,7 @@ export const CreationModal = (props) => {
 			<ModalCard>
 				<ModalCardTopBar/>
 				<ModalCardBody>
-					<ProjectForm ref={refForm} autoSelect={true}/>
+					<ProjectForm ref={(c) => refForm = c } autoSelect={true}/>
 				</ModalCardBody>
 
 				<ModalCardBottomBar>
@@ -78,71 +56,10 @@ export const CreationModal = (props) => {
 }
 export default CreationModal
 
-					// <ProjectForm className='flex-1' ref={refForm} projectId={projectId}/>
-
-// const ApproachBuilder = (props) => {
-// 	const approaches = []
-// 	const addApproach = () => {
-// 		approaches.push({
-// 			ref = React.createRef(),
-// 		})
-// 	}
-//
-// 	return (
-// 		<>
-// 			<div>
-// 				{ approaches.map((approach, i) => {
-// 					return (
-// 						<ApproachForm projectId={props.id} key={i} ref={approach.ref}/>
-// 					)
-// 				})}
-// 				<div onClick={addApproach}>+ Approach</div>
-// 			</div>
-// 		</>
-// 	)
-// }
-//
-// const ApproachForm = React.forwardRef((props, ref) => {
-// })
-
-
 
 
 // ---------------------------------------------------
-const ModalCardTopBar = (props) => {
-	const store = useStore()
-	const currentUser = store.getState().session.currentUser
 
-  return (
-		<div className={`p-2 flex flex-row bg-secondary rounded-t items-center border-b border-gray-300 ${props.className}`}>
-				<div className='p-px flex-1 flex flex-row items-center'>
-					<AvatarFrame className='h-10 w-10'>
-						<CurrentUserAvatar/>
-					</AvatarFrame>
-					<div className='flex flex-col ml-2 leading-none'>
-						<div className='text-sm font-bold'>{currentUser.displayName}</div>
-						<div className='text-xs'>@estill01</div>
-					</div>
-				</div>
-
-				<div className='flex-1 flex flex-row items-center'>
-					<div className='mx-auto flex flex-row'>
-						<div className='flex p-1 h-6 w-6 bg-blue-300 rounded-full border border-blue-400 mr-2 text-white flex flex-row'>
-							<span className='self-center mx-auto'>+</span>
-						</div>
-						<div className='flex text-gray-500 text-xl font-extrabold'>
-							Add Project
-						</div>
-					</div>
-				</div>
-
-				<div className='flex-1 flex flex-row'>
-					<span className='flex-1'/>
-					<CloseModalButton/>
-				</div>
-		</div>
-	)
-}
 
 const ModalFrame = (props) => {
 	const dispatch = useDispatch()
@@ -198,6 +115,39 @@ const ModalCardBody = (props) => {
 		</div>
 	)
 }
+
+const ModalCardTopBar = (props) => {
+	const store = useStore()
+	const currentUser = store.getState().session.currentUser
+
+  return (
+		<div className={`p-2 flex flex-row bg-secondary rounded-t items-center border-b border-gray-300 ${props.className}`}>
+				<div className='p-px flex-1 flex flex-row items-center'>
+					<AvatarFrame className='h-10 w-10'>
+						<CurrentUserAvatar/>
+					</AvatarFrame>
+					<div className='flex flex-col ml-2 leading-none'>
+						<div className='text-sm font-bold'>{currentUser.displayName}</div>
+						<div className='text-xs'>@estill01</div>
+					</div>
+				</div>
+
+				<div className='flex-1 flex flex-row items-center'>
+					<div className='mx-auto flex flex-row'>
+						<div className='flex text-gray-500 text-xl font-extrabold'>
+							Add Project
+						</div>
+					</div>
+				</div>
+
+				<div className='flex-1 flex flex-row'>
+					<span className='flex-1'/>
+					<CloseModalButton/>
+				</div>
+		</div>
+	)
+}
+
 
 
 const ModalCardBottomBar = (props) => {
@@ -255,12 +205,17 @@ const CloseModalButton = (props) => {
 	return (
 		<>
 			<div 
-			className='text-gray-500 hover:text-gray-600 active:text-gray-700 p-2 text-lg select-none cursor-pointer'
+			className='text-gray-500 w-8 h-8 rounded-full hover:text-gray-600 hover:bg-gray-200 active:text-gray-700 active:bg-gray-300 p-2 text-lg select-none cursor-pointer flex flex-row'
 			onClick={() => toggleModal()}
 			>
-				X
+				<span className='self-center mx-auto'>X</span>
 			</div>
 		</>
 	)
 }
+	
+	// ## Blue '+' circle decoration ##
+	// <div className='flex p-1 h-6 w-6 bg-blue-300 rounded-full border border-blue-400 mr-2 text-white flex flex-row'>
+	// 	<span className='self-center mx-auto'>+</span>
+	// </div>
 

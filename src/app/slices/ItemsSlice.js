@@ -1,34 +1,12 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { firebase } from '../remote'
+import { addToFirestore } from '../utils'
 
-export const createItem =
-	createAsyncThunk('items/create',
-	async (arg, thunkAPI) => {
-		console.log("[createItem]")
-		console.log("arg: ", arg)
-		// data: {
-		//   name
-		//   description
-		//   uid
-		// }
-		// type
-
-		let token = await firebase.auth().currentUser.getIdToken()
-		console.log("auth token: ", token)
-		console.log("firebase.app(): ", firebase.app())
-		console.log("firebase.firestore():", firebase.firestore())
-		// setRequestHeader
-
-		let firestore = new firebase.firestore() // TODO move this into slice (?)
-		let response = await firestore.collection(arg.collection).add(arg.data)
-		let doc = await response.get()
-		console.log("[createItem] doc.data(): ", doc.data())
-		return doc.data()
-	},
-	{ condition: () => {
-	}}
+// NB. Do not dispatch '_createItem' directly; use 'createItem' in './app/utils' instead.
+export const _createItem =
+	createAsyncThunk('items/_create',
+	async (arg, thunkAPI) => addToFirestore(arg),
 )
-
 
 export const ItemsSlice = createSlice({
 	name: 'items',
@@ -43,22 +21,22 @@ export const ItemsSlice = createSlice({
 		}
 	},
 	extraReducers: {
-		[createItem.pending]: (state, action) => {
-			console.log("[items/create/pending]")
+		[_createItem.pending]: (state, action) => {
+			console.log("[items/_create/pending]")
 			console.log("action.payload: ", action.payload)
 
 			state.status = 'pending'
 			state.isLoading = true
 		},
-		[createItem.rejected]: (state, action) => {
-			console.log("[items/create/rejected]")
+		[_createItem.rejected]: (state, action) => {
+			console.log("[items/_create/rejected]")
 			console.log("action.payload: ", action.payload)
 
 			state.status = 'error'
 			state.isLoading = false
 		},
-		[createItem.fulfilled]: (state, action) => {
-			console.log("[items/create/fulfilled]")
+		[_createItem.fulfilled]: (state, action) => {
+			console.log("[items/_create/fulfilled]")
 			console.log("action.payload: ", action.payload)
 
 			state.status = 'idle'

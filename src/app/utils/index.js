@@ -1,9 +1,18 @@
 // import { useStore, useDispatch } from 'react-redux'
 import { isNil } from 'lodash'
 import { nanoid } from 'nanoid'
-import { createItem as createItemAction } from '../slices/ItemsSlice'
+import { _createItem as createItemAction } from '../slices/ItemsSlice'
 import { store } from '../index'
+import { firebase } from '../remote'
 
+export const addToFirestore = async (arg) => {
+	let firestore = firebase.firestore()
+	try { 
+		let response = await firestore.collection(arg.collection).add(arg.data) 
+		let doc = await response.get()
+		return doc.data()
+	} catch (err) { throw new Error(err) }
+}
 
 export const createItem = async ({ values, collection, itemId }) => {
 	if (isNil(values)) { throw new Error("[createItem()] function parameter 'values' cannot be undefined.") }
@@ -21,11 +30,11 @@ export const createItem = async ({ values, collection, itemId }) => {
 		collection: collection, 
 	}
 
-	let result
-	try { result = await store.dispatch(createItemAction(doc)) }
-	catch (err) { throw new Error(err) }
+	try { 
+		let result = await store.dispatch(createItemAction(doc)) 
+		return result
+	} catch (err) { throw new Error(err) }
 
-	return result
 }
 
 export const Collection = {
