@@ -18,7 +18,7 @@ export const CreationModal = (props) => {
 	let isSubmitting = false
 	let refForm = null // NB. ref set via component callback, not 'useRef', b/c was null when set via 'useRef' in conjunction with 'isSubmitting' state var check in 'submitForm()'. 
 
-	// TODO Refactor: Extract 'submitForm' to more generalized usage
+	// TODO Refactor: Extract 'submitForm' to more generalized usage / make a generalized form
   async function submitForm() {
 		if (!isSubmitting) {
 			isSubmitting = true

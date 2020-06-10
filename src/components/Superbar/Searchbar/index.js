@@ -9,6 +9,7 @@ import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_Use
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import { search, stashSearch } from '../../../app/slices/SearchSlice'
 import watch from 'redux-watch'
+import { ReactComponent as AlgoliaLogo } from '../../../assets/images/search-by-algolia-light-background.svg'
 
 // import { useSpring, useChain, animated, config } from 'react-spring'
 // import { Spring } from 'react-spring/renderprops'
@@ -280,14 +281,19 @@ const BottomBar = (props) => {
 	return (
 		<>
 			<div className='p-4 flex flex-row bg-primary'>
-				<a 
-				className='no-underline cursor-pointer hover:text-blue-500'
-				style={{fontVariant:'small-caps'}} 
-				onClick={handelClickMoreResults} 
-				>
-					more results
-				</a>
-				<EnterIndicator inputBarRef={props.inputBarRef} className='ml-2'/>
+				<div className='flex flex-1'>
+					<a 
+					className='no-underline cursor-pointer hover:text-blue-500'
+					style={{fontVariant:'small-caps'}} 
+					onClick={handelClickMoreResults} 
+					>
+						more results
+					</a>
+					<EnterIndicator inputBarRef={props.inputBarRef} className='ml-2'/>
+				</div>
+				<div>
+					<AlgoliaLogo/>
+				</div>
 			</div>
 		</>
 	)
