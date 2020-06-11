@@ -7,8 +7,8 @@ export const PageSlice = createSlice({
 		scrollLock: false,
 		superbar: true,
 		dimmer: false,
-		globalDimmer: true, // TMP
-		creationModal: true, // TMP
+		globalDimmer: false, // TMP
+		creationModal: false, // TMP
 		sideNav: false,
 		searchDropdown: false,
 		userMenu: false,

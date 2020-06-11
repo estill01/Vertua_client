@@ -25,7 +25,7 @@ export const CreationModal = (props) => {
 			let values = refForm.values
 			let valid = await refForm.validateForm() // NB. this sets ref to null.
 			if (Object.entries(valid).length === 0) {
-				createItem({ values: values, collection: Collection.PROJECTS, itemId: projectId })
+				createItem({ values: values, collection: Collection.PROJECTS, uid: projectId })
 				refForm.resetForm()
 			} 
 			isSubmitting = false
@@ -43,7 +43,7 @@ export const CreationModal = (props) => {
 
 				<ModalCardBottomBar>
 					<div 
-					className='flex-1 px-4 py-2 bg-blue-400 text-white hover:bg-blue-500 active:bg-blue-600 border border-blue-500 rounded select-none cursor-pointer font-bold text-center'
+					className='flex-1 px-4 py-2 bg-blue-400 text-white hover:bg-blue-500 active:bg-blue-600 border border-blue-500 rounded-md select-none cursor-pointer font-bold text-center'
 					onClick={() => submitForm()}
 					>
 						Post
@@ -153,7 +153,7 @@ const ModalCardTopBar = (props) => {
 const ModalCardBottomBar = (props) => {
 	return (
 		<>
-			<div className='flex flex-row p-2 bg-secondary border-t border-gray-400'>
+			<div className='flex flex-row p-2 bg-secondary rounded-b-md border-t border-gray-400'>
 				<div className='flex-1'>
 				</div>
 				<div className='flex-1 flex items-center'>
