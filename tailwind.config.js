@@ -39,9 +39,11 @@ module.exports = {
 		}
   },
 	variants: {
+		borderColor: ['hover', 'active'],
 		backgroundColor: ['hover', 'active'],
 		backgroundOpacity: ['hover', 'active'],
 		textColor: ['hover', 'active'],
+		scale: ['hover', 'active'],
 	},
   plugins: [],
 }
