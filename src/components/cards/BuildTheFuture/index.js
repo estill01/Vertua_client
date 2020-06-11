@@ -12,7 +12,7 @@ const BuildTheFutureCard = () => {
 	return (
 		<>
 			<div 
-			className='flex flex-col border-b-4 border-pink-600 relative'
+			className='flex-1 flex flex-col relative border-b-2 border-blue-400'
 			style={{
 				backgroundImage: 'linear-gradient(to top right, #42e2ac, #4299e2)',
 				height: '25rem',
@@ -52,14 +52,13 @@ const BuildTheFutureCard = () => {
 						style={{ textShadow: '0px 0px 1px gray' }}
 						>
 							<div 
-							className='text-6xl text-extrabold'
+							className='text-5xl text-extrabold'
 							>
-								Help Solve Important Problems.	
+								Invent & Invest in New Technologies & Approaches to #BuildTheFuture.
 							</div>
 							<div
 							className='text-3xl text-extrabold'
 							>
-								Invent New Technologies & Approaches To #BuildTheFuture.
 							</div>
 						</div>
 					</div>
@@ -79,8 +78,6 @@ const BuildTheFutureCard = () => {
 							</div>
 						</div>
 					</div>
-
-				
 				</div>
 
 			</div>
