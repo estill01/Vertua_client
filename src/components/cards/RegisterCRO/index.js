@@ -10,7 +10,7 @@ const RegisterCROCard = () => {
 			style={{
 				backgroundImage: `url(${require('./images/image.jpeg')})`,
 				backgroundSize: 'cover',
-				backgroundRepeat: 'none',
+				backgroundRepeat: 'no-repeat',
 				height: '18rem',
 				// backgroundImage: 'linear-gradient(to bottom right, yellow, orange'
 			}}

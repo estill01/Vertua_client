@@ -9,6 +9,7 @@ import Card from '../components/utils/Card'
 import SponsorResearchCard from '../components/cards/SponsorResearch'
 import BuildTheFutureCard from '../components/cards/BuildTheFuture'
 import RegisterCROCard from '../components/cards/RegisterCRO'
+import FeaturedProjectsCard from '../components/cards/FeaturedProjects'
 
 const HomePage = () => {
 	useEffect(() => {
@@ -20,10 +21,10 @@ const HomePage = () => {
 		<>
 			<PageErrorBoundary>
 				<BuildTheFutureCard/>
+				<FeaturedProjectsCard/>
 				<RegisterCROCard/>
 				<SponsorResearchCard/>
 
-				<FeaturedProjects/>
 
 
 				<Card>
@@ -55,13 +56,3 @@ const UserList = () => {
 	)
 }
 
-
-const FeaturedProjects = () => (
-  <>
-		<h3 style={{marginTop: '0'}}>Featured Projects</h3>
-		<div className='font-bold'>Organ Engineering</div>
-		<div className='font-bold'>Cybernetics</div>
-		<div className='font-bold'>Global Warming</div>
-		<div className='font-bold'>Space Industrialization</div>
-	</>
-)

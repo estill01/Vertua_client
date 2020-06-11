@@ -54,7 +54,7 @@ const BuildTheFutureCard = () => {
 							<div 
 							className='text-5xl text-extrabold'
 							>
-								Invent & Invest in New Technologies & Approaches to #BuildTheFuture.
+								Invent & Invest in New Technologies & Approaches to Help #BuildTheFuture.
 							</div>
 							<div
 							className='text-3xl text-extrabold'
