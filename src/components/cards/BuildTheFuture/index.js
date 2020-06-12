@@ -65,7 +65,7 @@ const BuildTheFutureCard = () => {
 							<div 
 							className='px-4 py-2 text-bold text-white border border-blue-600 rounded-md bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer select-none mr-6 flex'
 							style={{
-								fontSize: 'calc(1.5em + 1vw)'
+								fontSize: 'calc(1.25em + 1vw)'
 							}}
 
 							>

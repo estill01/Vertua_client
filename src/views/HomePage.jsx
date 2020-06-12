@@ -24,8 +24,8 @@ const HomePage = () => {
 				<BuildTheFutureCard/>
 				<FeaturedProjectsCard/>
 				<CommunityProductsCard className='my-6'/>
-				<RegisterCROCard/>
 				<SponsorResearchCard/>
+				<RegisterCROCard/>
 
 
 
