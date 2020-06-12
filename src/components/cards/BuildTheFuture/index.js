@@ -15,7 +15,7 @@ const BuildTheFutureCard = () => {
 			className='flex-1 flex flex-col relative border-b-2 border-blue-400'
 			style={{
 				backgroundImage: 'linear-gradient(to top right, #42e2ac, #4299e2)',
-				minHeight: '21rem',
+				minHeight: '18rem',
 			}}
 			>
 				<div 
@@ -34,7 +34,7 @@ const BuildTheFutureCard = () => {
 				style={{
 					backgroundImage: `url(${svgNetwork})`,
 					backgroundRepeat: 'no-repeat',
-					backgroundPosition: '-10% -110%',
+					backgroundPosition: '-10% -90%',
 					backgroundSize: '30%',
 					opacity: '20%',
 					zIndex: '1',
@@ -47,32 +47,37 @@ const BuildTheFutureCard = () => {
 				style={{ zIndex: '2' }}
 				>
 					<div className='flex-1 flex flex-row items-center'>
+
 						<div 
-						className='text-white flex flex-col leading-tight'
-						style={{ textShadow: '0px 0px 1px gray' }}
+						className='text-white text-extrabold flex flex-col leading-tight md:w-3/4 sm:w-full'
+						style={{ 
+							textShadow: '0px 0px 1px gray',
+							fontSize: 'calc(2rem + 0.8vw)'
+						}}
 						>
-							<div 
-							className='text-5xl text-extrabold'
-							>
-								Help Invent Technologies & Approaches to #BuildTheFuture.
-							</div>
-							<div
-							className='text-3xl text-extrabold'
-							>
-							</div>
+							Help Invent Technologies & Approaches to #BuildTheFuture.
 						</div>
+
 					</div>
 
 					<div className='flex-1 flex flex-row items-center'>
 						<div className='flex flex-row leading-tight'>
 							<div 
-							className='px-4 py-2 text-4xl text-bold text-white border border-blue-600 rounded-md bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer select-none mr-6 flex'
+							className='px-4 py-2 text-bold text-white border border-blue-600 rounded-md bg-blue-500 hover:bg-blue-400 active:bg-blue-600 cursor-pointer select-none mr-6 flex'
+							style={{
+								fontSize: 'calc(1.5em + 1vw)'
+							}}
+
 							>
 								Browse Projects
 							</div>
 
 							<div 
-							className='px-4 py-2 text-4xl text-bold text-white border border-green-600 rounded-md bg-green-500 hover:bg-green-400 active:bg-green-600 cursor-pointer select-none flex'
+							className='px-4 py-2  text-bold text-white border border-green-600 rounded-md bg-green-500 hover:bg-green-400 active:bg-green-600 cursor-pointer select-none flex'
+							style={{
+								fontSize: 'calc(1.25em + 1vw)'
+							}}
+
 							>
 								<span className='self-center'>Sponsor Research</span>
 							</div>

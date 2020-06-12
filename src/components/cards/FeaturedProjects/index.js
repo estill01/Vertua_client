@@ -7,8 +7,14 @@ const FeaturedProjectsCard = () => {
 			<div 
 			className='pb-4 flex flex-col'
 			>
-				<div className='text-3xl font-bold mt-6 px-4'>
-					Featured Projects
+				<div className='mt-6 px-4'>
+					<div className='text-3xl font-bold'>
+						Featured Projects
+					</div>
+					<div className='text-lg text-gray-600 mt-2'>
+						Find your way to contribute and help #BuildTheFuture.
+					</div>
+
 				</div>
 
 
@@ -44,6 +50,7 @@ const FeaturedProjectsCard = () => {
 							<FeaturedProject name='Anti-Aging' img='./images/genomics.webp' className='mr-6'/>
 							<FeaturedProject name='Learning Systems' img='./images/ai.jpg' className='mr-6'/>
 							<FeaturedProject name='Autonomous Drones' img='./images/drones.jpg'/>
+							<FeaturedProject name='Space Elevator' img='./images/space_elevator.jpg'/>
 							<div
 							style={{
 								minWidth: '2.5rem',
@@ -74,11 +81,11 @@ const FeaturedProject = (props) => {
 	return (
 		<>
 			<div 
-			className={`rounded-md cursor-pointer border-2 border-gray-300 hover:border-blue-300 active:border-blue-500 px-2 pt-2 rounded-md transform ease-linear duration-100 hover:scale-105 active:scale-100 shadow-md hover:shadow-lg active:shadow-none ${props.className}`}
+			className={`rounded-md cursor-pointer select-none border-2 border-gray-300 hover:border-blue-300 active:border-blue-500 px-2 pt-2 rounded-md transform ease-linear duration-100 hover:scale-105 active:scale-100 shadow-md hover:shadow-lg active:shadow-none ${props.className}`}
 			style={{minWidth:'14rem'}}
 			>
 				<img
-				className='h-56 w-56 rounded-md select-none' 
+				className='h-56 w-56 rounded' 
 				src={img}
 				/>
 				<div className='mt-2 pb-2 font-bold text-center'>

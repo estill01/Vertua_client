@@ -10,6 +10,7 @@ import SponsorResearchCard from '../components/cards/SponsorResearch'
 import BuildTheFutureCard from '../components/cards/BuildTheFuture'
 import RegisterCROCard from '../components/cards/RegisterCRO'
 import FeaturedProjectsCard from '../components/cards/FeaturedProjects'
+import CommunityProductsCard from '../components/cards/CommunityProducts'
 
 const HomePage = () => {
 	useEffect(() => {
@@ -22,6 +23,7 @@ const HomePage = () => {
 			<PageErrorBoundary>
 				<BuildTheFutureCard/>
 				<FeaturedProjectsCard/>
+				<CommunityProductsCard className='my-6'/>
 				<RegisterCROCard/>
 				<SponsorResearchCard/>
 
