@@ -1,4 +1,4 @@
-import React, { lazy } from 'react'
+import React, { useEffect } from 'react'
 import { Image } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 
@@ -57,65 +57,68 @@ const projects = [
 
 
 const FeaturedProjectsCard = () => {
+	const refContainer = React.createRef()
 	return (
 		<>
-			<div 
-			className='pb-4 flex flex-col'
-			>
-				<div className='mt-6 px-4'>
+			<div className='pb-4 flex flex-col'>
+
+				<div className='pt-6 px-4'>
 					<div className='text-3xl font-bold'>
 						Featured Projects
 					</div>
 					<div className='text-lg text-gray-600 mt-2'>
 						Find your way to contribute and help #BuildTheFuture.
 					</div>
-
 				</div>
 
+				<div className='flex flex-col'>
+					<div 
+					className='w-full h-full overflow-hidden relative'
+					style={{
+						height: '19.75rem',
+					}}
+					>
 
-				<div className='relative '>
-
-				<div
-				className='w-12 h-full absolute left-0 top-0'
-				style={{
-					backgroundImage: 'linear-gradient(to right, white, white, transparent)',
-					zIndex: '2',
-				}}
-				/>
-
-					<div className='flex flex-col'>
-						<div 
-						className='inline-flex overflow-x-scroll pb-4 pt-6'
+						<ScrollButton
+						direction='left' 
+						containerRef={refContainer} 
+						className='absolute'
 						style={{
-							zIndex: '1',
+							zIndex: 2,
+							top: '40%',
+							left: '1.5rem',
 						}}
-						>
-							<div
-							style={{
-								minWidth: '2.5rem',
-								minHeight: '100%'
-							}}/>
+						/>
 
+						<div 
+						className='absolute top-0 left-0 right-0 inline-flex overflow-x-scroll py-6'
+						style={{
+							zIndex: 1,
+							boxSizing: 'content-box',
+							bottom: '-17px',
+							height: '18rem',
+						}}
+						ref={refContainer}
+						>
+							<div style={{ minWidth: '2.5rem', minHeight: '100%' }}/>
 							{ projects.map((project, i) => {
 								return (<FeaturedProject data={project} key={i} className='mr-6'/>)
 							})}
-
-							<div
-							style={{
-								minWidth: '2.5rem',
-								minHeight: '100%'
-							}}/>
+							<div style={{ minWidth: '2.5rem', minHeight: '100%' }}/>
 						</div>
+						
+						<ScrollButton 
+						direction='right' 
+						containerRef={refContainer}
+						className='absolute'
+						style={{
+							zIndex: 2,
+							top: '40%',
+							right: '1.5rem',
+						}}
+						/>
+
 					</div>
-
-				<div
-				className='w-12 h-full absolute right-0 top-0'
-				style={{
-					backgroundImage: 'linear-gradient(to left, white, white, transparent)',
-					zIndex: '2',
-				}}
-				/>
-
 				</div>
 
 			</div>
@@ -123,6 +126,97 @@ const FeaturedProjectsCard = () => {
 	)
 }
 export default FeaturedProjectsCard
+
+
+					// <div
+					// className='mr-4 px-4 py-2 bg-gray-400 hover:bg-gray-300 active:bg-gray-500 rounded border border-gray-500 cursor-pointer select-none'
+					// onClick={scrollLeft}
+					// >
+					// 	Scroll Left
+					// </div>
+					// <div
+					// className='px-4 py-2 bg-gray-400 hover:bg-gray-300 active:bg-gray-500 rounded border border-gray-500 cursor-pointer select-none'
+					// onClick={scrollRight}
+					// >
+					// 	Scroll Right
+					// </div>
+          //
+
+const ScrollButton = (props) => {
+	let scrollAmt = null
+	let text = null
+	let scrollWidth = null
+	let segments = null
+	// let scrollWidth = props.containerRef.current.scrollWidth
+	// let segments = Math.floor(scrollWidth / Math.abs(scrollAmt))
+	let currentSegment = 1
+
+	let isVisible = true
+
+	if (props.direction === 'left') {
+		scrollAmt = -450
+		text = '<'
+	} 
+	else {
+		scrollAmt = 450 
+		text = '>'
+	}
+
+	useEffect(() => {
+		scrollWidth = props.containerRef.current.scrollWidth
+		segments = Math.floor(scrollWidth / Math.abs(scrollAmt))
+
+		console.log("[ScrollButton]")
+		console.log("scrollAmt: ", scrollAmt)
+		console.log("scrollWidth: ", scrollWidth)
+		console.log("segments: ", segments)
+		console.log("currentSegment: ", currentSegment)
+
+		if (props.direction === 'left' && currentSegment > 1 ) { isVisible = true } else { isVisible = false }
+		if (props.direction !== 'left' && currentSegment < segments ) { isVisible = true } else { isVisible = false }
+	})
+
+
+	function scroll() {
+		props.containerRef.current.scrollBy({ left: scrollAmt, behavior: 'smooth'})
+		console.log("[scroll]")
+		console.log("containerRef.scrollLeft: ", props.containerRef.current.scrollLeft)
+	}
+
+	return (
+		<>
+		{ isVisible && (
+			<div
+			className={`flex flex-row items-center w-16 h-16 rounded-full bg-white hover:bg-gray-100 active:bg-gray-200 border-2 border-gray-300 hover:border-blue-400 active:border-blue-500 text-3xl font-bold text-gray-500 hover:text-blue-400 shadow active:shadow-none cursor-pointer select-none ${props.className}`}
+			style={props.style}
+			onClick={scroll}
+			>
+				<span className='mx-auto'>{text}</span>
+			</div>
+		)}
+		</>
+	)
+
+}
+		// { ((props.direction === 'left' && currentSegment > 1) || (props.direction !== 'left' && currentSegment < segments)) && (
+
+
+				// <div
+				// className='w-12 h-full absolute left-0 top-0'
+				// style={{
+				// 	backgroundImage: 'linear-gradient(to right, white, white, transparent)',
+				// 	zIndex: '2',
+				// }}
+				// />
+        //
+				// <div
+				// className='w-12 h-full absolute right-0 top-0'
+				// style={{
+				// 	backgroundImage: 'linear-gradient(to left, white, white, transparent)',
+				// 	zIndex: '2',
+				// }}
+				// />
+        
 
 const FeaturedProject = (props) => {
 	const img = require(`${props.data.img}`)

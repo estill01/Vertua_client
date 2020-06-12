@@ -25,27 +25,21 @@ const HomePage = () => {
 				<FeaturedProjectsCard/>
 				<CommunityProductsCard className='my-6'/>
 				<SponsorResearchCard/>
-				<RegisterCROCard/>
-
-
-
-				<Card>
-					<ProjectForm/>
-				</Card>
-
-				<hr/>
-
-				<h3>Users Activity</h3>
-				<UserList/>
-
 			</PageErrorBoundary>
 		</>
 	)
 }
-
 export default HomePage
 
-
+// <RegisterCROCard/>
+// <Card>
+// 	<ProjectForm/>
+// </Card>
+//
+// <hr/>
+//
+// <h3>Users Activity</h3>
+// <UserList/>
 
 
 

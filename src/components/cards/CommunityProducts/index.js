@@ -36,6 +36,15 @@ const products = [
 		price: '$300',
 		productURL: 'products/at-home_bio_lab-starter_edition',
 	},
+	{
+		name: "Cybernetic Armband",
+		description: "Connect your peripheral nervous system to digital computing systems.",
+		img: "./images/explantcutaway2.jpg",
+		forSale: false,
+		price: '$200',
+		productURL: 'products/at-home_bio_lab-starter_edition',
+	},
+
 
 ]
 
@@ -47,7 +56,7 @@ const CommunityProductsCard = (props) => {
 			<div
 			className={`flex flex-col ${props.className}`}
 			>
-				<div className='px-2 pb-2'>
+				<div className='px-4 pb-2'>
 					<div className='text-3xl font-bold'>
 						Products Developed By The Community
 					</div>
@@ -67,9 +76,9 @@ const CommunityProductsCard = (props) => {
 
 export default CommunityProductsCard
 
-				// <div className='h-32 w-32 rounded-md bg-gray-300 border border-gray-400 mr-4'/>
 const ProductItem = (props) => {
 	const history = useHistory()
+	let refTitle = React.createRef()
 
 	let img
 	if (props.data.img !== '') { img = require(`${props.data.img}`) }
@@ -78,12 +87,22 @@ const ProductItem = (props) => {
 		history.push(props.data.productURL)
 		window.scrollTo(0,0)
 	}
+	function handleMouseEnter(e) {
+		console.log("[handleMouseEnter]")
+		console.log("refTitle: ", refTitle)
+		refTitle.current.classList.add('text-blue-500')
+	}
+	function handleMouseLeave(e) {
+		refTitle.current.classList.remove('text-blue-500')
+	}
 
 	return (
 		<>
 			<div 
 			className={`flex flex-row cursor-pointer p-2 border-transparent border-2 hover:border-blue-400 active:border-blue-500 rounded-md ${props.className}`}
 			onClick={handleClick}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
 			>
 				<img 
 				className='h-32 w-32 rounded-md bg-gray-300 border border-gray-400 mr-4'
@@ -94,7 +113,7 @@ const ProductItem = (props) => {
 
 					<div className='flex-1 flex flex-col pb-2'>
 						<div className='flex flex-row items-center'>
-							<div className='text-2xl mr-2'>{props.data.name}</div>
+							<div ref={refTitle} className='text-2xl mr-2 active:text-blue-400'>{props.data.name}</div>
 
 							<Label tag>
 								<div className='text-gray-600 text-xl text-extrabold'>
