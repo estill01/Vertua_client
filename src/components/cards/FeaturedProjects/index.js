@@ -1,6 +1,12 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, lazy } from 'react'
 import { Image } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
+
+import('smoothscroll-polyfill').then((val) => {
+	console.log("[Smooth Scroll Polyfill]")
+	console.log(val)
+	val.polyfill()
+})
 
 const projects = [
 	{
@@ -58,6 +64,8 @@ const projects = [
 
 const FeaturedProjectsCard = () => {
 	const refContainer = React.createRef()
+	
+
 	return (
 		<>
 			<div className='pb-4 flex flex-col'>
@@ -128,20 +136,6 @@ const FeaturedProjectsCard = () => {
 export default FeaturedProjectsCard
 
 
-					// <div
-					// className='mr-4 px-4 py-2 bg-gray-400 hover:bg-gray-300 active:bg-gray-500 rounded border border-gray-500 cursor-pointer select-none'
-					// onClick={scrollLeft}
-					// >
-					// 	Scroll Left
-					// </div>
-					// <div
-					// className='px-4 py-2 bg-gray-400 hover:bg-gray-300 active:bg-gray-500 rounded border border-gray-500 cursor-pointer select-none'
-					// onClick={scrollRight}
-					// >
-					// 	Scroll Right
-					// </div>
-          //
-
 const ScrollButton = (props) => {
 	let scrollAmt = null
 	let text = null
@@ -187,7 +181,7 @@ const ScrollButton = (props) => {
 		<>
 		{ isVisible && (
 			<div
-			className={`flex flex-row items-center w-16 h-16 rounded-full bg-white hover:bg-gray-100 active:bg-gray-200 border-2 border-gray-300 hover:border-blue-400 active:border-blue-500 text-3xl font-bold text-gray-500 hover:text-blue-400 shadow active:shadow-none cursor-pointer select-none ${props.className}`}
+			className={`flex flex-row items-center w-12 h-12 rounded-full bg-white hover:bg-gray-100 active:bg-gray-200 border-2 border-gray-300 hover:border-blue-400 active:border-blue-500 text-2xl font-bold text-gray-500 hover:text-blue-400 shadow active:shadow-none cursor-pointer select-none ${props.className}`}
 			style={props.style}
 			onClick={scroll}
 			>
@@ -200,23 +194,6 @@ const ScrollButton = (props) => {
 }
 		// { ((props.direction === 'left' && currentSegment > 1) || (props.direction !== 'left' && currentSegment < segments)) && (
 
-
-				// <div
-				// className='w-12 h-full absolute left-0 top-0'
-				// style={{
-				// 	backgroundImage: 'linear-gradient(to right, white, white, transparent)',
-				// 	zIndex: '2',
-				// }}
-				// />
-        //
-				// <div
-				// className='w-12 h-full absolute right-0 top-0'
-				// style={{
-				// 	backgroundImage: 'linear-gradient(to left, white, white, transparent)',
-				// 	zIndex: '2',
-				// }}
-				// />
-        
 
 const FeaturedProject = (props) => {
 	const img = require(`${props.data.img}`)
