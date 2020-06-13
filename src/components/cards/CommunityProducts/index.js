@@ -1,6 +1,7 @@
 import React from 'react'
 import { Icon, Label } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
+import { CardHeader } from '../utils'
 
 
 const products = [
@@ -56,24 +57,19 @@ const CommunityProductsCard = (props) => {
 			<div
 			className={`flex flex-col ${props.className}`}
 			>
-				<div className='px-4 pb-2'>
-					<div className='text-3xl font-bold'>
-						Products Developed By The Community
-					</div>
-					<div className='text-lg text-gray-600 mt-2'>
-						Tools to help you better #BuildTheFuture.
-					</div>
-				</div>
+				<CardHeader 
+				text='Products Developed By The Community'
+				subText='Tools to help you better #BuildTheFuture.'
+				/>
 				<div className='h-46 pt-4 px-6'>
 				{ products.map((product, i) => {
-					return( <ProductItem data={product} key={i}/>)
+					return( <ProductItem data={product} key={i} className='mb-4'/>)
 				})}
 				</div>
 			</div>
 		</>
 	)
 }
-
 export default CommunityProductsCard
 
 const ProductItem = (props) => {
@@ -99,13 +95,13 @@ const ProductItem = (props) => {
 	return (
 		<>
 			<div 
-			className={`flex flex-row cursor-pointer p-2 border-transparent border-2 hover:border-blue-400 active:border-blue-500 rounded-md ${props.className}`}
+			className={`flex flex-row cursor-pointer p-2 border-gray-300 border-2 hover:border-blue-400 active:border-blue-500 rounded-md ${props.className}`}
 			onClick={handleClick}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 			>
 				<img 
-				className='h-32 w-32 rounded-md bg-gray-300 border border-gray-400 mr-4'
+				className='h-32 w-32 rounded bg-gray-300 border border-gray-400 mr-4'
 				src={img}
 				/>
 
@@ -132,9 +128,6 @@ const ProductItem = (props) => {
 						<div>
 							<PurchaseButton data={props.data}/>
 						</div>
-						<div className='text-blue-400 hover:text-blue-300 active:text-blue-500 ml-2 cursor-pointer select-none'>
-							Learn more
-						</div>
 					</div>
 				</div>
 
@@ -142,6 +135,11 @@ const ProductItem = (props) => {
 		</>
 	)
 }
+
+						// <div className='text-blue-400 hover:text-blue-300 active:text-blue-500 ml-2 cursor-pointer select-none'>
+						// 	Save For Later
+						// </div>
+
 
 
 const PurchaseButton = (props) => {
@@ -177,28 +175,3 @@ const PurchaseButton = (props) => {
 	)
 }
 
-// const BuyButton = (props) => {
-// 	return (
-// 		<>
-// 			<div className='flex flex-row px-4 py-2 box rounded-md bg-orange-400 hover:bg-orange-300 active:bg-orange-500 border border-yellow-500 hover:border-yellow-400 active:border-yellow-600 text-white cursor-pointer select-none'>
-// 				<Icon name='cart'/>
-// 				<div className='ml-2'>
-// 					Add To Cart
-// 				</div>
-// 			</div>
-// 		</>
-// 	)
-// }
-//
-// const PreOrderButton = (props) => {
-// 	return (
-// 		<>
-// 			<div className='flex flex-row px-4 py-2 box rounded-md text-white cursor-pointer select-none'>
-// 				<Icon name='cart'/>
-// 				<div className='ml-2'>
-// 					Pre-Order Now
-// 				</div>
-// 			</div>
-// 		</>
-// 	)
-// }

@@ -23,7 +23,7 @@ const HomePage = () => {
 			<PageErrorBoundary>
 				<BuildTheFutureCard/>
 				<FeaturedProjectsCard/>
-				<CommunityProductsCard className='my-6'/>
+				<CommunityProductsCard className='my-2'/>
 				<SponsorResearchCard/>
 			</PageErrorBoundary>
 		</>

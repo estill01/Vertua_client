@@ -79,6 +79,10 @@ const NotFoundPage = loadable(
 	{ fallback: <Loading/> }
 )
 
+const ProductPage = loadable(
+	() => timeout(import('../views/ProductPage'), 5000),
+	{ fallback: <Loading/> }
+)
 
 const Router = () => {
 	let dispatch = useDispatch()
@@ -133,7 +137,26 @@ const Router = () => {
 							return (<CreatePage/>)
 						}}
 						/>
-						<Route path='/project/:id' component={ProjectPage}/>
+
+						<Route path='/projects/:id' 
+						render={(routeProps) => {
+							// TODO Fetch data and populate store, or do in page(?)
+							dispatch(setPath(routeProps.location.pathname))
+							return (<ProjectPage/>)
+						}}
+						/>
+
+						<Route path='/products/:id'
+						render={(routeProps) => {
+							console.log("[ROUTER]")
+							console.log(routeProps)
+							// TODO Fetch data and populate store, or do in page(?)
+							dispatch(setPath(routeProps.location.pathname))
+							// routeProps.match.params.id
+
+							return (<ProductPage/>)
+						}}
+						/>
 
 						<Route 
 						exact 

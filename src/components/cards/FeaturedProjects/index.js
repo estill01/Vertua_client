@@ -1,6 +1,7 @@
 import React, { useEffect, lazy } from 'react'
 import { Image } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
+import { CardHeader } from '../utils'
 
 import('smoothscroll-polyfill').then((val) => {
 	console.log("[Smooth Scroll Polyfill]")
@@ -70,14 +71,11 @@ const FeaturedProjectsCard = () => {
 		<>
 			<div className='pb-4 flex flex-col'>
 
-				<div className='pt-6 px-4'>
-					<div className='text-3xl font-bold'>
-						Featured Projects
-					</div>
-					<div className='text-lg text-gray-600 mt-2'>
-						Find your way to contribute and help #BuildTheFuture.
-					</div>
-				</div>
+
+				<CardHeader
+				text='Featured Projects'
+				subText='Find your way to contribute and help #BuildTheFuture.'
+				/>
 
 				<div className='flex flex-col'>
 					<div 

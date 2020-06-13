@@ -1,0 +1,53 @@
+ICONS USED:
+
+# <BuildTheFutureCard/> : background image
+<text y="75" fill="#000000" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  Created by Josh Sorosky
+</text>
+<text y="80" fill="#000000" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  from the Noun Project
+</text>
+
+
+# <SponsorResearchCard/>
+## Fund R&D
+<text y="115" fill="#000000" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  Created by Adrien Coquet
+</text>
+<text y="120" fill="#000000" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  from the Noun Project
+</text>
+
+
+## File IP
+<text y="115" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  Created by LAFS
+</text>
+<text y="120" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  from the Noun Project
+</text>
+
+
+## Research
+<text y="79" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  Created by Eucalyp
+</text>
+<text y="84" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  from the Noun Project
+</text>
+
+## License IP
+<text y="115" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  Created by Adrien Coquet
+</text>
+<text y="120" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  from the Noun Project
+</text>
+
+## Share Earnings
+<text y="79" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  Created by I Putu Kharismayadi
+</text>
+<text y="84" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  from the Noun Project
+</text>

@@ -9,6 +9,14 @@ import svgNetwork from './images/network.svg'
 				// backgroundPosition: '0, 0',
 
 const BuildTheFutureCard = () => {
+	function handleClickSponsorResearch(e) {
+		const el = document.getElementById('sponsor_research')
+		el.scrollIntoView({
+			behavior: 'smooth',
+			block: 'start',
+		})
+	}
+
 	return (
 		<>
 			<div 
@@ -25,18 +33,7 @@ const BuildTheFutureCard = () => {
 					backgroundRepeat: 'no-repeat',
 					backgroundPosition: '140% 0%',
 					backgroundSize: '50%',
-					opacity: '30%',
-					zIndex: '1',
-				}}
-				/>
-				<div 
-				className='absolute h-full w-full'
-				style={{
-					backgroundImage: `url(${svgNetwork})`,
-					backgroundRepeat: 'no-repeat',
-					backgroundPosition: '-10% -90%',
-					backgroundSize: '30%',
-					opacity: '20%',
+					opacity: '0.3',
 					zIndex: '1',
 				}}
 				/>
@@ -77,7 +74,7 @@ const BuildTheFutureCard = () => {
 							style={{
 								fontSize: 'calc(1.25em + 1vw)'
 							}}
-
+							onClick={handleClickSponsorResearch}
 							>
 								<span className='self-center'>Sponsor Research</span>
 							</div>
