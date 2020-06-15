@@ -46,8 +46,9 @@ const SearchResultsPage = () => {
 					{ (results.projects.length != 0 ) &&
 						results.projects.map((result, i) => {
 							return (
-							<div key={i}>
-								{result}
+							<div key={i} className='flex flex-row'>
+								<img src={result.photoURL || ''} className='w-10 h-10 rounded mr-2'/>
+								{result.name}
 							</div>
 							)
 						})
@@ -57,90 +58,6 @@ const SearchResultsPage = () => {
 					style={{ fontVariant: 'small-caps' }}
 					>
 						+ add project
-					</div>
-
-
-					<h3 style={{fontVariant:'small-caps'}}>approaches</h3>
-					{ results.projects.length === 0 && (
-						<div className='italic'>No Approaches Found</div>
-					)}
-					{ (results.projects.length != 0 ) &&
-						results.projects.map((result, i) => {
-							return (
-							<div key={i}>
-								{result}
-							</div>
-							)
-						})
-					}
-					<div 
-					className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
-					style={{ fontVariant: 'small-caps' }}
-					>
-						+ add approach
-					</div>
-
-					<h3 style={{fontVariant:'small-caps'}}>experiments</h3>
-					{ results.projects.length === 0 && (
-						<div className='italic'>No Experiments Found</div>
-					)}
-					{ (results.projects.length != 0 ) &&
-						results.projects.map((result, i) => {
-							return (
-							<div key={i}>
-								{result}
-							</div>
-							)
-						})
-					}
-					<div 
-					className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
-					style={{ fontVariant: 'small-caps' }}
-					>
-						+ add experiment
-					</div>
-
-
-					<h3 style={{fontVariant:'small-caps'}}>protocols</h3>
-					{ results.projects.length === 0 && (
-						<div className='italic'>No Protocols Found</div>
-					)}
-					{ (results.projects.length != 0 ) &&
-						results.projects.map((result, i) => {
-							return (
-							<div key={i}>
-								{result}
-							</div>
-							)
-						})
-					}
-					<div 
-					className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
-					style={{ fontVariant: 'small-caps' }}
-					>
-						+ add protocol
-					</div>
-
-					<h3 style={{fontVariant:'small-caps'}}>groups</h3>
-					{ results.users.length === 0 && (
-						<div className='italic'>No Groups Found</div>
-					)}
-
-					{ (results.users.length != 0 ) && 
-						results.projects.map((result, i) => {
-							return (
-							<div key={i}>
-								{result}
-							</div>
-							)
-						})
-					}
-
-					<div 
-					className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
-					style={{ fontVariant: 'small-caps' }}
-					>
-						+ add group
 					</div>
 
 
@@ -168,29 +85,6 @@ const SearchResultsPage = () => {
 						+ add user
 					</div>
 
-
-					<h3 style={{fontVariant:'small-caps'}}>tools</h3>
-					{ results.users.length === 0 && (
-						<div className='italic'>No Tools Found</div>
-					)}
-
-					{ (results.users.length != 0 ) && 
-						results.projects.map((result, i) => {
-							return (
-							<div key={i}>
-								{result}
-							</div>
-							)
-						})
-					}
-
-					<div 
-					className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
-					style={{ fontVariant: 'small-caps' }}
-					>
-						+ add tool
-					</div>
-
 				</div>
 
 
@@ -200,3 +94,113 @@ const SearchResultsPage = () => {
 }
 
 export default SearchResultsPage
+
+
+
+
+					// <h3 style={{fontVariant:'small-caps'}}>approaches</h3>
+					// { results.projects.length === 0 && (
+					// 	<div className='italic'>No Approaches Found</div>
+					// )}
+					// { (results.projects.length != 0 ) &&
+					// 	results.projects.map((result, i) => {
+					// 		return (
+					// 		<div key={i}>
+					// 			{result}
+					// 		</div>
+					// 		)
+					// 	})
+					// }
+					// <div 
+					// className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
+					// style={{ fontVariant: 'small-caps' }}
+					// >
+					// 	+ add approach
+					// </div>
+          //
+					// <h3 style={{fontVariant:'small-caps'}}>experiments</h3>
+					// { results.projects.length === 0 && (
+					// 	<div className='italic'>No Experiments Found</div>
+					// )}
+					// { (results.projects.length != 0 ) &&
+					// 	results.projects.map((result, i) => {
+					// 		return (
+					// 		<div key={i}>
+					// 			{result}
+					// 		</div>
+					// 		)
+					// 	})
+					// }
+					// <div 
+					// className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
+					// style={{ fontVariant: 'small-caps' }}
+					// >
+					// 	+ add experiment
+					// </div>
+          //
+          //
+					// <h3 style={{fontVariant:'small-caps'}}>tools</h3>
+					// { results.users.length === 0 && (
+					// 	<div className='italic'>No Tools Found</div>
+					// )}
+          //
+					// { (results.users.length != 0 ) && 
+					// 	results.projects.map((result, i) => {
+					// 		return (
+					// 		<div key={i}>
+					// 			{result}
+					// 		</div>
+					// 		)
+					// 	})
+					// }
+          //
+					// <div 
+					// className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
+					// style={{ fontVariant: 'small-caps' }}
+					// >
+					// 	+ add tool
+					// </div>
+          //
+					// <h3 style={{fontVariant:'small-caps'}}>protocols</h3>
+					// { results.projects.length === 0 && (
+					// 	<div className='italic'>No Protocols Found</div>
+					// )}
+					// { (results.projects.length != 0 ) &&
+					// 	results.projects.map((result, i) => {
+					// 		return (
+					// 		<div key={i}>
+					// 			{result}
+					// 		</div>
+					// 		)
+					// 	})
+					// }
+					// <div 
+					// className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
+					// style={{ fontVariant: 'small-caps' }}
+					// >
+					// 	+ add protocol
+					// </div>
+          //
+					// <h3 style={{fontVariant:'small-caps'}}>groups</h3>
+					// { results.users.length === 0 && (
+					// 	<div className='italic'>No Groups Found</div>
+					// )}
+          //
+					// { (results.users.length != 0 ) && 
+					// 	results.projects.map((result, i) => {
+					// 		return (
+					// 		<div key={i}>
+					// 			{result}
+					// 		</div>
+					// 		)
+					// 	})
+					// }
+          //
+					// <div 
+					// className='text-sm text-blue-500 hover:text-blue-300 active:text-blue-700 cursor-pointer'
+					// style={{ fontVariant: 'small-caps' }}
+					// >
+					// 	+ add group
+					// </div>
+          //
+          //

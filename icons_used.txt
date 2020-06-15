@@ -51,3 +51,15 @@ ICONS USED:
 <text y="84" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
   from the Noun Project
 </text>
+
+
+
+-----------
+# Anonymous User Avatar
+
+<text y="21.827" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  Created by Graphic Nehar
+</text>
+<text y="26.827" font-family="'Helvetica Neue', Helvetica, Arial-Unicode, Arial, Sans-serif" font-size="5" font-weight="bold">
+  from the Noun Project
+</text>

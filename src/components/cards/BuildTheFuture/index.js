@@ -13,7 +13,7 @@ const BuildTheFutureCard = () => {
 		const el = document.getElementById('sponsor_research')
 		el.scrollIntoView({
 			behavior: 'smooth',
-			block: 'start',
+			block: 'center',
 		})
 	}
 

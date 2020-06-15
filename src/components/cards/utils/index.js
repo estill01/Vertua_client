@@ -1,7 +1,6 @@
 import React from 'react'
 import { isNil } from 'lodash'
 
-
 export const CardHeader = (props) => {
 	let subTextColor = null
 	if (isNil(props.subTextColor)) { subTextColor = 'text-gray-600' } 
@@ -20,3 +19,4 @@ export const CardHeader = (props) => {
 		</>
 	)
 }
+

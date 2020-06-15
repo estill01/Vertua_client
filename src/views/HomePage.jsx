@@ -11,6 +11,7 @@ import BuildTheFutureCard from '../components/cards/BuildTheFuture'
 import RegisterCROCard from '../components/cards/RegisterCRO'
 import FeaturedProjectsCard from '../components/cards/FeaturedProjects'
 import CommunityProductsCard from '../components/cards/CommunityProducts'
+import FeaturedUsersCard from '../components/cards/FeaturedUsers'
 
 const HomePage = () => {
 	useEffect(() => {
@@ -25,6 +26,7 @@ const HomePage = () => {
 				<FeaturedProjectsCard/>
 				<CommunityProductsCard className='my-2'/>
 				<SponsorResearchCard/>
+				<FeaturedUsersCard/>
 			</PageErrorBoundary>
 		</>
 	)

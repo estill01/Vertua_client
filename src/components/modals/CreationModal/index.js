@@ -25,7 +25,9 @@ export const CreationModal = (props) => {
 			let values = refForm.values
 			let valid = await refForm.validateForm() // NB. this sets ref to null.
 			if (Object.entries(valid).length === 0) {
-				createItem({ values: values, collection: Collection.PROJECTS, uid: projectId })
+
+				createItem({ values: values, collection: Collection.PROJECTS, uid: projectId }) // <== add creator.uid here
+
 				refForm.resetForm()
 			} 
 			isSubmitting = false

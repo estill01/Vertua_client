@@ -36,7 +36,7 @@ const SponsorResearchCard = () => {
 				style={{ zIndex: 2 }}
 				>
 					<CardHeader
-					text='Sponsor Research'
+					text='Become A Research Sponsor'
 					subText='Fund researchers and R&D and share earnings produced as a result.'
 					textColor='text-white'
 					subTextColor='text-gray-300'

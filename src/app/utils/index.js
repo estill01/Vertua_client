@@ -24,7 +24,7 @@ export const createItem = async ({ values, collection, uid }) => {
 			...values,
 			uid: uid,
 			creator: {
-				uid: currentUser.uid,
+				uid: currentUser.uid
 			},
 		},
 		collection: collection, 

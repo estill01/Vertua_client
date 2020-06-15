@@ -1,7 +1,9 @@
 import React, { useEffect, lazy } from 'react'
+import { useDispatch } from 'react-redux'
 import { Image } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
 import { CardHeader } from '../utils'
+import { setCurrentItem } from '../../../app/slices/ItemsSlice.js'
 
 import('smoothscroll-polyfill').then((val) => {
 	console.log("[Smooth Scroll Polyfill]")
@@ -71,7 +73,6 @@ const FeaturedProjectsCard = () => {
 		<>
 			<div className='pb-4 flex flex-col'>
 
-
 				<CardHeader
 				text='Featured Projects'
 				subText='Find your way to contribute and help #BuildTheFuture.'
@@ -135,6 +136,7 @@ export default FeaturedProjectsCard
 
 
 const ScrollButton = (props) => {
+	// TODO Fix so that the buttons don't show up when you're scrolled all the way to one side or another.
 	let scrollAmt = null
 	let text = null
 	let scrollWidth = null
@@ -190,16 +192,17 @@ const ScrollButton = (props) => {
 	)
 
 }
-		// { ((props.direction === 'left' && currentSegment > 1) || (props.direction !== 'left' && currentSegment < segments)) && (
 
 
 const FeaturedProject = (props) => {
 	const img = require(`${props.data.img}`)
 	const history = useHistory()
+	const dispatch = useDispatch()
 
 	function handleClick(e) {
 		history.push(props.data.path)
 		window.scrollTo(0,0)
+		dispatch(setCurrentItem(props.data))
 	}
 
 	return (

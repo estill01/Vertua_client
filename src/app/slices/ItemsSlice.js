@@ -17,7 +17,9 @@ export const ItemsSlice = createSlice({
 	},
 	reducers: {
 		setCurrentItem: (state, action) => {
-			state.items.current = action.payload
+			console.log("[setCurrentItem]")
+			console.log(action.payload)
+			state.current = action.payload
 		}
 	},
 	extraReducers: {
