@@ -1,10 +1,15 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { firebase, addToFirestore } from '../remote/firebase/index.js'
+import { firebase, addToFirestore, fetchBySlug as fbFetchBySlug } from '../remote/firebase/index.js'
 
 // NB. Do not dispatch '_createItem' directly; use 'createItem' in './app/utils' instead.
 export const _createItem =
 	createAsyncThunk('items/_create',
 	async (arg, thunkAPI) => addToFirestore(arg),
+)
+
+export const fetchBySlug =
+  createAsyncThunk('items/fetchBySlug',
+	async (arg, thunkAPI) => fbFetchBySlug(arg.type, arg.slug),
 )
 
 export const ItemsSlice = createSlice({
@@ -13,8 +18,7 @@ export const ItemsSlice = createSlice({
 		status: 'idle',
 		isLoading: false,
 		hasCurrent: false,
-		current: {},
-	},
+		current: {}, },
 	reducers: {
 		setCurrentItem: (state, action) => {
 			console.log("[setCurrentItem]")
@@ -44,8 +48,33 @@ export const ItemsSlice = createSlice({
 
 			state.status = 'idle'
 			state.isLoading = false
+		},
+
+		[fetchBySlug.pending]: (state, action) => {
+			console.log("[items/fetchBySlug/pending]")
+			state.status = 'pending'
+			state.isLoading = true 
 
 		},
+		[fetchBySlug.rejected]: (state, action) => {
+			console.log("[items/fetchBySlug/rejected]")
+			state.status = 'error'
+			state.isLoading = false 
+
+		},
+		[fetchBySlug.fulfilled]: (state, action) => {
+			console.log("[items/fetchBySlug/fulfilled]")
+			state.status = 'idle'
+			state.isLoading = false 
+
+			console.log("action.payload: ", action.payload)
+			state.hasCurrent = true
+			delete action.payload.creator.docRef
+			state.current = action.payload
+
+		},
+
+
 	}
 })
 
