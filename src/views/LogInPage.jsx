@@ -2,11 +2,11 @@ import React from 'react'
 import PageErrorBoundary from './PageErrorBoundary'
 import { Helmet } from 'react-helmet'
 import LogInForm from '../components/forms/LogInForm'
-
-import 
+import { 
 	firebase, 
-	{ firebaseUIConfig, firebaseUI, firebaseui } 
-from '../app/remote/firebase'
+	firebaseUIConfig, 
+	firebaseui 
+} from '../app/remote/firebase'
 
 
 // IMPORTANT: Do not remove. Prevents a rendering error.

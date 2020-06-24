@@ -19,12 +19,25 @@ const configShared = {
 
 const configIndexes = {
 	'users': {
-		attributesToRetrieve: ['displayName', 'uid', 'photoURL', 'createdAt'],
+		attributesToRetrieve: [
+			'displayName', 
+			'uid', 
+			'photoURL', 
+			'createdAt',
+			'urlSlug',
+		],
 		// distinct: 3,
 		// attributeForDistinct: 'name',
 	},
 	'projects': {
-		attributesToRetrieve: ['name', 'description', 'uid', 'createdAt'],
+		attributesToRetrieve: [
+			'name', 
+			'description', 
+			'uid', 
+			'createdAt', 
+			'creator',
+			'urlSlug',
+		],
 		// attributeForDistinct: 'name',
 	}
 }

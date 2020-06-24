@@ -95,26 +95,6 @@ const DropDownContent = (props) => {
 	)
 }
 
-const MiniSearchItem = (props) => {
-	const history = useHistory()
-	const dispatch = useDispatch()
-
-	function handleClick(e) {
-		history.push(`${props.type}/${props.data.uid}`)
-		dispatch(nukeOverlays())
-		// populate a 'currentItem' in user store
-	}
-
-	return (
-		<>
-			<div className='h-16 cursor-pointer rounded p-2 shadow flex flex-row' onClick={() => handleClick()}>
-				<img src={props.data.photoURL} className='w-12 h-12 rounded' />
-				<div className='ml-2'>{props.data.displayName}</div>
-			</div>
-		</>
-	)
-}
-
 const BottomBar = (props) => {
 	const dispatch = useDispatch()
 	const history = useHistory()
@@ -149,3 +129,40 @@ const BottomBar = (props) => {
 		</>
 	)
 }
+
+const MiniSearchItem = (props) => {
+	const history = useHistory()
+	const dispatch = useDispatch()
+
+	function handleClick(e) {
+		history.push(`${props.type}/${props.data.uid}`)
+		dispatch(nukeOverlays())
+		// TODO populate a 'currentItem' in user store
+	}
+
+	return (
+		<>
+			<div className='h-16 cursor-pointer rounded p-2 shadow flex flex-row' onClick={() => handleClick()}>
+				{ props.type === 'user' && (<MiniSearchItemUser data={props.data}/> )}
+				{ props.type !== 'user' && (<MiniSearchItemProject data={props.data}/> )}
+			</div>
+		</>
+	)
+}
+
+const MiniSearchItemUser = (props) => (
+	<>
+		<img src={props.data.photoURL} className='w-12 h-12 rounded' />
+		<div className='ml-2'>{props.data.displayName}</div>
+	</>
+)
+const MiniSearchItemProject = (props) => (
+	<>
+		<img src={props.data.photoURL} className='w-12 h-12 rounded' />
+		<div className='ml-2'>{props.data.name}</div>
+	</>
+)
+
+
+
+

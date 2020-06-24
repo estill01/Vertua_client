@@ -150,6 +150,7 @@ const Router = () => {
 						render={(routeProps) => {
 							console.log("[ROUTER]")
 							console.log(routeProps)
+							// TODO firebase query for product by 'url' string; so, on create, create a url-ified version from name
 							// TODO Fetch data and populate store, or do in page(?)
 							dispatch(setPath(routeProps.location.pathname))
 							// routeProps.match.params.id

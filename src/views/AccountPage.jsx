@@ -1,6 +1,5 @@
 import React from 'react'
 import PageErrorBoundary from './PageErrorBoundary'
-import firebase from '../app/remote/firebase'
 import { Image, Modal, Button } from 'semantic-ui-react'
 import { useSelector, useDispatch } from 'react-redux'
 import Card from '../components/utils/Card'

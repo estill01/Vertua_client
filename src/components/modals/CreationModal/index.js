@@ -13,11 +13,12 @@ import { nanoid } from 'nanoid'
 // TODO Save WIP drafts
 export const CreationModal = (props) => {
 	const dispatch = useDispatch()
-	const projectId = nanoid()
+	let projectId = nanoid()
 	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
 	let isSubmitting = false
 	let refForm = null // NB. ref set via component callback, not 'useRef', b/c was null when set via 'useRef' in conjunction with 'isSubmitting' state var check in 'submitForm()'. 
 
+	
 	// TODO Refactor: Extract 'submitForm' to more generalized usage / make a generalized form
   async function submitForm() {
 		if (!isSubmitting) {
@@ -25,10 +26,9 @@ export const CreationModal = (props) => {
 			let values = refForm.values
 			let valid = await refForm.validateForm() // NB. this sets ref to null.
 			if (Object.entries(valid).length === 0) {
-
 				createItem({ values: values, collection: Collection.PROJECTS, uid: projectId }) // <== add creator.uid here
-
-				refForm.resetForm()
+				refForm.resetForm({})
+				projectId = nanoid()
 			} 
 			isSubmitting = false
 		}

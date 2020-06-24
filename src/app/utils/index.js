@@ -1,16 +1,7 @@
-// import { useStore, useDispatch } from 'react-redux'
 import { isNil } from 'lodash'
 import { nanoid } from 'nanoid'
 import { _createItem as createItemAction } from '../slices/ItemsSlice'
-import { store } from '../index'
-import { firebase } from '../remote'
-
-export const addToFirestore = async (arg) => {
-	let firestore = firebase.firestore()
-	try { 
-		return firestore.collection(arg.collection).doc(arg.data.uid).set(arg.data)
-	} catch (err) { throw new Error(err) }
-}
+import { store } from '../index' // NB Import store directly b/c these function(s) are not a component and thus not in the <Provider/> tree.
 
 export const createItem = async ({ values, collection, uid }) => {
 	if (isNil(values)) { throw new Error("[createItem()] function parameter 'values' cannot be undefined.") }
@@ -29,13 +20,15 @@ export const createItem = async ({ values, collection, uid }) => {
 		},
 		collection: collection, 
 	}
+	console.log("[createItem]")
+	console.log("doc: ", doc)
 
 	try { 
 		let result = await store.dispatch(createItemAction(doc)) 
 		return result
 	} catch (err) { throw new Error(err) }
-
 }
+
 
 export const Collection = {
 	PROJECTS: 'projects',

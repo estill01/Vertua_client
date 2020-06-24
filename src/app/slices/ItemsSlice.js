@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
-import { firebase } from '../remote'
-import { addToFirestore } from '../utils'
+import { firebase, addToFirestore } from '../remote/firebase/index.js'
 
 // NB. Do not dispatch '_createItem' directly; use 'createItem' in './app/utils' instead.
 export const _createItem =
@@ -13,6 +12,7 @@ export const ItemsSlice = createSlice({
 	initialState: {
 		status: 'idle',
 		isLoading: false,
+		hasCurrent: false,
 		current: {},
 	},
 	reducers: {
@@ -20,6 +20,7 @@ export const ItemsSlice = createSlice({
 			console.log("[setCurrentItem]")
 			console.log(action.payload)
 			state.current = action.payload
+			state.hasCurrent = true
 		}
 	},
 	extraReducers: {

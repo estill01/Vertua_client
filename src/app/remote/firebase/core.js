@@ -1,5 +1,5 @@
 // import firebase from 'firebase/app' // DOES NOT WORK
-import firebase from 'firebase' // SDK 7.14.1 // WORKS
+import firebase from 'firebase' // SDK 7.14.1 // WORKS  // TODO Need to fix this for production deployment optimization; imports unused code (?)
 import * as firebaseui from 'firebaseui'
 
 export const firebaseConfig = {
