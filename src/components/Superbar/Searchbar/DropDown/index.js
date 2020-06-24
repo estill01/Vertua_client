@@ -135,7 +135,8 @@ const MiniSearchItem = (props) => {
 	const dispatch = useDispatch()
 
 	function handleClick(e) {
-		history.push(`${props.type}/${props.data.uid}`)
+		history.push(props.data.urlSlug)
+		
 		dispatch(nukeOverlays())
 		// TODO populate a 'currentItem' in user store
 	}

@@ -4,6 +4,7 @@ import { useLocation } from 'react-router-dom'
 //import { fetchBySlug } from '../app/remote/firebase'
 import { fetchBySlug } from '../app/slices/ItemsSlice.js'
 import PageErrorBoundary from './PageErrorBoundary'
+import { UserItemMini } from '../components/items/UserItemMini.jsx'
 
 const ProjectPage = () => {
 	const location = useLocation()
@@ -46,13 +47,7 @@ const ProjectPage = () => {
 						</div>
 
 					{currentItem.creator && (
-						<div className='flex-1 mt-4'>
-							<div>Created by</div>
-							<div className='flex flex-row'>
-								<img src={currentItem.creator.photoURL} className='h-10 w-10 rounded'/>
-								<div className='ml-2'>{currentItem.creator.displayName}</div>
-							</div>
-						</div>
+						<UserItemMini data={currentItem.creator} className='mt-4'/>
 					)}
 
 					<div className='mt-4'>
