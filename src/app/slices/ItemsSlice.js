@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit'
 import { firebase, addToFirestore, fetchBySlug as fbFetchBySlug } from '../remote/firebase/index.js'
+import { isNil } from 'lodash'
 
 // NB. Do not dispatch '_createItem' directly; use 'createItem' in './app/utils' instead.
 export const _createItem =
@@ -18,14 +19,19 @@ export const ItemsSlice = createSlice({
 		status: 'idle',
 		isLoading: false,
 		hasCurrent: false,
-		current: {}, },
+		current: {}, 
+	},
 	reducers: {
 		setCurrentItem: (state, action) => {
 			console.log("[setCurrentItem]")
 			console.log(action.payload)
 			state.current = action.payload
 			state.hasCurrent = true
-		}
+		},
+		clearCurrentItem: (state, action) => {
+			state.hasCurrent = false
+			state.current = {}
+		},
 	},
 	extraReducers: {
 		[_createItem.pending]: (state, action) => {
@@ -54,7 +60,6 @@ export const ItemsSlice = createSlice({
 			console.log("[items/fetchBySlug/pending]")
 			state.status = 'pending'
 			state.isLoading = true 
-
 		},
 		[fetchBySlug.rejected]: (state, action) => {
 			console.log("[items/fetchBySlug/rejected]")
@@ -69,9 +74,11 @@ export const ItemsSlice = createSlice({
 
 			console.log("action.payload: ", action.payload)
 			state.hasCurrent = true
-			delete action.payload.creator.docRef
+			
+			if (!isNil(action.payload.creator)) {
+				delete action.payload.creator.docRef // NB. inclusion of 'docRef' causes redux to error
+			}
 			state.current = action.payload
-
 		},
 
 
@@ -80,6 +87,7 @@ export const ItemsSlice = createSlice({
 
 export const {
 	setCurrentItem,
+	clearCurrentItem,
 } = ItemsSlice.actions
 
 export default ItemsSlice.reducer

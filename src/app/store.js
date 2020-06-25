@@ -7,6 +7,7 @@ import {
 	EntitiesReducer,
 	SearchReducer,
 	ItemsReducer,
+	UserReducer,
 } from './slices'
 
 
@@ -25,6 +26,7 @@ export default configureStore({
 		entities: EntitiesReducer,
 		search: SearchReducer,
 		items: ItemsReducer,
+		user: UserReducer,
 	},
 	middleware
 })

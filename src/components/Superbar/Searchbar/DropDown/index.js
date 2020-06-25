@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { toggle, nukeOverlays } from '../../../../app/slices/PageSlice'
 import { ReactComponent as AlgoliaLogo } from '../../../../assets/images/search-by-algolia-light-background.svg'
 import { EnterIndicator } from '../utils.js'
+import { clearCurrentItem } from '../../../../app/slices/ItemsSlice.js'
 
 export const DropDown = (props) => {
 	const dispatch = useDispatch()
@@ -17,9 +18,7 @@ export const DropDown = (props) => {
 		<>
 		{ isVisibleDropDown && (
 			<div className={`absolute w-full flex flex-row ${props.className}`} style={props}>
-				<div className='flex-1' onClick={() => {
-					dispatch(nukeOverlays())
-				}}/>
+				<div className='flex-1' onClick={() => { dispatch(nukeOverlays()) }}/>
 				<div
 				className='w-4/5 rounded-b border-l border-b border-r border-gray-400 bg-secondary flex flex-col shadow' 
 				>
@@ -135,8 +134,8 @@ const MiniSearchItem = (props) => {
 	const dispatch = useDispatch()
 
 	function handleClick(e) {
-		history.push(props.data.urlSlug)
-		
+		history.push(`/${props.data.urlSlug}`)
+		dispatch(clearCurrentItem())
 		dispatch(nukeOverlays())
 		// TODO populate a 'currentItem' in user store
 	}

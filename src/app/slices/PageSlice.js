@@ -32,6 +32,9 @@ export const PageSlice = createSlice({
 		},
 		setPath: (state, action) => {
 			if (state.path != action.payload ) { state.path = action.payload }
+			// if state. import store
+			// > look to ItemsStore to see if there's a current item (?)
+			// > Or, set currentItem on page (?)
 		},
 		setPreviousPath: (state, action) => {
 			state.path.previous = action.payload

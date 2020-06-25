@@ -36,10 +36,32 @@ export const fetchBySlug = async (type, slug) => {
 	}
 	let docs = querySnapshot.docs
 	let result = docs[0].data()
-
 	console.log("result: ", result) // array length 0
 
 	return result
+}
+
+
+export const getProjectsForUser = async (userId) => {
+	console.log("[Firebase.getProjectsForUser]")
+	console.log("userId: ", userId)
+	let firestore = firebase.firestore()
+	let query = firestore.collection('projects').where('creator.uid', '==', userId)
+	let querySnapshot = await query.get()
+	let docs = querySnapshot.docs.map((doc, i) => {
+		doc = doc.data()
+		// TODO Refactor to remove 'docRef' from creator
+		delete doc.creator.docRef 
+		return doc 
+	})
+
+	// console.log("received - snapshot: ", querySnapshot)
+	console.log("received - docs: ", docs)
+
+
+	return docs
+	// return querySnapshot.docs
+
 }
 
 

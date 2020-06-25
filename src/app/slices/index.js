@@ -4,6 +4,7 @@ import FirebaseReducer from './FirebaseSlice'
 import EntitiesReducer from './EntitiesSlice'
 import SearchReducer from './SearchSlice'
 import ItemsReducer from './ItemsSlice'
+import UserReducer from './UserSlice.js'
 
 export { 
 	SessionReducer, 
@@ -12,4 +13,5 @@ export {
 	EntitiesReducer,
 	SearchReducer,
 	ItemsReducer,
+	UserReducer,
 }

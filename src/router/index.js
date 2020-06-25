@@ -121,7 +121,7 @@ const Router = () => {
 						}}
 						/>
 
-						<Route path='/user/:id' 
+						<Route path='/users/:id' 
 						render={(routeProps) => {
 							console.log("routeProps: ", routeProps)
 							// dispatch(setPath('/user/'))
