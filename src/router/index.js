@@ -100,7 +100,6 @@ const Router = () => {
 						<Route exact path='/' 
 						render={(routeProps) => { 
 							dispatch(setPath('/')); 
-							// window.scrollTo(0,0)
 							return (<HomePage/>)
 							}}
 						/>
@@ -108,7 +107,6 @@ const Router = () => {
 						<Route path='/search' 
 						render={(routeProps) => { 
 							dispatch(setPath('/search')); 
-							// window.scrollTo(0,0)
 							return (<SearchResultsPage/>)
 						}}
 						/>
@@ -116,16 +114,13 @@ const Router = () => {
 						<Route exact path='/account' 
 						render={(routeProps) => { 
 							dispatch(setPath('/account')); 
-							// window.scrollTo(0,0)
 							return (<AccountPage/>)
 						}}
 						/>
 
-						<Route path='/users/:id' 
+						<Route exact path='/users/:id' 
 						render={(routeProps) => {
-							console.log("routeProps: ", routeProps)
-							// dispatch(setPath('/user/'))
-
+							dispatch(setPath(routeProps.location.pathname))
 							return (<UserPage/>)
 						}}
 						/>
@@ -133,14 +128,12 @@ const Router = () => {
 						<Route exact path='/new' 
 						render={(routeProps) => {
 							dispatch(setPath('/new')); 
-							// window.scrollTo(0,0)
 							return (<CreatePage/>)
 						}}
 						/>
 
-						<Route path='/projects/:id' 
+						<Route exact path='/projects/:id' 
 						render={(routeProps) => {
-							// TODO Fetch data and populate store, or do in page(?)
 							dispatch(setPath(routeProps.location.pathname))
 							return (<ProjectPage/>)
 						}}

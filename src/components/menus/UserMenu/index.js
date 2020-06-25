@@ -28,6 +28,7 @@ export const Trigger = (props) => {
 		return () => unsubscribeWatchAvatarMenu()
 	})
 
+	// This is to keep the menu open accross page changes / re-renders
 	useEffect(() => {
 		let watchURLPath = watch(store.getState, 'page.path')
 		let unsubscribeWatchURLPath = store.subscribe(watchURLPath((newVal, oldVal) => {

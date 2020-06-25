@@ -3,6 +3,7 @@ import { BrowserRouter, useHistory } from 'react-router-dom'
 import { useStore, useDispatch, useSelector } from 'react-redux'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import { search, stashSearch, clearSearch } from '../../../app/slices/SearchSlice'
+import { clearCurrentItem } from '../../../app/slices/ItemsSlice.js'
 import Router from '../../../router'
 import Superbar from '../../Superbar'
 import PlusButton from '../../buttons/PlusButton'
@@ -34,12 +35,24 @@ const Page = () => {
 		}
 	}
 
+	function popStateListener(e) {
+		dispatch(clearCurrentItem)
+	}
+
+
+
+	// Popstate listener - reset 'currentItem' on browser forward/backward buttons
+	useEffect(() => {
+		window.addEventListener('popstate', popStateListener)
+		return () => window.removeEventListener('popstate', popStateListener)
+	})
 
 	// Keydown listener - pick up e.g. 'esc' key for modal toggle
 	useEffect(() => {
 		document.addEventListener('keydown', keyDownListener)
 		return () => document.removeEventListener('keydown', keyDownListener)
 	})
+
 
 	// UserMenu open/close toggle
 	useEffect(() => {

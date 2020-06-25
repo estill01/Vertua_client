@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useLocation, useHistory } from 'react-router-dom'
 import PageErrorBoundary from './PageErrorBoundary'
 import Card from '../components/utils/Card'
-import { fetchBySlug } from '../app/slices/ItemsSlice.js'
+import { fetchBySlug, setCurrentItem } from '../app/slices/ItemsSlice.js'
 import { fetchProjectsForUser } from '../app/slices/UserSlice.js'
 import { Loader } from 'semantic-ui-react'
 
@@ -18,6 +18,9 @@ const UserPage = (props) => {
 	let projectList = []
 	// let createdAt = useSelector(state => state.items.current.createdAt)
 	
+	// TODO on first load only...
+	// useEffect(() => window.scrollTo(0,0))
+
 	useEffect(() => {
 		console.log("[UserPage]") 
 		
@@ -80,14 +83,13 @@ const UserProjectList = (props) => {
 	console.log("[ProjectList]")
 	// console.log("props.data: ", props.data)
 
-
-	// useEffect(() => {
-	// 	(async function() {
-	// 		if (!isNil(props.data.uid) && !isLoading) {
-	// 			await dispatch(fetchProjects(props.data.uid))
-	// 		}
-	// 	})()
-	// })
+	useEffect(() => {
+		(async function() {
+			if (!isNil(props.data.uid) && !isLoading && projects.length === 0) {
+				await dispatch(fetchProjectsForUser(props.data.uid))
+			}
+		})()
+	})
 
 	async function loadData(e) {
 		console.log("Loading data...")
@@ -99,7 +101,7 @@ const UserProjectList = (props) => {
 		<div className='flex flex-col'>
 			<div className='text-2xl font-bold'>Projects</div>
 			{isLoading && (<Loader active content='Loading'/>)}
-			{!isLoading && (
+			{!isLoading && projects.length > 0 && (
 				<div className='flex flex-col'>
 					{ projects.map((project, i) => {
 						return <ProjectListItem data={project} key={i}/>
@@ -117,7 +119,9 @@ const ProjectListItem = (props) => {
 	const dispatch = useDispatch()
 
 	function handleClick(e) {
+		// TODO Wrap this pattern up in a page action/reducer
 		history.push(`/${props.data.urlSlug}`)
+		dispatch(setCurrentItem(props.data))
 	}
 
 	return (

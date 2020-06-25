@@ -37,8 +37,6 @@ export const UserSlice = createSlice({
 			state.isLoading = false
 			state.projects = action.payload
 		},
-
-
 	}
 })
 
