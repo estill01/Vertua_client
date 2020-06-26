@@ -46,6 +46,7 @@ export const SessionSlice = createSlice({
 			lastSignInTime: '',
 			photoURL: '',
 			uid: '',
+			urlSlug: '',
 		}
 	},
 	reducers: {
@@ -61,6 +62,7 @@ export const SessionSlice = createSlice({
 				creationTime: user.creationTime,
 				lastSignInTime: user.lastSignInTime,
 				photoURL: user.photoURL,
+				urlSlug: user.urlSlug,
 			}
 
 
@@ -75,6 +77,7 @@ export const SessionSlice = createSlice({
 				lastSignInTime: '',
 				photoURL: '',
 				uid: '',
+				urlSlug: '',
 			}
 			state.isLoggedIn = false
 			// TODO clear local storage

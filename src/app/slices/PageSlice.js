@@ -31,6 +31,7 @@ export const PageSlice = createSlice({
 			state.title = action.payload
 		},
 		setPath: (state, action) => {
+			// TODO Why is this not triggering on fwd/back to user page?
 			if (state.path != action.payload ) { state.path = action.payload }
 			window.scrollTo(0,0)
 		},

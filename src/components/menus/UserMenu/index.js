@@ -73,6 +73,17 @@ export const DropDown = (props) => {
 		history.push('/account')
 	}
 
+	function goToProfile(e) {
+		// TODO Fix this / Fix currentUser implementation; this is a mess.
+		console.log("[goToProfile]")
+		console.log("currentUser: ", currentUser)
+		console.log("slug: ", currentUser.urlSlug) // undefined since we're using the firebase 'currentUser' object and not our shit. currentUser needs to be set to the 'user' object fetched from firebase
+		// Can do a hack and recreate the slug, or, can fix 'currentUser' to use the firebase user doc for the signed in user.
+
+		history.push(currentUser.urlSlug)
+
+	}
+
 	return (
 		<>
 			{isVisible && (
@@ -100,7 +111,13 @@ export const DropDown = (props) => {
 					}
 					</div>
 					<hr/>
-					<div>
+					<div className='flex flex-col'>
+						<div 
+						className='text-blue-400 hover:text-blue-500 active:text-blue-600 cursor-pointer select-none'
+						onClick={goToProfile}
+						>
+							Profile
+						</div>
 						<Link to='/account'>Account</Link>
 					</div>
 				</div>

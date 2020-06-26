@@ -27,7 +27,7 @@ export const fetchFromFirestore = async (id, type) => {
 export const fetchBySlug = async (type, slug) => {
 	console.log("[Firebase.fetchBySlug]")
 	let firestore = firebase.firestore()
-	let query = firestore.collection(type).where('urlSlug', '==', `${type}/${slug}`)
+	let query = firestore.collection(type).where('urlSlug', '==', slug)
 	let querySnapshot = null
 	try {
 		querySnapshot = await query.get()

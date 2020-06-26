@@ -10,7 +10,7 @@ export const UserItemMini = (props) => {
 	function handleClick(e) {
 		console.log("[UserItemMini]")
 		console.log("urlSlug: ", props.data.urlSlug)
-		history.push(`/${props.data.urlSlug}`)
+		history.push(props.data.urlSlug)
 		dispatch(clearCurrentItem())
 		dispatch(setCurrentItem(props.data))
 	}

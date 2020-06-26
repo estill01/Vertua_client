@@ -7,6 +7,7 @@ import {
 	// toggleIsLoggedIn,
 } from './slices/SessionSlice'
 import watch from 'redux-watch'
+import { isNil } from 'lodash'
 
 
 async function boot() {
@@ -51,16 +52,7 @@ async function _registerUserAuthStateChangedListener() {
 	
 
 function _onAuthStateChangedListener() {
-
-	// does this get called when it's taking 'user' 
-	// from local storage? 
-	//
-	// AKA, need to populate session.currentUser from local
-	// storage
-
-
 	firebase.auth().onAuthStateChanged( user => {
-		
 		// NB. Triggered on 'updateCurrentUser', i.e. if user signs in. 
 		//
 		// Scenario 1: First log-in / no currentUser
@@ -74,18 +66,8 @@ function _onAuthStateChangedListener() {
 		//
 		// Scenario 4: Anonymous user logs out
 		// Action: create new anonymous user
-		//
-		//
-		// Should ask user via modal if they want to 
-		// sync data created by anonymous user with their 
-		// now logged-in account.
-
-
-		// console.log("user: ", user) 
-		// console.log("currentUser: ", firebase.auth().currentUser)
-    //
-		// console.log("firebase.auth: ", firebase.auth)
-		// console.log("firebase.auth.GoogleAuthProvider(): ", new firebase.auth.GoogleAuthProvider())
+		
+		// TODO ask user if sync data created by their anon acct w/ non-annon account on log-in.
 
 
 		if (user) {
@@ -93,12 +75,8 @@ function _onAuthStateChangedListener() {
 			console.log("Current User: ", firebase.auth().currentUser)
 
 			let userObj = _buildUserObject(user)
+			console.log("[current user object]: ", userObj)
 			store.dispatch(setCurrentUser(userObj))
-
-			// if isAnonymous
-			//
-			// else 
-
 		} else {
 			console.log("-- User NOT logged in: ", user)
 			// store.dispatch(deleteSession(user))
@@ -112,6 +90,17 @@ function _onAuthStateChangedListener() {
 
 // TODO REFACTOR: Move somewhere else; maybe 'app/utils/'
 function _buildUserObject(doc) {
+	console.log("[buildUserObject]")
+	console.log("doc: ", doc)
+	let urlSlug = null
+	if (isNil(doc.displayName) || doc.displayName === '') { urlSlug = '/users/' + doc.uid }
+	else { 
+		let slugged = doc.displayName.replace(/ /gi, '_')
+		slugged = encodeURIComponent(slugged)
+		urlSlug = '/users/' + slugged
+	}
+	console.log("urlSlug: ", urlSlug)
+
 	return {
 		uid: doc.uid,
 		displayName: doc.displayName,
@@ -121,6 +110,7 @@ function _buildUserObject(doc) {
 		isAnonymous: doc.isAnonymous,
 		creationTime: doc.metadata.creationTime,
 		lastSignInTime: doc.metadata.lastSignInTime,
+		urlSlug: urlSlug,
 	}
 }
 

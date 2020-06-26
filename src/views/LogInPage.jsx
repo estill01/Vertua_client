@@ -45,7 +45,7 @@ const LogInPage = () => {
 				<link type="text/css" rel="stylesheet" href="https://www.gstatic.com/firebasejs/ui/4.5.0/firebase-ui-auth.css" />
 			</Helmet>
 			<PageErrorBoundary>
-				<h1>LogIn Page</h1>
+				<div className='h-10'/>
 				<FirebaseAuthUI/>
 			</PageErrorBoundary>
 		</>
