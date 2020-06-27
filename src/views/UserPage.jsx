@@ -7,6 +7,7 @@ import { fetchBySlug, setCurrentItem } from '../app/slices/ItemsSlice.js'
 import { fetchProjectsForUser } from '../app/slices/UserSlice.js'
 import { Loader } from 'semantic-ui-react'
 import { ItemList } from '../components/items/ItemList.jsx'
+import CurrentUserAvatar from '../components/utils/CurrentUserAvatar'
 
 // import { getProjectsForUser } from '../app/remote/firebase'
 import { isNil } from 'lodash'
@@ -17,11 +18,9 @@ const UserPage = (props) => {
 	let hasCurrent = useSelector(state => state.items.hasCurrent)
 	let currentItem = useSelector(state => state.items.current)
 	let projectList = []
+
 	// let createdAt = useSelector(state => state.items.current.createdAt)
 	
-	// TODO on first load only...
-	// useEffect(() => window.scrollTo(0,0))
-
 	useEffect(() => {
 		console.log("[UserPage]") 
 
@@ -39,23 +38,44 @@ const UserPage = (props) => {
 				console.log("current item: ", currentItem)
 			})()
 		}
-
 	})
 
 
+	// TODO Replace <img/> in user info top card with an <Avatar/> component that deals with anon users
 	return (
 		<>
 			<PageErrorBoundary>
 				<div className='p-4'>
+
 					<Card className='mb-4'>
 						<div className='flex flex-row'>
 							{ currentItem && ( 
 							<>
-								<img src={currentItem.photoURL} className='h-16 w-16 rounded'/>
+								<div className='h-24 w-24 border border-gray-400 rounded p-px bg-white'>
+									<CurrentUserAvatar className='rounded-sm'/>
+								</div>
+
 								<div className='flex flex-col ml-2'>
-									<div className='text-3xl font-extrabold'>{currentItem.displayName}</div>
-									<div>
-									
+
+									{ currentItem && currentItem.displayName === '' && (
+									<>
+										<div>Anonymous User:</div>
+										<div className='text-xl font-bold'>
+											{currentItem.uid}
+										</div>
+									</>
+									)}
+
+									{ currentItem && currentItem.displayName != '' && (
+									<>
+										<div>Name:</div>
+										<div className='text-xl font-bold'>
+											{currentItem.displayName}
+										</div>
+									</>
+									)}
+
+									<div className='mt-2'>
 										<div>Member Since:</div>
 										<div className=''>{(() => {
 											let date = new Date(currentItem.createdAt)

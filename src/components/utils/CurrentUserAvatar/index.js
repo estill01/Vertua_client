@@ -8,8 +8,8 @@ const CurrentUserAvatar = (props) => {
 	let currentUser = useSelector(state => state.session.currentUser)
 	return (
 		<>
-			{ isAnonymous && (<AnonymousAvatar className={`flex-1 rounded-full ${props.className}`}/>) }
-			{ !isAnonymous && (<img src={currentUser.photoURL} className={`flex-1 rounded-full ${props.className}`}/>) }
+			{ isAnonymous && (<AnonymousAvatar className={`flex-1 ${props.className}`}/>) }
+			{ !isAnonymous && (<img src={currentUser.photoURL} className={`flex-1 ${props.className}`}/>) }
 		</>
 	)
 }

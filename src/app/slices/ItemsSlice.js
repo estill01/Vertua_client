@@ -76,7 +76,9 @@ export const ItemsSlice = createSlice({
 			state.hasCurrent = true
 			
 			if (!isNil(action.payload.creator)) {
-				delete action.payload.creator.docRef // NB. inclusion of 'docRef' causes redux to error
+				if (!isNil(action.payload.creator.docRef)) {
+					delete action.payload.creator.docRef // NB. inclusion of 'docRef' causes redux to error
+				}
 			}
 			state.current = action.payload
 		},

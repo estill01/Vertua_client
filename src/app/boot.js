@@ -72,11 +72,12 @@ function _onAuthStateChangedListener() {
 
 		if (user) {
 			console.log("-- User logged in: ", user)
-			console.log("Current User: ", firebase.auth().currentUser)
+			// console.log("Current User: ", firebase.auth().currentUser)
 
 			let userObj = _buildUserObject(user)
 			console.log("[current user object]: ", userObj)
 			store.dispatch(setCurrentUser(userObj))
+
 		} else {
 			console.log("-- User NOT logged in: ", user)
 			// store.dispatch(deleteSession(user))

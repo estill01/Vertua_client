@@ -18,9 +18,13 @@ export const ItemList = (props) => {
 	useEffect(() => {
 		(async function() {
 			// TODO Fix; this will infinite loop if user has 0 projects...
-			if (!isNil(props.data.uid) && !isLoading && projects.length === 0) {
-				await dispatch(fetchProjectsForUser(props.data.uid))
+			
+			if (!isNil(props.data.uid) && !isLoading) {
+				if (projects.length === 0) {
+				}
+				else { await dispatch(fetchProjectsForUser(props.data.uid)) }
 			}
+
 		})()
 	})
 
