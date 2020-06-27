@@ -8,23 +8,29 @@ import { fetchBySlug, setCurrentItem } from '../../app/slices/ItemsSlice.js'
 import { fetchProjectsForUser } from '../../app/slices/UserSlice.js'
 
 
+// TODO Refactor: Currently set up just for users
 export const ItemList = (props) => {
+	console.log("[ItemList]")
+	console.log("props.data: ", props.data)
+
 	const dispatch = useDispatch()
 	const isLoading = useSelector(state => state.user.isLoading )
 	const projects = useSelector(state => state.user.projects )
 
-	console.log("[ProjectList]")
 
+	// Fetch data
 	useEffect(() => {
 		(async function() {
 			// TODO Fix; this will infinite loop if user has 0 projects...
 			
 			if (!isNil(props.data.uid) && !isLoading) {
 				if (projects.length === 0) {
-				}
-				else { await dispatch(fetchProjectsForUser(props.data.uid)) }
-			}
 
+				}
+				else { 
+					// await dispatch(fetchProjectsForUser(props.data.uid)) 
+				}
+			}
 		})()
 	})
 
@@ -40,19 +46,20 @@ export const ItemList = (props) => {
 			<div 
 			className='border border-gray-300 rounded p-2 mb-2'
 			>
+				<div className='flex flex-col'>
 
 				{isLoading && (<Loader active content='Loading'/>)}
 
 				{!isLoading && projects.length > 0 && (
-					<div className='flex flex-col'>
+						<>
 						{ projects.map((project, i) => {
 							return <ListItem data={project} key={i}/>
 						})}
-					</div>
+						</>
 				)}
 
+				</div>
 			</div>
-
 
 			<button 
 			onClick={loadData}

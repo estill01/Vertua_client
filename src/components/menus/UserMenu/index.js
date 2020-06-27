@@ -73,58 +73,65 @@ export const DropDown = (props) => {
 		history.push('/account')
 	}
 
-	function goToProfile(e) {
-		// TODO Fix this / Fix currentUser implementation; this is a mess.
-		console.log("[goToProfile]")
-		console.log("currentUser: ", currentUser)
-		console.log("slug: ", currentUser.urlSlug) // undefined since we're using the firebase 'currentUser' object and not our shit. currentUser needs to be set to the 'user' object fetched from firebase
-		// Can do a hack and recreate the slug, or, can fix 'currentUser' to use the firebase user doc for the signed in user.
-
-		history.push(currentUser.urlSlug)
-
-	}
+	function goToAccount() { history.push('/account') }
+	function goToProfile() { history.push(currentUser.urlSlug) }
 
 	return (
 		<>
 			{isVisible && (
 
 			<div 
-			className={`absolute left-auto right-0 top-0 p-2 border-l border-b border-gray-400 rounded-bl w-40 h-56 flex flex-col bg-secondary ${props.className}`}
+			className={`absolute left-auto right-0 top-0 border-l border-b border-gray-400 rounded-bl w-40 flex flex-col bg-secondary ${props.className}`}
 			>
 				<div className='flex-1'>
-					<div 
-					className='relative w-full h-24 flex border border-gray-500 rounded cursor-pointer hover:border-blue-300 active:border-blue-500'
-					onClick={(e) => handleUserAvatarClick(e)}
-					>
-						<CurrentUserAvatar className='cursor-pointer'/>
+
+					<div className='px-2 pt-2 pb-1'>
+						<div 
+						className='relative w-full h-24 flex border border-gray-500 rounded cursor-pointer hover:border-blue-300 active:border-blue-500'
+						onClick={goToProfile}
+						>
+							<CurrentUserAvatar className='cursor-pointer'/>
+						</div>
 					</div>
-					<div className='text-center'>
-					{ isAnonymous && 
+
+					<div className='text-center px-2'>
+						{ isAnonymous && 
 						<span style={{fontVariant:'small-caps'}} className='italic'>
 							logged in anonymously 
 						</span> 
-					}
-					{ !isAnonymous && 
+						}
+						{ !isAnonymous && 
 						<span>
 							{currentUser.displayName}
 						</span> 
-					}
+						}
+						<hr/>
 					</div>
-					<hr/>
+
 					<div className='flex flex-col'>
 						<div 
-						className='text-blue-400 hover:text-blue-500 active:text-blue-600 cursor-pointer select-none'
+						className='text-blue-500 hover:text-blue-400 active:text-blue-500 cursor-pointer select-none hover:bg-blue-100 p-2 flex flex-row'
 						onClick={goToProfile}
 						>
-							Profile
+							<Icon name='user outline'/>
+							<span>Profile</span>
 						</div>
-						<Link to='/account'>Account</Link>
+
+						<div 
+						className='text-blue-500 hover:text-blue-400 active:text-blue-500 cursor-pointer select-none hover:bg-blue-100 p-2 flex flex-row'
+						onClick={goToAccount}
+						>
+							<Icon name='setting'/>
+							<span>Account</span>
+						</div>
 					</div>
 				</div>
 
-				<hr/>
-				{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true) && (<LogInButton/>))}
-				{ (isAnonymous === false) && (<LogOutButton/>) }	
+				<div className='p-2'>
+					{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true) && (<LogInButton/>))}
+					{ (isAnonymous === false) && (<LogOutButton/>) }	
+				</div>
+
 			</div>
 
 			)}
