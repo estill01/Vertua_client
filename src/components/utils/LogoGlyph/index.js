@@ -2,7 +2,11 @@ import React from 'react'
 import { Menu, Image } from 'semantic-ui-react'
 
 // import { ReactComponent as Logo } from '../../../assets/images/logo/noun_Network_1305442.svg'
-import { ReactComponent as Logo } from '../../../assets/images/logo/noun_networking_2362699.svg'
+// import { ReactComponent as Logo } from '../../../assets/images/logo/noun_networking_2362699.svg'
+
+// import { ReactComponent as Logo } from '../../../assets/images/logo/thunder.svg'
+// import { ReactComponent as Logo } from '../../../assets/images/logo/miscellaneous.svg' // GOOD
+import { ReactComponent as Logo } from '../../../assets/images/logo/flash (1).svg'
 
 // import {  ReactComponent as Logo } from '../../assets/images/logo/noun_fast_3119713.svg'  
 // import {  ReactComponent as Logo } from '../../assets/images/logo/noun_fractal_224058.svg' 
@@ -55,16 +59,18 @@ import { ReactComponent as Logo } from '../../../assets/images/logo/noun_network
 const LogoGlyph = (props) => (					
 	<>
 		<div 
-		className='p-1 rounded border border-gray-400'
-		style={{
-			backgroundColor:'white',
-			backgroundImage: 'linear-gradient(to bottom right, #42e2ac, #4299e2)'
-		}}
+		className={`bg-white ${props.className}`}
 		>
-			<Logo {...props} style={{fill:'white'}}/>
+			<Logo className='h-10 w-10'/>
 		</div>
 	</>
 )
+		// style={{
+		// 	backgroundColor:'white',
+		// 	backgroundImage: 'linear-gradient(to bottom right, #42e2ac, #4299e2)'
+		// }}
+
+			// <Logo {...props} style={{fill:'white'}}/>
 
 export default LogoGlyph
 

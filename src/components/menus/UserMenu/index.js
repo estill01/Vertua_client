@@ -110,7 +110,7 @@ export const DropDown = (props) => {
 
 					<div className='flex flex-col'>
 						<div 
-						className='text-blue-500 hover:text-blue-400 active:text-blue-500 cursor-pointer select-none hover:bg-blue-100 p-2 flex flex-row'
+						className='text-blue-500 hover:text-blue-400 active:text-blue-500 cursor-pointer select-none hover:bg-blue-100 p-2 flex flex-row border-l-2 border-transparent hover:border-blue-500'
 						onClick={goToProfile}
 						>
 							<Icon name='user outline'/>
@@ -118,7 +118,7 @@ export const DropDown = (props) => {
 						</div>
 
 						<div 
-						className='text-blue-500 hover:text-blue-400 active:text-blue-500 cursor-pointer select-none hover:bg-blue-100 p-2 flex flex-row'
+						className='text-blue-500 hover:text-blue-400 active:text-blue-500 cursor-pointer select-none hover:bg-blue-100 p-2 flex flex-row border-l-2 border-transparent hover:border-blue-500'
 						onClick={goToAccount}
 						>
 							<Icon name='setting'/>
