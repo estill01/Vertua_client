@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Icon } from 'semantic-ui-react'
 import watch from 'redux-watch'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
-import CurrentUserAvatar, { AvatarFrame } from '../../utils/CurrentUserAvatar'
+import { UserAvatar, AvatarFrame } from '../../utils/UserAvatar'
 import { ProjectForm, ProjectFormFull } from '../../forms/ProjectForm'
 import Card from '../../utils/Card'
 import { createItem, Collection } from '../../../app/utils'
@@ -126,7 +126,7 @@ const ModalCardTopBar = (props) => {
 		<div className={`p-2 flex flex-row bg-secondary rounded-t items-center border-b border-gray-300 ${props.className}`}>
 				<div className='p-px flex-1 flex flex-row items-center'>
 					<AvatarFrame className='h-10 w-10'>
-						<CurrentUserAvatar/>
+						<UserAvatar data={currentUser}/>
 					</AvatarFrame>
 					<div className='flex flex-col ml-2 leading-none'>
 						<div className='text-sm font-bold'>{currentUser.displayName}</div>

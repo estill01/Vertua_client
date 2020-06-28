@@ -24,8 +24,8 @@ const Superbar = ({ props } ) => {
 			<div className='fixed w-full'>
 				<div className='bg-secondary p-2 flex flex-row items-center border-b border-gray-300 top-0 shadow' { ...props }>
 
-					<LogoGlyph className='h-10 w-10'/>
 					<Link to='/' className='text-gray-800 flex flex-row items-center'>
+						<LogoGlyph className='h-10 w-10'/>
 						<span className='ml-1 text-2xl font-logo-bold italic' style={{marginTop:'0.125em'}}>Vertua</span>
 					</Link>
 

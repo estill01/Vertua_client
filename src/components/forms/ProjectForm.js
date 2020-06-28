@@ -5,7 +5,7 @@ import { string as YupString, object as YupObject } from 'yup'
 import { Input } from 'semantic-ui-react'
 import TextareaAutosize from 'react-textarea-autosize'
 import { Icon } from 'semantic-ui-react'
-import CurrentUserAvatar, { AvatarFrame } from '../utils/CurrentUserAvatar'
+import { UserAvatar, AvatarFrame } from '../utils/UserAvatar'
 import { nanoid } from 'nanoid'
 
 import Card from '../utils/Card'

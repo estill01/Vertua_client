@@ -4,7 +4,7 @@ import { useStore, useSelector, useDispatch, } from 'react-redux'
 import watch from 'redux-watch'
 import { toggle } from '../../../app/slices/PageSlice.js'
 import { LogInButton, LogOutButton } from '../../buttons/account'
-import CurrentUserAvatar from '../../utils/CurrentUserAvatar'
+import { UserAvatar } from '../../utils/UserAvatar'
 
 import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 
@@ -55,7 +55,7 @@ export const Trigger = (props) => {
 			onMouseLeave={() => { if (!isMenuOpen && isActive) { toggleIsActive() } }}
 			ref={containerRef}
 			>
-				<CurrentUserAvatar className='flex-1 rounded-full'/>
+				<UserAvatar data={currentUser} className='flex-1 rounded-full'/>
 			</div>
 		</div>
 	)
@@ -90,7 +90,7 @@ export const DropDown = (props) => {
 						className='relative w-full h-24 flex border border-gray-500 rounded cursor-pointer hover:border-blue-300 active:border-blue-500'
 						onClick={goToProfile}
 						>
-							<CurrentUserAvatar className='cursor-pointer'/>
+							<UserAvatar data={currentUser} className='cursor-pointer'/>
 						</div>
 					</div>
 

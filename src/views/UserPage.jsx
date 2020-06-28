@@ -7,7 +7,7 @@ import { fetchBySlug, setCurrentItem } from '../app/slices/ItemsSlice.js'
 import { fetchProjectsForUser } from '../app/slices/UserSlice.js'
 import { Loader } from 'semantic-ui-react'
 import { ItemList } from '../components/items/ItemList.jsx'
-import CurrentUserAvatar from '../components/utils/CurrentUserAvatar'
+import { UserAvatar } from '../components/utils/UserAvatar'
 
 // import { getProjectsForUser } from '../app/remote/firebase'
 import { isNil } from 'lodash'
@@ -41,7 +41,6 @@ const UserPage = (props) => {
 	})
 
 
-	// TODO Replace <img/> in user info top card with an <Avatar/> component that deals with anon users
 	return (
 		<>
 			<PageErrorBoundary>
@@ -52,7 +51,7 @@ const UserPage = (props) => {
 							{ currentItem && ( 
 							<>
 								<div className='h-24 w-24 border border-gray-400 rounded p-px bg-white'>
-									<CurrentUserAvatar className='rounded-sm'/>
+									<UserAvatar data={currentItem} className='rounded-sm'/>
 								</div>
 
 								<div className='flex flex-col ml-2'>
