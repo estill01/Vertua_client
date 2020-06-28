@@ -22,11 +22,11 @@ const Superbar = ({ props } ) => {
 	return (
 		<div className='relative' style={{zIndex:2000}}>
 			<div className='fixed w-full'>
-				<div className='bg-secondary px-4 py-2 flex flex-row items-center border-b border-gray-300 top-0 shadow' { ...props }>
+				<div className='bg-secondary p-2 flex flex-row items-center border-b border-gray-300 top-0 shadow' { ...props }>
 
 					<LogoGlyph className='h-10 w-10'/>
 					<Link to='/' className='text-gray-800 flex flex-row items-center'>
-						<span className='ml-1 text-2xl font-logo-bold' style={{marginTop:'0.125em'}}>Vertua</span>
+						<span className='ml-1 text-2xl font-logo-bold italic' style={{marginTop:'0.125em'}}>Vertua</span>
 					</Link>
 
 					<div className='flex flex-1 flex-row items-center'>
