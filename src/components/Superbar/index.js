@@ -6,9 +6,6 @@ import { MenuToggle } from '../menus/utils'
 import { LogInButton, LogOutButton } from '../buttons/account'
 import * as Search from './Searchbar'
 import * as UserMenu from '../menus/UserMenu'
-
-//import Dimmer from '../utils/Dimmer'
-
 import LogoGlyph from '../utils/LogoGlyph'
 
 

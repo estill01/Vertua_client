@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { setCurrentItem } from '../../../app/slices/ItemsSlice'
-import { clearSearch } from '../../../app/slices/SearchSlice'
+import { clearSearch, clearSuperbarSearch } from '../../../app/slices/SearchSlice'
 import { isNil } from 'lodash'
 
 
@@ -52,7 +52,8 @@ const SearchResultItem = (props) => {
 
 	function handleClick(e) {
 		dispatch(setCurrentItem(props.data))
-		dispatch(clearSearch())
+		//dispatch(clearSearch())
+		dispatch(clearSuperbarSearch())
 		history.push(props.data.urlSlug)
 	}
 

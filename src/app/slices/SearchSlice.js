@@ -85,6 +85,11 @@ export const SearchSlice = createSlice({
 			state.runtime = ''
 			state.results = {}
 		},
+		clearSuperbarSearch: (state, action) => {
+		  let el = document.getElementById('superbar_search_input')
+			el.value = ''
+			state.query = '' 
+		},
 		// setExectuedAt: (state, action) => {
 		// 	state.executedAt = action.payload
 		// 	state.fulfilledAt = ''
@@ -141,6 +146,7 @@ export const {
 	setQuery,
 	stashSearch,
 	clearSearch,
+	clearSuperbarSearch,
 } = SearchSlice.actions
 
 export default SearchSlice.reducer
