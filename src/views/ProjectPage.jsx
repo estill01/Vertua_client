@@ -1,38 +1,48 @@
 import React, { useEffect } from 'react'
 import { useStore, useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
-//import { fetchBySlug } from '../app/remote/firebase'
 import { fetchBySlug } from '../app/slices/ItemsSlice.js'
 import PageErrorBoundary from './PageErrorBoundary'
 import { UserItemMini } from '../components/items/UserItemMini.jsx'
+import { fetchCurrentItem } from '../app/utils'
 
 const ProjectPage = () => {
 	const location = useLocation()
 	const dispatch = useDispatch()
+
 	let hasCurrent = useSelector(state => state.items.hasCurrent) 
 	let currentItem = useSelector(state => state.items.current) 
 
 	// const image = require(`${item.img}`) // right; this will be a url or otherwise an image sent down the wire.
   const image = require('./images_tmp/cybernetics.jpg')	 // Nb. TMP
 
+	// ====================================
+	//   ProjectPage: LOAD CURRENT ITEM
+	// ====================================
 	useEffect(() => {
-		console.log("[ProjectPage]")
-		console.log("hasCurrent?: ", hasCurrent)
-	 	console.log("current item: ", currentItem)
 
-		if (!hasCurrent) {
-			(async function() {
-				// let slug = location.pathname.slice(1, location.pathname.length)
-				let path = location.pathname.split('/')
-				await dispatch(fetchBySlug({type: path[1], slug: path[2]}))
-	 			console.log("current item: ", currentItem)
-			})()
-		}
+		console.log("[ProjectPage]");
+
+		// console.log("hasCurrent?: ", hasCurrent)
+	 	// console.log("current item: ", currentItem)
+
+		(fetchCurrentItem)()
+
+		// (async function loadData() {
+		// 	let path = location.pathname.split('/')
+		// 	await dispatch(fetchBySlug({type: path[1], slug: path[2]}))
+		// })()
+    //
+    //
+		// if ( 
+		// 	( hasCurrent && currentItem.urlSlug !== location.pathname ) || 
+		// 	!hasCurrent 
+		// ) {
+		// 	await loadData()
+		// }
 
 		return () => {}
 	})
-
-
 
 
 	return (

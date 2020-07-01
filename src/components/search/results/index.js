@@ -1,21 +1,16 @@
 import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { setCurrentItem } from '../../../app/slices/ItemsSlice'
 import { clearSearch, clearSuperbarSearch } from '../../../app/slices/SearchSlice'
+import { nukeOverlays } from '../../../app/slices/PageSlice'
+import { setCurrentItem, clearCurrentItem } from '../../../app/slices/ItemsSlice.js'
 import { isNil } from 'lodash'
+import { handleItemClick } from '../../../app/utils'
 
 
-
-export const SearchResults = (props) => {
-	return (
-		<div className={`${props.className}`}>
-			<SearchResultsSection type='projects' results={props.results}/>
-			<SearchResultsSection type='users' results={props.results}/>
-		</div>
-	)
-}
-
+// ==========================================
+// 	SEARCH DROP-DOWN
+// ==========================================
 export const SearchResultsSection = (props) => {
 	return (
 		<>
@@ -35,7 +30,7 @@ export const SearchResultsSection = (props) => {
 	)
 }
 
-const SearchResultItem = (props) => {
+export const SearchResultItem = (props) => {
 	let name = null
 	let creator = null
 	const history = useHistory()
@@ -51,15 +46,13 @@ const SearchResultItem = (props) => {
 	}
 
 	function handleClick(e) {
-		dispatch(setCurrentItem(props.data))
-		//dispatch(clearSearch())
-		dispatch(clearSuperbarSearch())
+		handleItemClick(props.data)
 		history.push(props.data.urlSlug)
 	}
 
-	console.log("[SearchResult]")
-	console.log("type: ", props.type)
-	console.log("result: ", props.data)
+	// console.log("[SearchResult]")
+	// console.log("type: ", props.type)
+	// console.log("result: ", props.data)
 
 	return (
 		<>
@@ -78,4 +71,42 @@ const SearchResultItem = (props) => {
 		</>
 	)
 }
+
+// ==========================================
+// 	SEARCH DROP-DOWN
+// ==========================================
+export const MiniSearchResultItem = (props) => {
+	const history = useHistory()
+	const dispatch = useDispatch()
+
+	function handleClick(e) {
+		handleItemClick(props.data)
+		history.push(props.data.urlSlug)
+	}
+
+	return (
+		<>
+			<div className='h-16 cursor-pointer rounded p-2 shadow flex flex-row' onClick={() => handleClick()}>
+				{ props.type === 'user' && (<MiniSearchItemUser data={props.data}/> )}
+				{ props.type !== 'user' && (<MiniSearchItemProject data={props.data}/> )}
+			</div>
+		</>
+	)
+}
+
+const MiniSearchItemUser = (props) => (
+	<>
+		<img src={props.data.photoURL} className='w-12 h-12 rounded' />
+		<div className='ml-2'>{props.data.displayName}</div>
+	</>
+)
+const MiniSearchItemProject = (props) => (
+	<>
+		<img src={props.data.photoURL} className='w-12 h-12 rounded' />
+		<div className='ml-2'>{props.data.name}</div>
+	</>
+)
+
+
+
 

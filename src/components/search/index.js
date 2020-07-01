@@ -1,9 +1,7 @@
-import { SearchFilters } from './SearchFilters'
-import { SearchResults, SearchResultsSection } from './SearchResults'
-import { MiniSearchResultItem } from './SearchResultItemMini.jsx'
+import { SearchFilters } from './filters'
+import { SearchResultsSection, MiniSearchResultItem } from './results'
 export { 
 	SearchFilters, 
-	SearchResults, 
 	SearchResultsSection, 
 	MiniSearchResultItem,
 }

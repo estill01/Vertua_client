@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react'
+import { useDispatch } from 'react-redux'
 import PageErrorBoundary from './PageErrorBoundary'
 import LogInForm from '../components/forms/LogInForm'
 import { ProjectForm } from '../components/forms/ProjectForm'
@@ -13,11 +14,12 @@ import FeaturedProjectsCard from '../components/cards/FeaturedProjects'
 import CommunityProductsCard from '../components/cards/CommunityProducts'
 import FeaturedUsersCard from '../components/cards/FeaturedUsers'
 
+import { clearSuperbarSearch } from '../app/slices/SearchSlice.js'
+
 const HomePage = () => {
-	useEffect(() => {
-		const inputEl = document.getElementById('superbar_search_input')
-		if (inputEl) { inputEl.value = '' }
-	})
+	const dispatch = useDispatch()
+
+	useEffect(() => { dispatch(clearSuperbarSearch()) })
 
 	return (
 		<>

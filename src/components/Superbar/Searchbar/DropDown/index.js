@@ -5,6 +5,7 @@ import { toggle, nukeOverlays } from '../../../../app/slices/PageSlice'
 import { ReactComponent as AlgoliaLogo } from '../../../../assets/images/search-by-algolia-light-background.svg'
 import { EnterIndicator } from '../utils.js'
 import { clearCurrentItem } from '../../../../app/slices/ItemsSlice.js'
+
 import { MiniSearchResultItem } from '../../../search'
 
 export const DropDown = (props) => {

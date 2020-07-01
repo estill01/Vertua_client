@@ -40,7 +40,7 @@ const SearchResultsPage = () => {
 
 					<div className='flex flex-row px-4 pb-4'>
 						<SearchFilters results={results}/>
-						<div className='ml-4'>
+						<div className='ml-3'>
 							<SearchResultsSection type='projects' results={results}/>
 							<SearchResultsSection type='users' results={results}/>
 						</div>
