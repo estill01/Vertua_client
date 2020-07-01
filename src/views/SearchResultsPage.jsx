@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { search, stashSearch } from '../app/slices/SearchSlice'
 import { isNil } from 'lodash'
-import { SearchFilters, SearchResults } from '../components/search'
+import { SearchFilters, SearchResults, SearchResultsSection } from '../components/search'
 
 const SearchResultsPage = () => {
 	const location = useLocation()
@@ -40,7 +40,10 @@ const SearchResultsPage = () => {
 
 					<div className='flex flex-row px-4 pb-4'>
 						<SearchFilters results={results}/>
-						<SearchResults results={results} className='ml-4'/>
+						<div className='ml-4'>
+							<SearchResultsSection type='projects' results={results}/>
+							<SearchResultsSection type='users' results={results}/>
+						</div>
 					</div>
 				</div>
 			</PageErrorBoundary>

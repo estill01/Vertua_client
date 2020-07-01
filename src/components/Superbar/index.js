@@ -35,13 +35,9 @@ const Superbar = ({ props } ) => {
 
 						<div 
 						onClick={goToHome}
-						className='text-gray-800 flex flex-row items-center pointer-cursor'>
+						className='text-gray-800 flex flex-row items-center cursor-pointer select-none'>
 							<LogoGlyph 
 							className='h-6 w-6'
-							style={{
-								boxShadow: "4px 4px 4px #00000042",
-								borderRadius: "32px",
-	   					}}
 							/>
 							<span className='text-2xl font-logo-bold italic' style={{marginTop:'0.125em'}}>Vertua</span>
 						</div>

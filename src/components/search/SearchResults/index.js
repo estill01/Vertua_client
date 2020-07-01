@@ -2,6 +2,7 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { setCurrentItem } from '../../../app/slices/ItemsSlice'
+import { clearSearch } from '../../../app/slices/SearchSlice'
 import { isNil } from 'lodash'
 
 
@@ -15,7 +16,7 @@ export const SearchResults = (props) => {
 	)
 }
 
-const SearchResultsSection = (props) => {
+export const SearchResultsSection = (props) => {
 	return (
 		<>
 		<h3 style={{fontVariant:'small-caps'}}>{props.type}</h3>
@@ -26,7 +27,7 @@ const SearchResultsSection = (props) => {
 		{ (props.results[props.type].length != 0 ) && 
 			props.results[props.type].map((result, i) => {
 				return ( 
-					<SearchResult key={i} data={result} type={props.type} className='mb-2'/>
+					<SearchResultItem key={i} data={result} type={props.type} className='mb-2'/>
 				)
 			})
 		}
@@ -34,7 +35,7 @@ const SearchResultsSection = (props) => {
 	)
 }
 
-const SearchResult = (props) => {
+const SearchResultItem = (props) => {
 	let name = null
 	let creator = null
 	const history = useHistory()
@@ -51,6 +52,7 @@ const SearchResult = (props) => {
 
 	function handleClick(e) {
 		dispatch(setCurrentItem(props.data))
+		dispatch(clearSearch())
 		history.push(props.data.urlSlug)
 	}
 
