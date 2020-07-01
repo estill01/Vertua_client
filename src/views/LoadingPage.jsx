@@ -12,8 +12,31 @@ export const LoadingPage = () => {
 		}}
 		>
 			<div className='mx-auto'>
-				<LogoGlyph className='h-64 w-64 opacity-50'/>
-				<Loader active inverted size='big'content='Loading'/>
+				<div>
+					<LogoGlyph 
+					className='h-64 w-64 opacity-75'
+					style={{
+						boxShadow: '4px 4px 4px #2e2e2e52',
+						borderRadius: '32px'
+					}}
+					/>
+					<div 
+					className='text-5xl font-logo-bold italic text-center mt-8 text-white'
+					style={{
+						textShadow: '1px 1px 1px #ba6c1170'
+					}}
+					>
+						Vertua
+					</div>
+				</div>
+				<Loader 
+				active 
+				inverted 
+				size='big'
+				style={{
+					marginTop: '-1rem'
+				}}
+				/>
 			</div>
 		</div>
 	)

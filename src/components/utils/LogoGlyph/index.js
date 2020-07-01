@@ -60,8 +60,12 @@ const LogoGlyph = (props) => (
 	<>
 		<div 
 		className={`${props.className}`}
+		style={props.style}
 		>
-			<Logo className={props.className}/>
+			<Logo 
+			className={props.className}
+			style={props.style}
+			/>
 		</div>
 	</>
 )
