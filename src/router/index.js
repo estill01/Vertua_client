@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react'
+import React, { useEffect, Suspense, lazy } from 'react'
 import { Route, Switch } from 'react-router-dom'
 import loadable from '@loadable/component'
 import { timeout } from 'promise-timeout'
@@ -6,82 +6,69 @@ import PageErrorBoundary from '../views/PageErrorBoundary'
 import { useStore, useDispatch } from 'react-redux'
 import { store } from '../app/index'
 import { setPath } from '../app/slices/PageSlice'
-import { Loader } from 'semantic-ui-react'
-
-const Loading = () => (
-	<div 
-	className='h-screen w-full flex flex-row items-center'
-	style={{ backgroundImage: 'linear-gradient(to bottom right, #42e2ac, #4299e2)' }}
-	>
-		<div className='mx-auto'>
-			<Loader active inverted size='big'content='Loading'/>
-		</div>
-	</div>
-)
+import { LoadingPage } from '../views/LoadingPage.jsx'
 
 const HomePage = loadable(
 	() => timeout(import('../views/HomePage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const UserPage = loadable(
 	() => timeout(import('../views/UserPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const CreatePage = loadable(
 	() => timeout(import('../views/CreatePage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const SearchResultsPage = loadable(
 	() => timeout(import('../views/SearchResultsPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const AccountPage = loadable(
 	() => timeout(import('../views/AccountPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const ProjectPage = loadable(
 	() => timeout(import('../views/ProjectPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const LogInPage = loadable(
 	() => timeout(import('../views/LogInPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const SignUpPage = loadable(
 	() => timeout(import('../views/SignUpPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const PasswordResetPage = loadable(
 	() => timeout(import('../views/PasswordResetPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const TermsOfServicePage = loadable(
 	() => timeout(import('../views/TermsOfServicePage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const PrivacyPolicyPage = loadable(
 	() => timeout(import('../views/PrivacyPolicyPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const NotFoundPage = loadable(
-	() => timeout(import('../views/NotFoundPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const ProductPage = loadable(
-	() => timeout(import('../views/ProductPage'), 5000),
-	{ fallback: <Loading/> }
+	{ fallback: <LoadingPage/> }
 )
 
 const Router = () => {
@@ -94,7 +81,7 @@ const Router = () => {
 					<Switch>
 						<Route exact path='/load'
 						render={(routeProps) => {
-							return ( <Loading/>)
+							return ( <LoadingPage/>)
 						}}
 						/>
 						<Route exact path='/' 
@@ -141,11 +128,11 @@ const Router = () => {
 
 						<Route path='/products/:id'
 						render={(routeProps) => {
-							console.log("[ROUTER]")
-							console.log(routeProps)
+							// console.log("[ROUTER]")
+							// console.log(routeProps)
 							// TODO firebase query for product by 'url' string; so, on create, create a url-ified version from name
 							// TODO Fetch data and populate store, or do in page(?)
-							dispatch(setPath(routeProps.location.pathname))
+							// dispatch(setPath(routeProps.location.pathname))
 							// routeProps.match.params.id
 
 							return (<ProductPage/>)
@@ -156,15 +143,12 @@ const Router = () => {
 						exact 
 						path='/login' 
 						render={ routeProps => {
-							dispatch(setPath('login'))
+							// dispatch(setPath('login'))
 
-							console.log("=== ROUTER DEBUG +++")
-							console.log("session: ", store.getState().session)
-							
-							let isLoggedIn = store.getState().session.isLoggedIn
-							console.log("isLoggedIn: ", isLoggedIn)
-							// TODO use a watcher?
-							// TODO Fix: This is not working likely b/c the redux store is behind schedule
+							// console.log("=== ROUTER DEBUG +++")
+							// console.log("session: ", store.getState().session)
+							// let isLoggedIn = store.getState().session.isLoggedIn
+							// console.log("isLoggedIn: ", isLoggedIn)
 
 							return ( <LogInPage/> )
 

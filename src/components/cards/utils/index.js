@@ -8,8 +8,8 @@ export const CardHeader = (props) => {
 
 	return (
 		<>
-			<div className={`py-6 px-4 ${props.className}`}>
-				<div className={`leading-tight text-3xl font-bold ${props.textColor}`}>
+			<div className={`pt-6 pb-2 px-4 ${props.className}`}>
+				<div className={`leading-tight text-2xl font-bold ${props.textColor}`}>
 					{props.text}
 				</div>
 				<div className={`text-lg mt-2 ${subTextColor}`}>

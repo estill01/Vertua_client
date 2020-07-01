@@ -199,10 +199,11 @@ const FeaturedProject = (props) => {
 	const history = useHistory()
 	const dispatch = useDispatch()
 
+	// TODO Wrap this up in a utility function ; handleItemClick
 	function handleClick(e) {
 		history.push(props.data.path)
-		window.scrollTo(0,0)
 		dispatch(setCurrentItem(props.data))
+		window.scrollTo(0,0)
 	}
 
 	return (

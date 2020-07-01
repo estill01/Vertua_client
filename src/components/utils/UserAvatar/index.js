@@ -6,8 +6,8 @@ import { isNil } from 'lodash'
 
 export const UserAvatar = (props) => {
 	let isAnonymous = isNil(props.data.displayName) || props.data.displayName === ''
-	console.log("[UserAvatar]")
-	console.log("props.data: ", props.data)
+	// console.log("[UserAvatar]")
+	// console.log("props.data: ", props.data)
 	return (
 		<>
 			{ isAnonymous && (<AnonymousAvatar className={`flex-1 ${props.className}`}/>) }

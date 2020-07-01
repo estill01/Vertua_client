@@ -59,9 +59,9 @@ import { ReactComponent as Logo } from '../../../assets/images/logo/flash (1).sv
 const LogoGlyph = (props) => (					
 	<>
 		<div 
-		className={`bg-white ${props.className}`}
+		className={`${props.className}`}
 		>
-			<Logo className='h-10 w-10'/>
+			<Logo className={props.className}/>
 		</div>
 	</>
 )
