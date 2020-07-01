@@ -20,28 +20,8 @@ const ProjectPage = () => {
 	//   ProjectPage: LOAD CURRENT ITEM
 	// ====================================
 	useEffect(() => {
-
-		console.log("[ProjectPage]");
-
-		// console.log("hasCurrent?: ", hasCurrent)
-	 	// console.log("current item: ", currentItem)
-
-		(fetchCurrentItem)()
-
-		// (async function loadData() {
-		// 	let path = location.pathname.split('/')
-		// 	await dispatch(fetchBySlug({type: path[1], slug: path[2]}))
-		// })()
-    //
-    //
-		// if ( 
-		// 	( hasCurrent && currentItem.urlSlug !== location.pathname ) || 
-		// 	!hasCurrent 
-		// ) {
-		// 	await loadData()
-		// }
-
-		return () => {}
+		console.log("[ProjectPage]")
+		fetchCurrentItem()
 	})
 
 

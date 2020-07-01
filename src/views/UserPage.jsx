@@ -8,6 +8,7 @@ import { fetchProjectsForUser } from '../app/slices/UserSlice.js'
 import { Loader } from 'semantic-ui-react'
 import { ItemList } from '../components/items/ItemList.jsx'
 import { UserAvatar } from '../components/utils/UserAvatar'
+import { fetchCurrentItem } from '../app/utils'
 
 // import { getProjectsForUser } from '../app/remote/firebase'
 import { isNil } from 'lodash'
@@ -21,23 +22,12 @@ const UserPage = (props) => {
 
 	// let createdAt = useSelector(state => state.items.current.createdAt)
 	
+	// ==================================
+	//   UserPage: LOAD CURRENT ITEM
+	// ==================================
 	useEffect(() => {
-		console.log("[UserPage]") 
-
-		// TODO Extract to a utility function.
-		// - check hasCurrent
-			// - if yes, check item against url 
-				//  - if match, do nothing
-				//  - if not match, fetch item from url
-			// - if no, fetch item from url
-		
-		if (!hasCurrent) {
-			(async function() {
-				let path = location.pathname.split('/') 
-				await dispatch(fetchBySlug({type: path[1], slug: path[2]}))
-				console.log("current item: ", currentItem)
-			})()
-		}
+		console.log("[UserPage]")
+		fetchCurrentItem()
 	})
 
 

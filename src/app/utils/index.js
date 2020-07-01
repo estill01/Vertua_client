@@ -45,7 +45,7 @@ export const handleItemClick = (item) => {
 	store.dispatch(setCurrentItem(item))
 }
 
-export const fetchCurrentItem = async () => {
+export const fetchCurrentItem = (async () => {
 	console.log("[fetchCurrentItem]")
 
 	const state = store.getState()
@@ -67,7 +67,7 @@ export const fetchCurrentItem = async () => {
 	) {
 		await loadData()
 	}
-}
+})
 
 
 
