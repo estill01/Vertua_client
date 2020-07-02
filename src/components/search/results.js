@@ -10,11 +10,11 @@ import { UserAvatar, AvatarFrame } from '../utils/UserAvatar'
 
 // import { ReactComponent as ProjectIcon } from './images/innovation.svg'
 import { ReactComponent as ProjectIcon } from './images/hexagon.svg'
-import { ReactComponent as UsersIcon } from './images/group.svg'
+import { ReactComponent as UsersIcon } from './images/user.svg'
 import { ReactComponent as GroupsIcon } from './images/venn-diagram.svg'
 import { ReactComponent as ExperimentsIcon } from './images/beaker.svg'
 import { ReactComponent as ToolsIcon } from './images/wrench.svg'
-import { ReactComponent as ServicesIcon } from './images/logistics.svg'
+import { ReactComponent as ServicesIcon } from './images/truck.svg'
 
 const ICONS = {
 	projects: <ProjectIcon className='h-6 w-6 mx-auto'/>,

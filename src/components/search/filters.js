@@ -3,18 +3,22 @@ import React, { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { isNil } from 'lodash'
+
 import { ReactComponent as FiltersIcon } from './images/noun_filters_1245150.svg'
 import { ReactComponent as ProjectIcon } from './images/hexagon.svg'
-import { ReactComponent as UsersIcon } from './images/group.svg'
+import { ReactComponent as UsersIcon } from './images/user.svg'
+import { ReactComponent as GroupsIcon } from './images/venn-diagram.svg'
+import { ReactComponent as ExperimentsIcon } from './images/beaker.svg'
+import { ReactComponent as ToolsIcon } from './images/wrench.svg'
+import { ReactComponent as ServicesIcon } from './images/truck.svg'
 
 const Icons = {
 	projects: <ProjectIcon/>,
 	users: <UsersIcon className='h-4 w-4'/>,
-	groups: <UsersIcon className='h-4 w-4'/>,
-	experiments: <UsersIcon className='h-4 w-4'/>,
-	tools: <UsersIcon className='h-4 w-4'/>,
-	materials: <UsersIcon className='h-4 w-4'/>,
-	products: <UsersIcon className='h-4 w-4'/>,
+	groups: <GroupsIcon className='h-4 w-4'/>,
+	experiments: <ExperimentsIcon className='h-4 w-4'/>,
+	tools: <ToolsIcon className='h-4 w-4'/>,
+	services: <ServicesIcon className='h-4 w-4'/>,
 }
 
 export const SearchFilters = (props) => {
