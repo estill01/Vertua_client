@@ -22,5 +22,5 @@ module.exports = {
 	babel: {
 	// TODO  Verify that you actually need this for lazy loading in Router
 	  plugins: ["@babel/plugin-syntax-dynamic-import"]
-	}
+	},
 }

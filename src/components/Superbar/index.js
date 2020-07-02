@@ -27,7 +27,9 @@ const Superbar = ({ props } ) => {
 		<>
 			{ superbarVisible && (
 			<div className='relative' style={{zIndex:2000}}>
+
 				<div className='fixed w-full'>
+
 					<div className='bg-secondary p-2 flex flex-row items-center border-b border-gray-300 top-0 shadow' { ...props }>
 
 						<div 
@@ -43,19 +45,25 @@ const Superbar = ({ props } ) => {
 							<Search.InputBar className='mx-4 flex-1' ref={inputBarRef}/>
 						</div>
 
-						<div> 
-							{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
+						<div className='flex flex-row'>
+							<div> 
+								{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
+							</div>
+
+							<div>
+								<UserMenu.Trigger className='ml-4'/>
+							</div>
 						</div>
 
-						<div>
-							<UserMenu.Trigger className='ml-4'/>
-						</div>
 					</div>
+
 					<div className='relative mt-0'>
 						<Search.DropDown className='z-40' inputBarRef={inputBarRef}/>
 						<UserMenu.DropDown className='z-50'/>
 					</div>
+
 				</div>
+
 			</div>
 			)}
 		</>

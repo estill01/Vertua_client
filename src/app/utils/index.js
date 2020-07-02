@@ -57,7 +57,9 @@ export const fetchCurrentItem = (async () => {
 	console.log("window.location: ", window.location)
 
 	async function loadData() {
+		console.log("[loadData]")
 		let path = window.location.pathname.split('/')
+		console.log("path: ", path)
 		await store.dispatch(fetchBySlug({type: path[1], slug: path[2]}))
 	}
 

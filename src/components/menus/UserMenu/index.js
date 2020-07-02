@@ -3,8 +3,10 @@ import { useLocation, useHistory, Link } from 'react-router-dom'
 import { useStore, useSelector, useDispatch, } from 'react-redux'
 import watch from 'redux-watch'
 import { toggle } from '../../../app/slices/PageSlice.js'
+import { clearCurrentItem } from '../../../app/slices/ItemsSlice.js'
 import { LogInButton, LogOutButton } from '../../buttons/account'
 import { UserAvatar } from '../../utils/UserAvatar'
+import { handleItemClick } from '../../../app/utils'
 
 import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
 
@@ -66,15 +68,24 @@ export const DropDown = (props) => {
 	const isAnonymous = useSelector(state => state.session.currentUser.isAnonymous)
 	const currentUser = useSelector(state => state.session.currentUser)
 	const history = useHistory()
+	const dispatch = useDispatch()
 
 	function handleUserAvatarClick(e) {
 		console.log("-- handleUserAvatarClick --")
 		console.log(e)
-		history.push('/account')
+		goToProfile()
 	}
 
-	function goToAccount() { history.push('/account') }
-	function goToProfile() { history.push(currentUser.urlSlug) }
+	function goToAccount() { 
+		dispatch(clearCurrentItem())
+		history.push('/account') 
+	}
+	function goToProfile() { 
+		console.log("[goToProfile]")
+		console.log("currentUser: ", currentUser)
+		handleItemClick(currentUser)
+		history.push(currentUser.urlSlug) 
+	}
 
 	return (
 		<>

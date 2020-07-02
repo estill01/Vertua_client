@@ -17,22 +17,41 @@ import { ReactComponent as UsersIcon } from './images/group.svg'
 // 	SEARCH DROP-DOWN
 // ==========================================
 export const SearchResultsSection = (props) => {
+
 	return (
 		<div className={props.className}>
 		
-			<div className='flex flex-row items-center border-b border-gray-300 mb-4'>
-				{ props.type === 'projects' && (<ProjectIcon className='h-6 w-6 mr-1'/>) }
-				{ props.type === 'users' && (<UsersIcon className='h-6 w-6 mr-1'/>) }
-				<div className='m-0 font-semibold text-gray-700 text-2xl leading-normal' style={{fontVariant:'small-caps'}}>{props.type}</div>
+			<div 
+			className='flex flex-row border-gray-300 mb-4 rounded-sm bg-white items-center pb-1 border-b' 
+			>
+				<div 
+				className='w-8 h-8 border border-gray-500 flex items-center rounded'
+				style={{
+					backgroundImage: 'linear-gradient(to top right, #d2d2d2, white)'
+				}}
+				>
+					{ props.type === 'projects' && (<ProjectIcon className='h-6 w-6 mx-auto'/>) }
+					{ props.type === 'users' && (<UsersIcon className='h-6 w-6 mx-auto'/>) }
+				</div>
+
+				<div 
+				className='ml-1 font-semibold text-gray-700 text-2xl leading-normal px-1 py-1px' 
+				style={{
+					fontVariant: 'small-caps',
+					marginTop: '-0.25rem',
+				}}
+				>
+					{props.type}
+				</div>
 			</div>
 
 
-			{ props.results[props.type].length === 0 && (
+			{ isNil(props.results[props.type]) || props.results[props.type].length === 0 && (
 				<div className='italic'>No {props.type} found</div>
 			)}
 
 			<>
-			{ (props.results[props.type].length != 0 ) && 
+			{ !isNil(props.results[props.type]) && (props.results[props.type].length !== 0 ) && 
 				props.results[props.type].map((result, i) => {
 					return ( 
 						<SearchResultItem key={i} data={result} type={props.type} className='mb-4'/>

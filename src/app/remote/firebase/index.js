@@ -37,6 +37,13 @@ export const fetchBySlug = async (type, slug) => {
 		throw new Error(err) 
 	}
 	let docs = querySnapshot.docs
+
+	console.log("docs: ", docs)
+	console.log("doc[0]: ", docs[0])
+	console.log("doc[0].data(): ", docs[0].data())
+	// TODO Sometimes Algolia fails on user creation, which then fails to make slug, so this returns undefined
+
+
 	let result = docs[0].data()
 	console.log("result: ", result) // array length 0
 

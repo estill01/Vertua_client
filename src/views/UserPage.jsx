@@ -42,7 +42,7 @@ const UserPage = (props) => {
 
 								<div className='flex flex-col ml-2'>
 
-									{ currentItem && currentItem.displayName === '' && (
+									{ currentItem && (currentItem.displayName === '' || isNil(currentItem.displayName)) && (
 									<>
 										<div>Anonymous User:</div>
 										<div className='text-xl font-bold'>
@@ -51,7 +51,7 @@ const UserPage = (props) => {
 									</>
 									)}
 
-									{ currentItem && currentItem.displayName != '' && (
+									{ currentItem && (currentItem.displayName !== '' && !isNil(currentItem.displayName)) && (
 									<>
 										<div>Name:</div>
 										<div className='text-xl font-bold'>
