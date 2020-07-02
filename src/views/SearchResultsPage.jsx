@@ -13,9 +13,13 @@ const SearchResultsPage = () => {
 	let previewQuery = useSelector(state => state.search.query) 
 	let runtime = useSelector(state => state.search.srp.runtime)
 	let results = useSelector(state => state.search.srp.results)
+	let resultsCount = results.users.length + results.projects.length
+	let resultWord = () => {
+		if (resultsCount === 1) { return 'Result' } 
+		else { return 'Results' }
+	}
 
 	useEffect(() => {
-		console.log("-- Search Results Page")
 		let urlQuery = location.search.replace('?query=','')
 		urlQuery  = decodeURIComponent(urlQuery)
 
@@ -28,20 +32,21 @@ const SearchResultsPage = () => {
 		return () => { }
 	})
 
+
 	return (
 		<>
 			<PageErrorBoundary>
-				<div className='flex flex-col'>
+				<div className='flex flex-col min-h-screen'>
 
 					<div className='flex flex-row items-center p-4'>
-						<span className='text-lg font-bold'>Query</span> 
-						<span className='ml-2 italic'>{query}</span>
+						<span className='mr-1 text-gray-600'>{resultsCount} {resultWord()} For</span>
+						<span className='text-lg font-bold italic'>{query}</span> 
 					</div>
 
-					<div className='flex flex-row px-4 pb-4'>
-						<SearchFilters results={results}/>
-						<div className='ml-3'>
-							<SearchResultsSection type='projects' results={results}/>
+					<div className='flex flex-row flex-1 px-2 pb-4'>
+						<SearchFilters results={results} className='invisible w-0 md:visible md:w-48 border border-gray-400 rounded-sm'/>
+						<div className='ml-4'>
+							<SearchResultsSection type='projects' results={results} className='mb-4'/>
 							<SearchResultsSection type='users' results={results}/>
 						</div>
 					</div>

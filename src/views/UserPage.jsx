@@ -15,12 +15,8 @@ import { isNil } from 'lodash'
 
 const UserPage = (props) => {
 	const dispatch = useDispatch()
-	const location = useLocation()
-	let hasCurrent = useSelector(state => state.items.hasCurrent)
 	let currentItem = useSelector(state => state.items.current)
 	let projectList = []
-
-	// let createdAt = useSelector(state => state.items.current.createdAt)
 	
 	// ==================================
 	//   UserPage: LOAD CURRENT ITEM

@@ -21,7 +21,7 @@ export const LoadingPage = () => {
 					}}
 					/>
 					<div 
-					className='text-5xl font-logo-bold italic text-center mt-8 text-white'
+					className='text-5xl font-logo-bold italic text-center mt-8 text-white select-none'
 					style={{
 						textShadow: '1px 1px 1px #ba6c1170'
 					}}
