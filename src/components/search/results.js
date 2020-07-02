@@ -11,42 +11,31 @@ import { UserAvatar, AvatarFrame } from '../utils/UserAvatar'
 // import { ReactComponent as ProjectIcon } from './images/innovation.svg'
 import { ReactComponent as ProjectIcon } from './images/hexagon.svg'
 import { ReactComponent as UsersIcon } from './images/group.svg'
+import { ReactComponent as GroupsIcon } from './images/venn-diagram.svg'
+import { ReactComponent as ExperimentsIcon } from './images/beaker.svg'
+import { ReactComponent as ToolsIcon } from './images/wrench.svg'
+import { ReactComponent as ServicesIcon } from './images/logistics.svg'
+
+const ICONS = {
+	projects: <ProjectIcon className='h-6 w-6 mx-auto'/>,
+	users: <UsersIcon className='h-6 w-6 mx-auto'/>,
+	groups: <GroupsIcon className='h-6 w-6 mx-auto'/>,
+	experiments: <ExperimentsIcon className='h-6 w-6 mx-auto'/>,
+	tools: <ToolsIcon className='h-6 w-6 mx-auto'/>,
+	services: <ServicesIcon className='h-6 w-6 mx-auto'/>,
+}
 
 
 // ==========================================
-// 	SEARCH DROP-DOWN
+// 	SEARCH Results Page
 // ==========================================
 export const SearchResultsSection = (props) => {
 
 	return (
 		<div className={props.className}>
-		
-			<div 
-			className='flex flex-row border-gray-300 mb-4 rounded-sm bg-white items-center pb-1 border-b' 
-			>
-				<div 
-				className='w-8 h-8 border border-gray-500 flex items-center rounded'
-				style={{
-					backgroundImage: 'linear-gradient(to top right, #d2d2d2, white)'
-				}}
-				>
-					{ props.type === 'projects' && (<ProjectIcon className='h-6 w-6 mx-auto'/>) }
-					{ props.type === 'users' && (<UsersIcon className='h-6 w-6 mx-auto'/>) }
-				</div>
+			<SectionHeader type={props.type}/>
 
-				<div 
-				className='ml-1 font-semibold text-gray-700 text-2xl leading-normal px-1 py-1px' 
-				style={{
-					fontVariant: 'small-caps',
-					marginTop: '-0.25rem',
-				}}
-				>
-					{props.type}
-				</div>
-			</div>
-
-
-			{ isNil(props.results[props.type]) || props.results[props.type].length === 0 && (
+			{ (isNil(props.results[props.type]) || props.results[props.type].length === 0) && (
 				<div className='italic'>No {props.type} found</div>
 			)}
 
@@ -64,7 +53,32 @@ export const SearchResultsSection = (props) => {
 	)
 }
 
+const SectionHeader = (props) => {
+	return (
+		<div 
+		className='flex flex-row border-gray-300 mb-4 rounded-sm bg-white items-center pb-1 border-b' 
+		>
+			<div 
+			className='w-8 h-8 border border-gray-500 flex items-center rounded'
+			style={{
+				backgroundImage: 'linear-gradient(to top right, #d2d2d2, white)'
+			}}
+			>
+				{ ICONS[props.type] }
+			</div>
 
+			<div 
+			className='ml-1 font-semibold text-gray-700 text-2xl leading-normal px-1 py-1px' 
+			style={{
+				fontVariant: 'small-caps',
+				marginTop: '-0.25rem',
+			}}
+			>
+				{props.type}
+			</div>
+		</div>
+	)
+}
 
 
 export const SearchResultItem = (props) => {

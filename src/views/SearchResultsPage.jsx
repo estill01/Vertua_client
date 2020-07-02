@@ -51,7 +51,7 @@ const SearchResultsPage = () => {
 							<SearchResultsSection type='groups' results={results} className='mb-4'/>
 							<SearchResultsSection type='experiments' results={results} className='mb-4'/>
 							<SearchResultsSection type='tools' results={results} className='mb-4'/>
-							<SearchResultsSection type='materials' results={results} className='mb-4'/>
+							<SearchResultsSection type='services' results={results} className='mb-4'/>
 						</div>
 					</div>
 				</div>

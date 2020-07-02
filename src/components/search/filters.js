@@ -20,7 +20,7 @@ const Icons = {
 export const SearchFilters = (props) => {
 	return (
 		<>
-			<div className={`h-auto ${props.className}`}>
+			<div className={`h-auto select-none ${props.className}`}>
 				<div className='flex flex-row items-center bg-blue-100 border-b border-gray-400 p-1 text-gray-700 rounded-t-sm'>
 					<FiltersIcon className='h-6 w-6'/>
 					<span className='ml-1 text-lg font-semibold'>Filters</span>
@@ -30,9 +30,10 @@ export const SearchFilters = (props) => {
 					<div className='px-2 py-1'>
 						<SearchFilterType type='projects' checked results={props.results}/>
 						<SearchFilterType type='users' checked results={props.results}/>
-						<SearchFilterType type='experiments' inactive results={props.results}/>
 						<SearchFilterType type='groups' inactive results={props.results}/>
-						<SearchFilterType type='products' inactive results={props.results}/>
+						<SearchFilterType type='experiments' inactive results={props.results}/>
+						<SearchFilterType type='tools' inactive results={props.results}/>
+						<SearchFilterType type='services' inactive results={props.results}/>
 					</div>
 
 					<FilterHeader type='resources' className='border-t'/>
@@ -63,7 +64,7 @@ const SearchFilterType = (props) => {
 
 	return (
 		<>
-			<div className='flex flex-row items-center cursor-pointer select-none'>
+			<div className='flex flex-row items-center cursor-pointer select-none py-1'>
 				<input type='checkbox' checked={isChecked} disabled={props.inactive} className='mr-1'/>
 				<div className='h-4 w-4 mr-1'>
 					{ Icons[props.type] }
