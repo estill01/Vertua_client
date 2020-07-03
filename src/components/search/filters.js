@@ -69,7 +69,7 @@ const SearchFilterType = (props) => {
 	return (
 		<>
 			<div className='flex flex-row items-center cursor-pointer select-none py-1'>
-				<input type='checkbox' checked={isChecked} disabled={props.inactive} className='mr-1'/>
+				<input type='checkbox' defaultChecked disabled={props.inactive} className='mr-1'/>
 				<div className='h-4 w-4 mr-1'>
 					{ Icons[props.type] }
 				</div>

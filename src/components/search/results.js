@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { clearSearch, clearSuperbarSearch } from '../../app/slices/SearchSlice'
@@ -36,7 +36,7 @@ export const SearchResultsSection = (props) => {
 			<SectionHeader type={props.type}/>
 
 			{ (isNil(props.results[props.type]) || props.results[props.type].length === 0) && (
-				<div className='italic'>No {props.type} found</div>
+				<div className='italic mb-4'>No {props.type} found</div>
 			)}
 
 			<>
@@ -53,17 +53,19 @@ export const SearchResultsSection = (props) => {
 	)
 }
 
+	// style={{
+	// 			backgroundImage: 'linear-gradient(to top right, #d2d2d2, white)'
+	// 		}}
+  // className='w-8 h-8 border border-gray-500 flex items-center rounded'
+
 const SectionHeader = (props) => {
 	return (
 		<div 
 		className='flex flex-row border-gray-300 mb-4 rounded-sm bg-white items-center pb-1 border-b' 
 		>
 			<div 
-			className='w-8 h-8 border border-gray-500 flex items-center rounded'
-			style={{
-				backgroundImage: 'linear-gradient(to top right, #d2d2d2, white)'
-			}}
-			>
+			className='w-8 h-8 flex items-center rounded'
+					>
 				{ ICONS[props.type] }
 			</div>
 
@@ -86,6 +88,151 @@ export const SearchResultItem = (props) => {
 		<>
 			{ props.type === 'users' && (<_UserSearchResultItem data={props.data} className={props.className}/>) }
 			{ props.type !== 'users' && (<_SearchResultItem data={props.data} className={props.className}/>) }
+		</>
+	)
+}
+
+const _SearchResultItem = (props) => {
+	const history = useHistory()
+	const dispatch = useDispatch()
+	const [hovered, setHovered] = useState(false)
+
+	// const refItem = React.createRef()
+
+	const refName = React.createRef()
+	const refAvatar = React.createRef()
+
+	let creator = null
+	if (!isNil(props.data.creator)) {
+		if (!isNil(props.data.creator.displayName)) {
+			creator = "Added by: " + props.data.creator.displayName
+		}
+	}
+
+
+	// function handleMouseEnter(e) { 
+	// 	// refName.current.classList.add('text-blue-600')
+	// 	// refAvatar.current.classList.add('border-blue-600')
+	// 	toggleStyleOn()
+	// }
+	// function handleMouseLeave(e) {
+	// 	// refName.current.classList.remove('text-blue-600')
+	// 	// refAvatar.current.classList.remove('border-blue-600')
+	// 	toggleStyleOff()
+	// }
+	// function handleMouseOver(e) {
+	// 	toggleStyleOn()
+	// }
+	function handleClick(e) {
+		handleItemClick(props.data)
+		history.push(props.data.urlSlug)
+	}
+	function toggleStylesOn() {
+		refName.current.classList.add('text-blue-600')
+		refAvatar.current.classList.add('border-blue-600')
+	}
+	function toggleStylesOff() {
+		refName.current.classList.remove('text-blue-600')
+		refAvatar.current.classList.remove('border-blue-600')
+	}
+
+	return (
+		<>
+			<div 
+			className={`flex flex-row cursor-pointer ${props.className}`}
+			onClick={handleClick}
+			>
+				<_ItemAvatar 
+				data={props.data}
+				onMouseEnter={toggleStylesOn}
+				onMouseLeave={toggleStylesOff}
+				ref={refAvatar}
+				/>
+				<div className='flex flex-col'>
+					<_ItemDetails 
+					data={props.data}
+					onMouseEnter={toggleStylesOn}
+					onMouseLeave={toggleStylesOff}
+					ref={refName}
+					/>
+					<_ItemCreator
+					creator={props.data.creator}
+					toggleParentStylesOn={toggleStylesOn}
+					toggleParentStylesOff={toggleStylesOff}
+					/>
+				</div>
+			</div>
+		</>
+	)
+}
+
+// TODO Make project icon actually show the projct avatar
+const _ItemAvatar = React.forwardRef((props, ref) => {
+	return (
+		<div 
+		className='w-16 h-16 rounded border border-gray-400 p-2 mr-2'
+		style={{
+			backgroundImage: 'linear-gradient(to left bottom, rgb(255, 218, 68), rgb(255, 152, 16))'
+		}}
+		onMouseEnter={props.onMouseEnter}
+		onMouseLeave={props.onMouseLeave}
+		ref={ref}
+		>
+			<ProjectIcon className='w-full h-full rounded'/>
+		</div>
+	)
+})
+
+const _ItemDetails = React.forwardRef((props, ref) => {
+	return (
+		<div 
+ 		className='text-2xl font-medium mb-2 flex-1'
+		onMouseEnter={props.onMouseEnter}
+		onMouseLeave={props.onMouseLeave}
+		ref={ref}
+		>
+			{props.data.name}
+		</div>
+	)
+})
+
+
+const _ItemCreator = (props) => {
+	const refName = React.createRef()
+	const refAvatar = React.createRef()
+	const history = useHistory()
+
+	function handleMouseEnter(e) { 
+		refName.current.classList.add('text-blue-500')
+		refAvatar.current.classList.add('border-blue-500')
+
+		props.toggleParentStylesOff()
+
+	}
+	function handleMouseLeave(e) {
+		refName.current.classList.remove('text-blue-500')
+		refAvatar.current.classList.remove('border-blue-500')
+	}
+	function handleClick(e) {
+		e.stopPropagation()
+		handleItemClick(props.creator)
+		history.push(props.creator.urlSlug)
+	}
+
+	return (
+		<>
+			<div 
+			className='flex flex-row'
+			ref={refName}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
+			onClick={handleClick}
+			>
+				<div ref={refAvatar} className='border border-transparent rounded'>
+					<UserAvatar data={props.creator} className='rounded h-6 w-6 flex-none'/> 
+				</div>
+				<div className='ml-1'>{props.creator.displayName}</div>
+			</div>
 		</>
 	)
 }
@@ -122,48 +269,7 @@ const _UserSearchResultItem = (props) => {
 	)
 }
 
-const _SearchResultItem = (props) => {
-	const history = useHistory()
-	const dispatch = useDispatch()
-	let name = props.data.name 
 
-	let creator = null
-	if (!isNil(props.data.creator)) {
-		if (!isNil(props.data.creator.displayName)) {
-			creator = "Added by: " + props.data.creator.displayName
-		}
-	}
-
-	function handleClick(e) {
-		handleItemClick(props.data)
-		history.push(props.data.urlSlug)
-	}
-
-	return (
-		<>
-			<div 
-			className={`flex flex-row cursor-pointer ${props.className}`}
-			onClick={handleClick}
-			>
-				<div 
-				className='w-16 h-16 rounded border border-blue-400 p-2 mr-2'
-				style={{
-					backgroundImage: 'linear-gradient(to left bottom, rgb(255, 218, 68), rgb(255, 152, 16))'
-				}}
-				>
-					<ProjectIcon className='w-full h-full rounded'/>
-				</div>
-				<div className='flex flex-col'>
-					<div className='text-2xl font-medium mb-2 flex-1'>{name}</div>
-					<div className='flex flex-row'>
-						<UserAvatar data={props.data.creator} className='rounded h-6 w-6 flex-none'/> 
-						<div className='ml-2'>{props.data.creator.displayName}</div>
-					</div>
-				</div>
-			</div>
-		</>
-	)
-}
 
 					// <img src={props.data.photoURL} className='w-full h-full rounded'/>
 
