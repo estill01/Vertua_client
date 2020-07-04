@@ -1,14 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { clearSearch, clearSuperbarSearch } from '../../app/slices/SearchSlice'
+import { clearSearch, clearSuperBarSearch } from '../../app/slices/SearchSlice'
 import { nukeOverlays } from '../../app/slices/PageSlice'
-import { setCurrentItem, clearCurrentItem } from '../../app/slices/ItemsSlice.js'
+import { setCurrentItem, clearCurrentItem } from '../../app/slices/ItemsSlice'
 import { isNil } from 'lodash'
 import { handleItemClick } from '../../app/utils'
 import { UserAvatar, AvatarFrame } from '../utils/UserAvatar'
 
-// import { ReactComponent as ProjectIcon } from './images/innovation.svg'
 import { ReactComponent as ProjectIcon } from './images/hexagon.svg'
 import { ReactComponent as UsersIcon } from './images/user.svg'
 import { ReactComponent as GroupsIcon } from './images/venn-diagram.svg'
@@ -27,17 +26,12 @@ const ICONS = {
 
 
 // ==========================================
-// 	SEARCH Results Page
+// 	search results page
 // ==========================================
 export const SearchResultsSection = (props) => {
-
 	return (
 		<div className={props.className}>
 			<SectionHeader type={props.type}/>
-
-			{ (isNil(props.results[props.type]) || props.results[props.type].length === 0) && (
-				<div className='italic mb-4'>No {props.type} found</div>
-			)}
 
 			<>
 			{ !isNil(props.results[props.type]) && (props.results[props.type].length !== 0 ) && 
@@ -49,14 +43,13 @@ export const SearchResultsSection = (props) => {
 			}
 			</>
 
+			{ (isNil(props.results[props.type]) || props.results[props.type].length === 0) && (
+				<div className='italic mb-4'>no {props.type} found</div>
+			)}
+
 		</div>
 	)
 }
-
-	// style={{
-	// 			backgroundImage: 'linear-gradient(to top right, #d2d2d2, white)'
-	// 		}}
-  // className='w-8 h-8 border border-gray-500 flex items-center rounded'
 
 const SectionHeader = (props) => {
 	return (
@@ -72,8 +65,8 @@ const SectionHeader = (props) => {
 			<div 
 			className='ml-1 font-semibold text-gray-700 text-2xl leading-normal px-1 py-1px' 
 			style={{
-				fontVariant: 'small-caps',
-				marginTop: '-0.25rem',
+				fontvariant: 'small-caps',
+				margintop: '-0.25rem',
 			}}
 			>
 				{props.type}
@@ -95,98 +88,107 @@ export const SearchResultItem = (props) => {
 const _SearchResultItem = (props) => {
 	const history = useHistory()
 	const dispatch = useDispatch()
-	const [hovered, setHovered] = useState(false)
-
-	// const refItem = React.createRef()
-
-	const refName = React.createRef()
-	const refAvatar = React.createRef()
+	const refitem = React.createRef()
+	const refname = React.createRef()
+	const refavatar = React.createRef()
 
 	let creator = null
 	if (!isNil(props.data.creator)) {
 		if (!isNil(props.data.creator.displayName)) {
-			creator = "Added by: " + props.data.creator.displayName
+			creator = "added by: " + props.data.creator.displayName
 		}
 	}
 
-
-	// function handleMouseEnter(e) { 
-	// 	// refName.current.classList.add('text-blue-600')
-	// 	// refAvatar.current.classList.add('border-blue-600')
-	// 	toggleStyleOn()
-	// }
-	// function handleMouseLeave(e) {
-	// 	// refName.current.classList.remove('text-blue-600')
-	// 	// refAvatar.current.classList.remove('border-blue-600')
-	// 	toggleStyleOff()
-	// }
-	// function handleMouseOver(e) {
-	// 	toggleStyleOn()
-	// }
 	function handleClick(e) {
 		handleItemClick(props.data)
 		history.push(props.data.urlSlug)
 	}
 	function toggleStylesOn() {
-		refName.current.classList.add('text-blue-600')
-		refAvatar.current.classList.add('border-blue-600')
+		refitem.current.classList.add('border-blue-500')
+		refname.current.classList.add('text-blue-600')
+		// refavatar.current.classList.add('border-blue-600')
 	}
 	function toggleStylesOff() {
-		refName.current.classList.remove('text-blue-600')
-		refAvatar.current.classList.remove('border-blue-600')
+		refitem.current.classList.remove('border-blue-500')
+		refname.current.classList.remove('text-blue-600')
+		// refavatar.current.classList.remove('border-blue-600')
 	}
+	function toggleTextStylesOn() {
+		// refitem.current.classList.add('border-blue-500')
+		refname.current.classList.add('text-blue-600')
+		// refavatar.current.classList.add('border-blue-600')
+	}
+	function toggleTextStylesOff() {
+		// refitem.current.classList.remove('border-blue-500')
+		refname.current.classList.remove('text-blue-600')
+		// refavatar.current.classList.remove('border-blue-600')
+	}
+
 
 	return (
 		<>
 			<div 
-			className={`flex flex-row cursor-pointer ${props.className}`}
+			className={`flex flex-row cursor-pointer border border-gray-400 rounded p-2 shadow-sm ${props.className}`}
 			onClick={handleClick}
+			onMouseEnter={toggleStylesOn}
+			onMouseLeave={toggleStylesOff}
+			ref={refitem}
 			>
-				<_ItemAvatar 
-				data={props.data}
-				onMouseEnter={toggleStylesOn}
-				onMouseLeave={toggleStylesOff}
-				ref={refAvatar}
-				/>
-				<div className='flex flex-col'>
+				<div 
+				className='flex mr-2'
+				style={{ width: '3.5rem' }}
+				>
+					<_ItemAvatar 
+					data={props.data}
+					ref={refavatar}
+					/>
+				</div>
+				<div 
+				className='flex-1 flex flex-col'
+				style={{ height: '3.5rem' }}
+				>
 					<_ItemDetails 
 					data={props.data}
-					onMouseEnter={toggleStylesOn}
-					onMouseLeave={toggleStylesOff}
-					ref={refName}
+					ref={refname}
 					/>
-					<_ItemCreator
-					creator={props.data.creator}
-					toggleParentStylesOn={toggleStylesOn}
-					toggleParentStylesOff={toggleStylesOff}
-					/>
+					<div className='flex flex-row'>
+						<_ItemCreator
+						creator={props.data.creator}
+						toggleParentTextStylesOn={toggleTextStylesOn}
+						toggleParentTextStylesOff={toggleTextStylesOff}
+						/>
+					</div>
 				</div>
 			</div>
 		</>
 	)
 }
 
-// TODO Make project icon actually show the projct avatar
+// todo make project icon actually show the projct avatar
 const _ItemAvatar = React.forwardRef((props, ref) => {
 	return (
 		<div 
-		className='w-16 h-16 rounded border border-gray-400 p-2 mr-2'
+		className='flex-1 rounded border border-gray-400 p-2'
 		style={{
 			backgroundImage: 'linear-gradient(to left bottom, rgb(255, 218, 68), rgb(255, 152, 16))'
 		}}
-		onMouseEnter={props.onMouseEnter}
-		onMouseLeave={props.onMouseLeave}
 		ref={ref}
 		>
 			<ProjectIcon className='w-full h-full rounded'/>
 		</div>
 	)
 })
+		// onMouseEnter={props.onMouseEnter}
+		// onMouseLeave={props.onMouseLeave}
+
 
 const _ItemDetails = React.forwardRef((props, ref) => {
 	return (
 		<div 
- 		className='text-2xl font-medium mb-2 flex-1'
+ 		className='font-medium flex-1'
+		style={{
+			fontSize: 'calc(1rem + 0.8vw)'
+		}}
 		onMouseEnter={props.onMouseEnter}
 		onMouseLeave={props.onMouseLeave}
 		ref={ref}
@@ -204,14 +206,15 @@ const _ItemCreator = (props) => {
 
 	function handleMouseEnter(e) { 
 		refName.current.classList.add('text-blue-500')
-		refAvatar.current.classList.add('border-blue-500')
+		// refAvatar.current.classList.add('border-blue-500')
 
-		props.toggleParentStylesOff()
+		props.toggleParentTextStylesOff()
 
 	}
 	function handleMouseLeave(e) {
 		refName.current.classList.remove('text-blue-500')
-		refAvatar.current.classList.remove('border-blue-500')
+		// refAvatar.current.classList.remove('border-blue-500')
+		props.toggleParentTextStylesOn()
 	}
 	function handleClick(e) {
 		e.stopPropagation()
@@ -220,20 +223,20 @@ const _ItemCreator = (props) => {
 	}
 
 	return (
-		<>
+		<div>
 			<div 
-			className='flex flex-row'
+			className='flex flex-row items-center'
 			ref={refName}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 			onClick={handleClick}
 			>
-				<div ref={refAvatar} className='border border-transparent rounded'>
-					<UserAvatar data={props.creator} className='rounded h-6 w-6 flex-none'/> 
+				<div ref={refAvatar} className='border border-transparent rounded-sm'>
+					<UserAvatar data={props.creator} className='rounded-full h-5 w-5 flex-none'/> 
 				</div>
 				<div className='ml-1'>{props.creator.displayName}</div>
 			</div>
-		</>
+		</div>
 	)
 }
 
