@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { clearSearch, clearSuperBarSearch } from '../../app/slices/SearchSlice'
 import { nukeOverlays } from '../../app/slices/PageSlice'
 import { setCurrentItem, clearCurrentItem } from '../../app/slices/ItemsSlice'
-import { isNil } from 'lodash'
+import { isNil, startCase } from 'lodash'
 import { handleItemClick } from '../../app/utils'
 import { UserAvatar, AvatarFrame } from '../utils/UserAvatar'
 
@@ -44,7 +44,7 @@ export const SearchResultsSection = (props) => {
 			</>
 
 			{ (isNil(props.results[props.type]) || props.results[props.type].length === 0) && (
-				<div className='italic mb-4'>no {props.type} found</div>
+				<div className='italic mb-4 px-2'>no {props.type} found</div>
 			)}
 
 		</div>
@@ -52,24 +52,26 @@ export const SearchResultsSection = (props) => {
 }
 
 const SectionHeader = (props) => {
+	let type = startCase(props.type)
+
+
 	return (
 		<div 
-		className='flex flex-row border-gray-300 mb-4 rounded-sm bg-white items-center pb-1 border-b' 
+		className='flex flex-row border-gray-300 mb-2 rounded-sm bg-white items-center pb-1 border-b' 
 		>
 			<div 
-			className='w-8 h-8 flex items-center rounded'
-					>
-				{ ICONS[props.type] }
+			className='w-6 h-6 flex items-center rounded'
+			>
+			  { ICONS[props.type] }
 			</div>
 
 			<div 
-			className='ml-1 font-semibold text-gray-700 text-2xl leading-normal px-1 py-1px' 
+			className='font-semibold text-gray-700 text-lg leading-normal px-1 py-1px' 
 			style={{
-				fontvariant: 'small-caps',
-				margintop: '-0.25rem',
+				marginRop: '-0.25rem',
 			}}
 			>
-				{props.type}
+				{type}
 			</div>
 		</div>
 	)
@@ -105,12 +107,13 @@ const _SearchResultItem = (props) => {
 	}
 	function toggleStylesOn() {
 		refitem.current.classList.add('border-blue-500')
-		refname.current.classList.add('text-blue-600')
+		
+		// refname.current.classList.add('text-blue-600')
 		// refavatar.current.classList.add('border-blue-600')
 	}
 	function toggleStylesOff() {
 		refitem.current.classList.remove('border-blue-500')
-		refname.current.classList.remove('text-blue-600')
+		// refname.current.classList.remove('text-blue-600')
 		// refavatar.current.classList.remove('border-blue-600')
 	}
 	function toggleTextStylesOn() {
@@ -136,7 +139,10 @@ const _SearchResultItem = (props) => {
 			>
 				<div 
 				className='flex mr-2'
-				style={{ width: '3.5rem' }}
+				style={{ 
+					width: '3.5rem',
+					minWidth: '3.5rem',
+				}}
 				>
 					<_ItemAvatar 
 					data={props.data}
@@ -144,13 +150,17 @@ const _SearchResultItem = (props) => {
 					/>
 				</div>
 				<div 
-				className='flex-1 flex flex-col'
+				className='flex-1 flex flex-col overflow-hidden'
 				style={{ height: '3.5rem' }}
 				>
-					<_ItemDetails 
-					data={props.data}
-					ref={refname}
-					/>
+				
+					<div className='flex flex-1'>
+						<_ItemDetails 
+						data={props.data}
+						ref={refname}
+						/>
+					</div>
+
 					<div className='flex flex-row'>
 						<_ItemCreator
 						creator={props.data.creator}
@@ -185,9 +195,9 @@ const _ItemAvatar = React.forwardRef((props, ref) => {
 const _ItemDetails = React.forwardRef((props, ref) => {
 	return (
 		<div 
- 		className='font-medium flex-1'
+ 		className='flex-1 font-semibold text-xl truncate text-blue-600'
 		style={{
-			fontSize: 'calc(1rem + 0.8vw)'
+			minWidth: '0%',
 		}}
 		onMouseEnter={props.onMouseEnter}
 		onMouseLeave={props.onMouseLeave}
@@ -205,14 +215,14 @@ const _ItemCreator = (props) => {
 	const history = useHistory()
 
 	function handleMouseEnter(e) { 
-		refName.current.classList.add('text-blue-500')
+		refName.current.classList.add('text-blue-600')
 		// refAvatar.current.classList.add('border-blue-500')
 
 		props.toggleParentTextStylesOff()
 
 	}
 	function handleMouseLeave(e) {
-		refName.current.classList.remove('text-blue-500')
+		refName.current.classList.remove('text-blue-600')
 		// refAvatar.current.classList.remove('border-blue-500')
 		props.toggleParentTextStylesOn()
 	}

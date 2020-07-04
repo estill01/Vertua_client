@@ -41,7 +41,7 @@ const SearchResultsPage = () => {
 						<div className='invisible w-0 md:visible md:w-48 md:mr-4'>
 							<SearchFilters results={results} className='invisible w-0 md:visible md:w-48 border border-gray-400 rounded-sm fixed'/>
 						</div>
-						<div className='flex flex-col flex-1'>
+						<div className='flex flex-col flex-1 w-full'>
 							<div className='flex flex-row items-center p-1 mb-2 bg-white'>
 								<span className='mr-1 text gray-600'>{resultsCount} {resultWord()} for</span>
 								<span className='text-lg font-bold italic'>{query}</span> 
