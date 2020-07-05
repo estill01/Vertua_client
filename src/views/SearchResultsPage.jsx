@@ -38,9 +38,11 @@ const SearchResultsPage = () => {
 			<PageErrorBoundary>
 				<div className='flex flex-col min-h-screen'>
 					<div className='flex flex-row flex-1 px-2 py-4'>
+
 						<div className='invisible w-0 md:visible md:w-48 md:mr-4'>
 							<SearchFilters results={results} className='invisible w-0 md:visible md:w-48 border border-gray-400 rounded-sm fixed'/>
 						</div>
+
 						<div className='flex flex-col flex-1 w-full'>
 							<div className='flex flex-row items-center p-1 mb-2 bg-white'>
 								<span className='mr-1 text gray-600'>{resultsCount} {resultWord()} for</span>
@@ -53,6 +55,20 @@ const SearchResultsPage = () => {
 							<SearchResultsSection type='tools' results={results} className='mb-4'/>
 							<SearchResultsSection type='services' results={results} className='mb-4'/>
 						</div>
+
+						<div 
+						className='invisible w-0 max-w-lg lg:visible lg:flex-1 lg:ml-4 flex flex-col bg-blue-400'
+						>
+							<div style={{ height: '4.875rem' }} />
+							<div 
+							className='invisble w-0 max-w-lg lg:visible lg:w-full border border-gray-400 rounded h-64 bg-red-300'
+							>
+
+							</div>
+						
+						</div>
+
+
 					</div>
 				</div>
 			</PageErrorBoundary>
