@@ -136,8 +136,10 @@ export const InputBar = React.forwardRef((props, ref) => {
 				onKeyDown={(e) => handleKeyDown(e)}
 				onChange={(e) => handleChange(e)}
 				type='search'
+				inputmode='search'
 				autoComplete='off'
 				placeholder='search...'
+				maxlength='300'
 				/>
 			</div>
 		</div>
