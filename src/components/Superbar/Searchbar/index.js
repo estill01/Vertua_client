@@ -124,9 +124,12 @@ export const InputBar = React.forwardRef((props, ref) => {
 				<Icon name='search' style={{marginTop:'-0.125em'}}/>
 				<input 
 				id='superbar_search_input'
-				className='ml-1 flex-1 text-xl'
+				className='ml-1 flex flex-1 text-lg'
 				ref={ref}
-				style={{ outline: 'none' }} 
+				style={{ 
+					outline: 'none',
+					width: '10px',
+				}} 
 				onFocus={() => handleFocus()}
 				onBlur={(e) => blurContainer()}
 				onInput={(e) => handleInput(e)}
@@ -137,10 +140,10 @@ export const InputBar = React.forwardRef((props, ref) => {
 				placeholder='search...'
 				/>
 			</div>
-			<div className='p-1'>
-				{ hasInput && (<EnterIndicator inputBarRef={ref} className='ml-2 mr-1'/>) }
-			</div>
 		</div>
 	)
 })
+			// <div className='p-1'>
+			// 	{ hasInput && (<EnterIndicator inputBarRef={ref} className='ml-2 mr-1'/>) }
+			// </div>
 

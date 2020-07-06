@@ -9,7 +9,7 @@ export const ContentPreview = (props) => {
 	return (
 		<>
 			<div className={props.className}>
-				<div className='flex flex-col'>
+				<div className='flex flex-col lg:p-2'>
 					<>
 					{ hasPreviewItem && (<div className='text-lg font-bold'>{previewItem.name || previewItem.displayName}</div>) }
 					</>

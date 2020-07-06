@@ -71,7 +71,7 @@ const SearchResultsPage = () => {
 							bottomOffset={10}
 							>
 								<div style={{ height: '4.875rem' }} />
-								<ContentPreview className='invisble w-0 max-w-lg lg:visible lg:w-full border border-gray-400 rounded h-64'/>
+								<ContentPreview className='invisble w-0 max-w-lg lg:visible lg:w-full lg:border border-gray-400 rounded h-64'/>
 							</Sticky>
 						
 						</div>

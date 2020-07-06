@@ -123,7 +123,7 @@ const ListItemDetails = React.forwardRef((props, ref) => {
 		<>
 			{ props.type === 'users' && <ItemStats data={props.data}/> }
 			{ props.type !== 'users' && (
-			<ItemCreator 
+			<ListItemMadeBy
 			data={props.data} 
 			toggleStylesOn={props.toggleStylesOn}
 			toggleStylesOff={props.toggleStylesOff}
@@ -135,7 +135,7 @@ const ListItemDetails = React.forwardRef((props, ref) => {
 })
 
 
-const ItemCreator = (props) => {
+const ListItemMadeBy = (props) => {
 	const refName = React.createRef()
 	const refAvatar = React.createRef()
 	const history = useHistory()

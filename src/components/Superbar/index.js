@@ -15,20 +15,14 @@ const Superbar = ({ props } ) => {
 	let inputBarRef = React.createRef()
 	const history = useHistory()
 
-
-	// <MenuToggle className='flex self-center cursor-pointer' style={{marginTop: '-0.125em'}} color='grey'/>
-	// <LogoGlyph style={{ height: '1.75rem', width: '1.75rem' }} />
-
-	function goToHome() {
-		history.push('/')
-	}
+	function goToHome() { history.push('/') }
 
 	return (
 		<>
-			{ superbarVisible && (
+		{ superbarVisible && (
 			<div className='relative' style={{zIndex:2000}}>
 
-				<div className='fixed w-full'>
+				<div className='fixed w-full bg-red-300'>
 
 					<div className='bg-secondary p-2 flex flex-row items-center border-b border-gray-300 top-0 shadow' { ...props }>
 
@@ -42,17 +36,16 @@ const Superbar = ({ props } ) => {
 						</div>
 
 						<div className='flex flex-1 flex-row items-center'>
-							<Search.InputBar className='mx-4 flex-1' ref={inputBarRef}/>
+							<Search.InputBar className='mx-2 md:mx-4 flex-1' ref={inputBarRef}/>
 						</div>
 
-						<div className='flex flex-row'>
-							<div> 
-								{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
-							</div>
 
-							<div>
-								<UserMenu.Trigger className='ml-4'/>
-							</div>
+						<div> 
+							{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
+						</div>
+
+						<div>
+							<UserMenu.Trigger className='ml-2'/>
 						</div>
 
 					</div>
@@ -71,3 +64,30 @@ const Superbar = ({ props } ) => {
 }
 
 export default Superbar
+
+				// <div className='fixed relative w-full h-12 border-b border-gray-300 top-0 shadow bg-red-300' {...props}>
+        //
+				// 	<div 
+				// 	onClick={goToHome}
+				// 	className='h-full px-2 flex flex-row items-center cursor-pointer select-none text-gray-800 bg-blue-500'
+				// 	>
+				// 		<LogoGlyph 
+				// 		className='h-6 w-6'
+				// 		/>
+				// 		<span className='text-2xl font-logo-bold font-black italic' style={{marginTop:'0.125em'}}>Vertua</span>
+        //
+        //
+				// 	<div className='h-full absolute right-0 px-2 flex flex-row items-center bg-yellow-400'>
+				// 		<div className='h-full w-auto bg-green-500'>
+				// 			<Search.InputBar className='w-auto' ref={inputBarRef}/>
+				// 		</div>
+        //
+				// 		{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
+				// 		<UserMenu.Trigger className='ml-2'/>
+				// 	</div>
+        //
+				// 	</div>
+
+
+						
+

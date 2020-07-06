@@ -22,7 +22,7 @@ export const DropDown = (props) => {
 			<div className={`absolute w-full flex flex-row ${props.className}`} style={props}>
 				<div className='flex-1' onClick={() => { dispatch(nukeOverlays()) }}/>
 				<div
-				className='w-4/5 rounded-b border-l border-b border-r border-gray-400 bg-secondary flex flex-col shadow' 
+				className='w-11/12 rounded-b border-l border-b border-r border-gray-400 bg-secondary flex flex-col shadow' 
 				>
 					<DropDownContent style={props}/>
 					<hr/>

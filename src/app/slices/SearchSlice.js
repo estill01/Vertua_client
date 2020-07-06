@@ -1,5 +1,6 @@
 import { createSlice, createAsyncThunk } from '@reduxjs/toolkit'
 import { firebase, algolia } from '../remote'
+import { isNil } from 'lodash'
 
 // search() - search all indexes
 // searchUsers() - search users index
@@ -87,7 +88,7 @@ export const SearchSlice = createSlice({
 		},
 		clearSuperbarSearch: (state, action) => {
 		  let el = document.getElementById('superbar_search_input')
-			el.value = ''
+			if (!isNil(el)) { el.value = '' }
 			state.query = '' 
 		},
 		// setExectuedAt: (state, action) => {
