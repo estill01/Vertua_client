@@ -7,21 +7,6 @@ import { isNil } from 'lodash'
 import { icon } from '../utils/icons.js'
 
 import { ReactComponent as FiltersIcon } from './images/noun_filters_1245150.svg'
-// import { ReactComponent as ProjectIcon } from './images/hexagon.svg'
-// import { ReactComponent as UsersIcon } from './images/user.svg'
-// import { ReactComponent as GroupsIcon } from './images/venn-diagram.svg'
-// import { ReactComponent as ExperimentsIcon } from './images/beaker.svg'
-// import { ReactComponent as ToolsIcon } from './images/wrench.svg'
-// import { ReactComponent as ServicesIcon } from './images/truck.svg'
-//
-// const Icons = {
-// 	projects: <ProjectIcon/>,
-// 	users: <UsersIcon className='h-4 w-4'/>,
-// 	groups: <GroupsIcon className='h-4 w-4'/>,
-// 	experiments: <ExperimentsIcon className='h-4 w-4'/>,
-// 	tools: <ToolsIcon className='h-4 w-4'/>,
-// 	services: <ServicesIcon className='h-4 w-4'/>,
-// }
 
 export const SearchFilters = (props) => {
 	return (
@@ -34,12 +19,12 @@ export const SearchFilters = (props) => {
 				<div>
 					<FilterHeader type='types' className='mb-1'/>
 					<div className='px-2 py-1'>
-						<SearchFilterType type='projects' checked results={props.results}/>
-						<SearchFilterType type='users' checked results={props.results}/>
-						<SearchFilterType type='groups' inactive results={props.results}/>
-						<SearchFilterType type='experiments' inactive results={props.results}/>
-						<SearchFilterType type='tools' inactive results={props.results}/>
-						<SearchFilterType type='services' inactive results={props.results}/>
+						<SearchFilterType type='projects' key={'projects'} checked results={props.results}/>
+						<SearchFilterType type='users' key={'users'} checked results={props.results}/>
+						<SearchFilterType type='groups' key={'groups'} inactive results={props.results}/>
+						<SearchFilterType type='experiments' key={'experiments'} inactive results={props.results}/>
+						<SearchFilterType type='tools' key={'tools'} inactive results={props.results}/>
+						<SearchFilterType type='services' key={'services'} inactive results={props.results}/>
 					</div>
 
 					<FilterHeader type='resources' className='border-t'/>

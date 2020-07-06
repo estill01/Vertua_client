@@ -20,7 +20,10 @@ export const ICONS = {
 export function icon(type, classes) {
 	return React.createElement(
 		'div',
-		{ className: classes },
+		{ 
+			className: classes,
+			key: type,
+		 },
 		[ ICONS[type] ]
 	)
 }

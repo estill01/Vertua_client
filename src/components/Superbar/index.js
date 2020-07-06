@@ -38,7 +38,7 @@ const Superbar = ({ props } ) => {
 							<LogoGlyph 
 							className='h-6 w-6'
 							/>
-							<span className='text-2xl font-logo-bold italic' style={{marginTop:'0.125em'}}>Vertua</span>
+							<span className='text-2xl font-logo-bold font-black italic' style={{marginTop:'0.125em'}}>Vertua</span>
 						</div>
 
 						<div className='flex flex-1 flex-row items-center'>

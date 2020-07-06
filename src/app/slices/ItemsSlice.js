@@ -20,6 +20,8 @@ export const ItemsSlice = createSlice({
 		isLoading: false,
 		hasCurrent: false,
 		current: {}, 
+		hasPreviewItem: false,
+		previewItem: {},
 	},
 	reducers: {
 		setCurrentItem: (state, action) => {
@@ -32,6 +34,18 @@ export const ItemsSlice = createSlice({
 			state.hasCurrent = false
 			state.current = {}
 		},
+		setPreviewItem: (state, action) => {
+			console.log("[setPreviewItem]")
+			console.log(action.payload)
+			state.previewItem = action.payload
+			state.hasPreviewItem = true
+		},
+		clearPreviewItem: (state, action) => {
+			state.hasPreviewItem = false
+			state.previewItem = {}
+		},
+
+
 	},
 	extraReducers: {
 		[_createItem.pending]: (state, action) => {
@@ -90,6 +104,8 @@ export const ItemsSlice = createSlice({
 export const {
 	setCurrentItem,
 	clearCurrentItem,
+	setPreviewItem,
+	clearPreviewItem,
 } = ItemsSlice.actions
 
 export default ItemsSlice.reducer

@@ -1,9 +1,11 @@
 import React, { useEffect, useState } from 'react'
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { isNil, startCase } from 'lodash'
 import { handleItemClick } from '../../app/utils'
 import { UserAvatar } from '../utils/UserAvatar'
 import { icon } from '../utils/icons.js'
+import { setPreviewItem, clearPreviewItem } from '../../app/slices/ItemsSlice.js'
 
 
 export const ListItem = (props) => {
@@ -12,10 +14,21 @@ export const ListItem = (props) => {
 	const refAvatar = React.createRef()
 	const refName = React.createRef()
 	const refDetails = React.createRef()
+	const dispatch = useDispatch()
 
 	function handleClick(e) {
 		handleItemClick(props.data)
 		history.push(props.data.urlSlug)
+	}
+	function handleMouseEnter(e) {
+		console.log("[ListItem.MouseEnter]")
+		toggleStylesOn()
+		dispatch(setPreviewItem(props.data))
+	}
+	function handleMouseLeave(e) {
+		console.log("[ListItem.MouseLeave]")
+		toggleStylesOff()
+		// dispatch(clearPreviewItem())
 	}
 	function toggleStylesOn() { refItem.current.classList.add('border-blue-500') }
 	function toggleStylesOff() { refItem.current.classList.remove('border-blue-500') }
@@ -27,8 +40,8 @@ export const ListItem = (props) => {
 			<div 
 			className={`flex flex-row cursor-pointer border border-gray-400 rounded p-2 shadow-sm ${props.className}`}
 			onClick={handleClick}
-			onMouseEnter={toggleStylesOn}
-			onMouseLeave={toggleStylesOff}
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
 			ref={refItem}
 			>
 				<ListItemAvatar ref={refAvatar} type={props.type} data={props.data}/>
@@ -126,16 +139,22 @@ const ItemCreator = (props) => {
 	const refName = React.createRef()
 	const refAvatar = React.createRef()
 	const history = useHistory()
+	const dispatch = useDispatch()
 
-	// TODO add a safty existence check for props.data.creator
+	// TODO add a safty existence check for props.data.creator (?)
 
 	function handleMouseEnter(e) { 
+		console.log("[ItemCreator.MouseEnter]")
+		dispatch(setPreviewItem(props.data.creator))
+		refName.current.classList.remove('text-gray-700')
 		refName.current.classList.add('text-blue-600')
 		// props.refName.current.classList.remove('text-blue-600')
 		props.toggleStylesOff()
 	}
 	function handleMouseLeave(e) {
+		console.log("[ItemCreator.MouseLeave]")
 		refName.current.classList.remove('text-blue-600')
+		refName.current.classList.add('text-gray-700')
 		props.toggleStylesOn()
 	}
 	function handleClick(e) {
@@ -147,16 +166,20 @@ const ItemCreator = (props) => {
 	return (
 		<div>
 			<div 
-			className='flex flex-row items-center truncate'
+			className='flex flex-row items-center truncate text-gray-700'
 			ref={refName}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 			onClick={handleClick}
 			>
 				<div ref={refAvatar} className='border border-transparent rounded-sm'>
-					<UserAvatar data={props.data.creator} className='rounded-full h-5 w-5 flex-none'/> 
+					<UserAvatar data={props.data.creator} className='rounded-full h-6 w-6 flex-none'/> 
 				</div>
-				<div className='ml-1'>{props.data.creator.displayName}</div>
+				<div 
+				className='ml-1 text-sm font-semibold'
+				>
+					{props.data.creator.displayName}
+				</div>
 			</div>
 		</div>
 	)

@@ -24,7 +24,8 @@ const Footer = () => {
 				color: 'whitesmoke',
 				borderTop: '4px solid #e03997',
 				display: 'flex',
-			}}>
+			}}
+			>
 				<Container style={{ display: 'flex', flex: 1 }}>
 					<div style={{ display: 'flex', flex: 1, flexDirection: 'column' }}>
 						<div style={{ flex: 1 }}>
