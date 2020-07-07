@@ -8,9 +8,8 @@ import { Page, Metadata } from '../page'
 import { BrowserRouter } from 'react-router-dom'
 import Superbar from '../Superbar'
 
-// import store from '../../app/store'
-// 
-const App = ({ store }) => (
+const App = ({ store }) => {
+	return (
 	<React.StrictMode>
 		<Provider store={store}>
 			<Metadata/>
@@ -20,14 +19,6 @@ const App = ({ store }) => (
 			</BrowserRouter>
 		</Provider>
 	</React.StrictMode>
-)
-
-
+	)
+}
 export default App;
-
-				// <Sidebar.Pushable>
-				// 	<SideNav/>
-				// 	<Sidebar.Pusher>
-				// 	</Sidebar.Pusher>
-				// </Sidebar.Pushable>
-        //

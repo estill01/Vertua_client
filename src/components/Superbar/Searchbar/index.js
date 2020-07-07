@@ -7,7 +7,7 @@ import { Menu, Image, Icon, Dropdown, Loader } from 'semantic-ui-react'
 import LogoGlyph from '../../utils/LogoGlyph'
 import { ReactComponent as Avatar } from '../../../assets/images/avatar/noun_User_2187511.svg'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
-import { search, stashSearch } from '../../../app/slices/SearchSlice'
+import { search, stashSearch, clearSuperbarSearch } from '../../../app/slices/SearchSlice'
 import watch from 'redux-watch'
 import { ReactComponent as AlgoliaLogo } from '../../../assets/images/search-by-algolia-light-background.svg'
 import { DropDown } from './DropDown'   
@@ -35,12 +35,19 @@ export const InputBar = React.forwardRef((props, ref) => {
 			if (!isVisibleDimmer) { dispatch(toggle('dimmer')) }
 		}
 	}
-	function focusContainer() {
-		containerRef.current.classList.add('border-blue-500')
+	function handleBlur() {
+		blurContainer()
 	}
-	function blurContainer(e) {
-		containerRef.current.classList.remove('border-blue-500')
+	function handleSearch() {
+		// TODO Add a state thing so that if this is already running, don't run a 2nd time...
+		doAction()
+		containerRef.current.classList.add('border-4 border-red-600')
 	}
+	function handleSubmit(e) {
+
+		containerRef.current.classList.add('border-4 border-red-600')
+	}
+
 	function handleInput(e) {
 		console.log("-- handleInput")
 		console.log(e.key)
@@ -74,20 +81,55 @@ export const InputBar = React.forwardRef((props, ref) => {
 
 
 		if (e.charCode === 13 || e.key === 'Enter') {
-			let query = ref.current.value.trim()
-			query = encodeURIComponent(query)
-			if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
-			if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
-			if (query === '') { history.push('/') }
-			else {
-				dispatch(stashSearch())
-				history.push({
-					pathname: '/search',
-					search: `?query=${query}`,
-				})
-			}
+			// let query = ref.current.value.trim()
+			// query = encodeURIComponent(query)
+			// if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
+			// if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+			// if (query === '') { history.push('/') }
+			// else {
+			// 	ref.current.blur()
+			// 	blurContainer()
+      //
+			// 	// TODO create action that stashes query and clears superbar content
+			// 	dispatch(stashSearch())
+      //
+			// 	history.push({
+			// 		pathname: '/search',
+			// 		search: `?query=${query}`,
+			// 	})
+			// }
+
+			doAction()
 		} 
   }
+
+	function focusContainer() {
+		containerRef.current.classList.add('border-blue-500')
+	}
+	function blurContainer(e) {
+		containerRef.current.classList.remove('border-blue-500')
+	}
+
+
+	function doAction() {
+		let query = ref.current.value.trim()
+		query = encodeURIComponent(query)
+		if (isVisibleDropDown) { dispatch(toggle('searchDropdown')) }
+		if (isVisibleDimmer) { dispatch(toggle('dimmer')) }
+		if (query === '') { history.push('/') }
+		else {
+			ref.current.blur()
+			// blurContainer()
+
+			// TODO create action that stashes query and clears superbar content
+			dispatch(stashSearch())
+
+			history.push({
+				pathname: '/search',
+				search: `?query=${query}`,
+			})
+		}
+	}
 	
 	// TODO BUG: 'Enter' indicator stays on when you click logo to clear input and go to '/';  input clearing isn't getting picked up in time to toggle 'hasInput' => false.
 	function handleChange(e) {
@@ -117,7 +159,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 
 	return (
 		<div 
-		className={`bg-secondary text-primary rounded border border-gray-400 hover:border-blue-400 flex flex-row items-center ${props.className}`}
+		className={`bg-secondary text-primary rounded-lg border border-gray-400 hover:border-blue-400 flex flex-row items-center ${props.className}`}
 		ref={containerRef}
 		>
 			<div className='p-2 flex flex-row flex-1 items-center'>
@@ -131,10 +173,12 @@ export const InputBar = React.forwardRef((props, ref) => {
 					width: '10px',
 				}} 
 				onFocus={() => handleFocus()}
-				onBlur={(e) => blurContainer()}
+				onBlur={(e) => handleBlur()}
 				onInput={(e) => handleInput(e)}
 				onKeyDown={(e) => handleKeyDown(e)}
 				onChange={(e) => handleChange(e)}
+				onSearch={(e) => handleSearch()}
+				onSubmit={(e) => handleSubmit(e)}
 				type='search'
 				inputmode='search'
 				autoComplete='off'

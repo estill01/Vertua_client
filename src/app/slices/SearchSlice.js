@@ -89,7 +89,13 @@ export const SearchSlice = createSlice({
 		clearSuperbarSearch: (state, action) => {
 		  let el = document.getElementById('superbar_search_input')
 			if (!isNil(el)) { el.value = '' }
+
 			state.query = '' 
+			// state.executedAt = ''
+			// state.fulfilledAt = ''
+			// state.runtime = ''
+			// state.results = {}
+
 		},
 		// setExectuedAt: (state, action) => {
 		// 	state.executedAt = action.payload

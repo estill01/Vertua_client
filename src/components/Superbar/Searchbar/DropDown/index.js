@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { useStore, useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { toggle, nukeOverlays } from '../../../../app/slices/PageSlice'
@@ -6,7 +6,8 @@ import { ReactComponent as AlgoliaLogo } from '../../../../assets/images/search-
 import { EnterIndicator } from '../utils.js'
 import { clearCurrentItem } from '../../../../app/slices/ItemsSlice.js'
 
-import { MiniSearchResultItem } from '../../../search'
+// import { MiniSearchResultItem } from '../../../search'
+import { ListItem } from '../../../items/ListItem.js'
 
 export const DropDown = (props) => {
 	const dispatch = useDispatch()
@@ -37,40 +38,34 @@ export const DropDown = (props) => {
 
 const DropDownContent = (props) => {
 	const dispatch = useDispatch()
-  let searchQuery = useSelector(state => state.search.query)
-	let runtime = useSelector(state => state.search.runtime)
-
-	let resultsUserIndex = useSelector(state => state.search.results.users)
-	let resultsProjectIndex = useSelector(state => state.search.results.projects)
-	// let resultsUserIndexCount = useSelector(state => state.search.results.users.length)
-	// let resultsProjectIndexCount = useSelector(state => state.search.results.projects.length)
-
 	let isVisibleDropDown = useSelector(state => state.page.searchDropdown)
 	let isVisibleCreationModal = useSelector(state => state.page.creationModal)
 	let isVisibleDimmer = useSelector(state => state.page.dimmer)
-
+  let searchQuery = useSelector(state => state.search.query)
+	let runtime = useSelector(state => state.search.runtime)
+	let resultsUserIndex = useSelector(state => state.search.results.users)
+	let resultsProjectIndex = useSelector(state => state.search.results.projects)
+	let resultsCount = resultsUserIndex.length + resultsProjectIndex.length
+	let resultWord = () => {
+		if (resultsCount === 1) { return 'Result' }
+		else { return 'Results' }
+	}
 
 	return (
 		<>
 			<div className='flex-1 px-4 py-2'>
 
 				<div className='flex flex-col'>
-					<div className='flex flex-row'>
-						<div className='flex flex-1 italic'>{searchQuery}</div>
-					</div>
-					<div className='flex flex-row'>
-						<div className='text-xs mr-2'>{resultsUserIndex.length + resultsProjectIndex.length} results.</div>
-						<div className='text-xs'>Completed in {runtime} milliseconds</div>
-					</div>
+					<div className='text-xs mr-2'>{resultsCount} {resultWord()}.</div>
 				</div>
 
 				{ resultsProjectIndex.length > 0 && ( 
 				<div className='flex-1 py-2'>
 					<span style={{fontVariant:'small-caps'}}>projects</span>
-					<div className='flex flex-row'>
+					<div className='flex flex-col'>
 						{ resultsProjectIndex.map((item, i) =>  {
 						return (
-							<MiniSearchResultItem data={item} type='project' key={i}/>
+							<ListItem key={i} data={item} type='projects' className='mb-1'/>
 						)
 						})}
 					</div>
@@ -81,10 +76,10 @@ const DropDownContent = (props) => {
 				{ resultsUserIndex.length > 0 && ( 
 				<div className='flex-1 py-2'>
 					<span style={{fontVariant:'small-caps'}}>users</span>
-					<div className='flex flex-row'>
+					<div className='flex flex-col'>
 						{ resultsUserIndex.map((item, i) =>  {
 						return (
-							<MiniSearchResultItem data={item} type='user' key={i}/>
+							<ListItem key={i} data={item} type='users' className='mb-1'/>
 						)
 						})}
 					</div>
