@@ -50,10 +50,11 @@ const SearchResultsPage = () => {
 						</div>
 
 						<div className='flex flex-col flex-1 w-full bg-white'>
-							<div className='flex flex-row items-center p-1 mb-2 bg-white'>
-								<span className='mr-1 text gray-600'>{resultsCount} {resultWord()} for</span>
-								<span className='text-lg font-bold italic'>{query}</span> 
+
+							<div className='p-1 mb-2 truncate gray-600'>
+								{resultsCount} {resultWord()} for <span className='text-lg font-bold italic'>{query}</span> 
 							</div>
+
 							<SearchResultsSection type='projects' results={results} className='mb-4'/>
 							<SearchResultsSection type='users' results={results} className='mb-4'/>
 							<SearchResultsSection type='groups' results={results} className='mb-4'/>

@@ -16,8 +16,7 @@ module.exports = {
 				inverse: "var(--color-bg-inverse)"
 			},
 			fontFamily: {
-				logo: ['Comfortaa-Regular'],
-				"logo-bold": ['Comfortaa-Bold'],
+				logo: ['Comfortaa'],
 				display: ["Helvetica", "sans-serif"],
 				body: ["Helvetica", "sans-serif"],
 			},

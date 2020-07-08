@@ -56,7 +56,9 @@ const DropDownContent = (props) => {
 			<div className='flex-1 px-4 py-2'>
 
 				<div className='flex flex-col'>
-					<div className='text-xs mr-2'>{resultsCount} {resultWord()}.</div>
+					<div className='text-sm mr-2 truncate'>
+						{resultsCount} {resultWord()} for <span className='font-bold italic'>{searchQuery}</span>
+					</div>
 				</div>
 
 				{ resultsProjectIndex.length > 0 && ( 
