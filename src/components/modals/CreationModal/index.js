@@ -4,6 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { Icon } from 'semantic-ui-react'
 import watch from 'redux-watch'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
+import { ZINDEX } from '../../utils'
 import { UserAvatar, AvatarFrame } from '../../utils/UserAvatar'
 import { ProjectForm, ProjectFormFull } from '../../forms/ProjectForm'
 import Card from '../../utils/Card'
@@ -37,7 +38,7 @@ export const CreationModal = (props) => {
 	return (
 		<>
 		{ isVisibleCreationModal && (
-			<ModalCard>
+			<ModalCard style={props.style}>
 				<ModalCardTopBar/>
 				<ModalCardBody>
 					<ProjectForm ref={(c) => refForm = c } autoSelect={true}/>
@@ -89,7 +90,7 @@ const ModalCard = (props) => {
 
 	return (
 		<>
-			<ModalFrame style={{zIndex:3000}}>
+			<ModalFrame style={props.style}>
 				<div
 				className='mx-auto mt-8 w-4/5 rounded-md border border-gray-500 shadow-md bg-secondary flex flex-col' 
 				style={{ 

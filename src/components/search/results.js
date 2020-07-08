@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { isNil, startCase } from 'lodash'
 import { handleItemClick } from '../../app/utils'
 import { ListItem } from '../items'
-import { icon } from '../utils/icons.js'
+import { icon } from '../utils'
 
 
 // ==========================================
@@ -39,7 +39,7 @@ const SearchResultsSectionHeader = (props) => {
 
 	return (
 		<div 
-		className='flex flex-row border-gray-300 mb-2 rounded-sm bg-white items-center pb-1 border-b' 
+		className='flex flex-row border-gray-300 mb-2 rounded-sm items-center pb-1 border-b' 
 		>
 			<div 
 			className='w-6 h-6 flex items-center rounded'

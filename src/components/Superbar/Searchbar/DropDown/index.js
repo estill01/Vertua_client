@@ -5,9 +5,10 @@ import { toggle, nukeOverlays } from '../../../../app/slices/PageSlice'
 import { ReactComponent as AlgoliaLogo } from '../../../../assets/images/search-by-algolia-light-background.svg'
 import { EnterIndicator } from '../utils.js'
 import { clearCurrentItem } from '../../../../app/slices/ItemsSlice.js'
+import { TYPES, ZINDEX } from '../../../utils'
 
 // import { MiniSearchResultItem } from '../../../search'
-import { ListItem } from '../../../items/ListItem.js'
+import { ListItemMini } from '../../../items/ListItem.js'
 
 export const DropDown = (props) => {
 	const dispatch = useDispatch()
@@ -22,13 +23,29 @@ export const DropDown = (props) => {
 		{ isVisibleDropDown && (
 			<div className={`absolute w-full flex flex-row ${props.className}`} style={props}>
 				<div className='flex-1' onClick={() => { dispatch(nukeOverlays()) }}/>
-				<div
-				className='w-11/12 rounded-b border-l border-b border-r border-gray-400 bg-secondary flex flex-col shadow' 
-				>
-					<DropDownContent style={props}/>
-					<hr/>
-					<BottomBar inputBarRef={props.inputBarRef}/> 
+
+				<div className='w-11/12 relative'>
+					<div 
+					className='absolute w-full h-full bg-secondary-inverse rounded-b'
+					style={{ 
+						zIndex: 0,
+						opacity: 0.95,
+					}}
+					>
+					</div>
+
+					<div
+					className='relative w-full rounded-b border-l border-b border-r border-gray-400 text-secondary-inverse flex flex-col shadow' 
+					style={{ zIndex: 1 }}
+					>
+						<DropDownContent style={props}/>
+						<hr/>
+						<BottomBar inputBarRef={props.inputBarRef}/> 
+					</div>
+
+				
 				</div>
+
 				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>
 			</div>
 		)}
@@ -62,12 +79,12 @@ const DropDownContent = (props) => {
 				</div>
 
 				{ resultsProjectIndex.length > 0 && ( 
-				<div className='flex-1 py-2'>
+				<div className='flex-1 pb-2'>
 					<span style={{fontVariant:'small-caps'}}>projects</span>
-					<div className='flex flex-col'>
+					<div className='flex flex-col mt-1'>
 						{ resultsProjectIndex.map((item, i) =>  {
 						return (
-							<ListItem key={i} data={item} type='projects' className='mb-1'/>
+							<ListItemMini key={i} data={item} type={TYPES.projects} className='mb-1'/>
 						)
 						})}
 					</div>
@@ -76,12 +93,12 @@ const DropDownContent = (props) => {
 
 
 				{ resultsUserIndex.length > 0 && ( 
-				<div className='flex-1 py-2'>
+				<div className='flex-1 pb-2'>
 					<span style={{fontVariant:'small-caps'}}>users</span>
-					<div className='flex flex-col'>
+					<div className='flex flex-col mt-1'>
 						{ resultsUserIndex.map((item, i) =>  {
 						return (
-							<ListItem key={i} data={item} type='users' className='mb-1'/>
+							<ListItemMini key={i} data={item} type={TYPES.users} className='mb-1'/>
 						)
 						})}
 					</div>
@@ -109,7 +126,7 @@ const BottomBar = (props) => {
 
 	return (
 		<>
-			<div className='p-4 flex flex-row bg-primary'>
+			<div className='p-4 flex flex-row bg-primary-inverse rounded-b'>
 				<div className='flex flex-1'>
 					<a 
 					className='no-underline cursor-pointer hover:text-blue-500'

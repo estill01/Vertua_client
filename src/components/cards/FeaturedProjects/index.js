@@ -181,7 +181,7 @@ const ScrollButton = (props) => {
 		<>
 		{ isVisible && (
 			<div
-			className={`flex flex-row items-center w-12 h-12 rounded-full bg-white hover:bg-gray-100 active:bg-gray-200 border-2 border-gray-300 hover:border-blue-400 active:border-blue-500 text-2xl font-bold text-gray-500 hover:text-blue-400 shadow active:shadow-none cursor-pointer select-none ${props.className}`}
+			className={`flex flex-row items-center w-12 h-12 rounded-full bg-primary hover:bg-gray-100 active:bg-gray-200 border-2 border-gray-300 hover:border-blue-400 active:border-blue-500 text-2xl font-bold text-gray-500 hover:text-blue-400 shadow active:shadow-none cursor-pointer select-none ${props.className}`}
 			style={props.style}
 			onClick={scroll}
 			>
@@ -209,7 +209,7 @@ const FeaturedProject = (props) => {
 	return (
 		<>
 			<div 
-			className={`rounded-md cursor-pointer select-none border-2 border-gray-300 hover:border-blue-300 active:border-blue-500 px-2 pt-2 rounded-md transform ease-linear duration-100 hover:scale-105 active:scale-100 shadow-md hover:shadow-lg active:shadow-none ${props.className}`}
+			className={`bg-primary rounded-md cursor-pointer select-none border-2 border-gray-300 hover:border-blue-300 active:border-blue-500 px-2 pt-2 rounded-md transform ease-linear duration-100 hover:scale-105 active:scale-100 shadow-md hover:shadow-lg active:shadow-none ${props.className}`}
 			style={{minWidth:'14rem'}}
 			onClick={handleClick}
 			>

@@ -3,7 +3,9 @@ module.exports = {
 		extend: {
 			textColor: {
 				primary: "var(--color-text-primary)",
+				'primary-inverse': "var(--color-text-primary-inverse)",
 				secondary: "var(--color-text-secondary)",
+				'secondary-inverse': "var(--color-text-secondary-inverse)",
 				default: "var(--color-text-default)",
 				"default-soft": "var(--color-text-default-soft)",
 				inverse: "var(--color-text-inverse)",
@@ -11,7 +13,9 @@ module.exports = {
 			},
 			backgroundColor: {
 				primary: "var(--color-bg-primary)",
+				'primary-inverse': "var(--color-bg-primary-inverse)",
 				secondary: "var(--color-bg-secondary)",
+				'secondary-inverse': "var(--color-bg-secondary-inverse)",
 				default: "var(--color-bg-default)",
 				inverse: "var(--color-bg-inverse)"
 			},

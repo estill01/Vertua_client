@@ -8,6 +8,7 @@ import { Footer } from '../utils'
 import Dimmer from '../../utils/Dimmer'
 import PlusButton from '../../buttons/PlusButton'
 import CreationModal from '../../modals/CreationModal'
+import { ZINDEX } from '../../utils'
 
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import { search, stashSearch, clearSearch } from '../../../app/slices/SearchSlice'
@@ -113,16 +114,21 @@ const Page = () => {
 					{ plusButtonVisible && (
 					<PlusButton
 					style={{
-						zIndex:2100
+						zIndex: ZINDEX.plusButton
 					}}
 					/>
 					)}
-					<Dimmer storePath='dimmer'/>
+					<Dimmer 
+					storePath='dimmer'
+					style={{
+						zIndex: ZINDEX.dimmer
+					}}
+					/>
 				</div>
 				<Footer/>
 				<CreationModal
 				style={{
-					zIndex:2001
+					zIndex: ZINDEX.creationModal
 				}}
 				/>
 				<Dimmer 
@@ -130,7 +136,7 @@ const Page = () => {
 				storePath='globalDimmer' 
 				className='opacity-50'
 				style={{
-					zIndex:2000
+					zIndex: ZINDEX.globalDimmer
 				}}
 				/>
 			</div>

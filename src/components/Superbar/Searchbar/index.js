@@ -159,7 +159,7 @@ export const InputBar = React.forwardRef((props, ref) => {
 
 	return (
 		<div 
-		className={`bg-secondary text-primary rounded-lg border border-gray-400 hover:border-blue-400 flex flex-row items-center ${props.className}`}
+		className={`bg-primary text-primary rounded-lg border border-gray-400 hover:border-blue-400 flex flex-row items-center ${props.className}`}
 		ref={containerRef}
 		>
 			<div className='p-2 flex flex-row flex-1 items-center'>

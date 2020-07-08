@@ -1,6 +1,7 @@
 import React from 'react'
 import { Loader } from 'semantic-ui-react'
 import LogoGlyph from '../components/utils/LogoGlyph'
+import { ZINDEX } from '../components/utils'
 
 export const LoadingPage = () => {
 	return (
@@ -8,7 +9,7 @@ export const LoadingPage = () => {
 		className='h-screen w-screen flex flex-row items-center fixed top-0 left-0' 
 		style={{ 
 			backgroundImage: 'linear-gradient(to left bottom, rgb(255, 218, 68), rgb(255, 152, 16))',
-			zIndex: 10000,
+			zIndex: ZINDEX.loadingPage,
 		}}
 		>
 			<div className='mx-auto'>
@@ -21,7 +22,7 @@ export const LoadingPage = () => {
 					}}
 					/>
 					<div 
-					className='text-5xl font-logo-bold italic text-center mt-8 text-white select-none'
+					className='text-5xl font-logo font-bold italic text-center mt-8 text-white select-none'
 					style={{
 						textShadow: '1px 1px 1px #ba6c1170'
 					}}

@@ -4,7 +4,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { isNil } from 'lodash'
 
-import { icon } from '../utils/icons.js'
+import { icon } from '../utils'
 
 import { ReactComponent as FiltersIcon } from './images/noun_filters_1245150.svg'
 
@@ -18,14 +18,7 @@ export const SearchFilters = (props) => {
 				</div>
 				<div>
 					<FilterHeader type='types' className='mb-1'/>
-					<div className='px-2 py-1'>
-						<SearchFilterType type='projects' key={'projects'} checked results={props.results}/>
-						<SearchFilterType type='users' key={'users'} checked results={props.results}/>
-						<SearchFilterType type='groups' key={'groups'} inactive results={props.results}/>
-						<SearchFilterType type='experiments' key={'experiments'} inactive results={props.results}/>
-						<SearchFilterType type='tools' key={'tools'} inactive results={props.results}/>
-						<SearchFilterType type='services' key={'services'} inactive results={props.results}/>
-					</div>
+					<FilterSection results={props.results}/>
 
 					<FilterHeader type='resources' className='border-t'/>
 					<FilterHeader type='engagement'/>
@@ -33,6 +26,20 @@ export const SearchFilters = (props) => {
 				</div>
 			</div>
 		</>
+	)
+}
+
+// TODO WIP
+const FilterSection = (props) => {
+	return (
+		<div className='bg-primary px-2 py-1'>
+			<SearchFilterType type='projects' key={'projects'} checked results={props.results}/>
+			<SearchFilterType type='users' key={'users'} checked results={props.results}/>
+			<SearchFilterType type='groups' key={'groups'} inactive results={props.results}/>
+			<SearchFilterType type='experiments' key={'experiments'} inactive results={props.results}/>
+			<SearchFilterType type='tools' key={'tools'} inactive results={props.results}/>
+			<SearchFilterType type='services' key={'services'} inactive results={props.results}/>
+		</div>
 	)
 }
 

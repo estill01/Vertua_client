@@ -51,7 +51,7 @@ export const Trigger = (props) => {
 	return (
 		<div {...props}>
 			<div 
-			className="w-10 h-10 rounded-full border border-gray-500 cursor-pointer bg-white flex p-px"
+			className="w-10 h-10 rounded-full border border-gray-500 cursor-pointer bg-primary flex p-px"
 			onClick={() => dispatch(toggle('userMenu'))}
 			onMouseEnter={() => { if (!isActive) { toggleIsActive() } }}
 			onMouseLeave={() => { if (!isMenuOpen && isActive) { toggleIsActive() } }}
@@ -92,7 +92,7 @@ export const DropDown = (props) => {
 			{isVisible && (
 
 			<div 
-			className={`absolute left-auto right-0 top-0 border-l border-b border-gray-400 rounded-bl w-40 flex flex-col bg-secondary ${props.className}`}
+			className={`absolute left-auto right-0 top-0 border-l border-b border-gray-400 rounded-bl w-40 flex flex-col bg-primary ${props.className}`}
 			>
 				<div className='flex-1'>
 

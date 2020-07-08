@@ -14,18 +14,24 @@
 
 
 :root {
-  --color-bg-primary: whitesmoke; 
-  --color-bg-secondary: #ffffff;
+  --color-bg-primary: #ffffff; 
+  --color-bg-primary-inverse: #272727;
+	--color-bg-secondary: #fffffd;
+  --color-bg-secondary-inverse: #3c3c3c;
+
   --color-bg-default: #fff;
-  --color-bg-inverse: black;
 
   --color-text-primary: #272727;
+  --color-text-primary-inverse: whitesmoke;
   --color-text-secondary: #636363;
+  --color-text-secondary-inverse: #d8d8d8;	
 
   --color-text-default: #444;
   --color-text-default-soft: #999;
   --color-text-inverse: #444;
   --color-text-inverse-soft: #999;
+
+	/* TODO Add colors for borders */
 
 }
 

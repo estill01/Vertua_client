@@ -27,3 +27,23 @@ export function icon(type, classes) {
 		[ ICONS[type] ]
 	)
 }
+
+export const TYPES = {
+	projects: 'projects',
+	project: 'projects',
+	users: 'users',
+	user: 'users',
+}
+
+export const ZINDEX = {
+	footer: 1,
+	plusButton: 98,
+	dimmer: 99,
+	creationModal: 100,
+	sideNav: 101,
+	searchDropDown: 101,
+	userMenu: 102,
+	superbar: 200,
+	globalDimmer: 1000,
+	loadingPage: 1000,
+}

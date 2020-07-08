@@ -4,7 +4,7 @@ import { useHistory } from 'react-router-dom'
 import { isNil, startCase } from 'lodash'
 import { handleItemClick } from '../../app/utils'
 import { UserAvatar } from '../utils/UserAvatar'
-import { icon } from '../utils/icons.js'
+import { icon } from '../utils'
 import { setPreviewItem, clearPreviewItem } from '../../app/slices/ItemsSlice.js'
 
 
@@ -38,7 +38,7 @@ export const ListItem = (props) => {
 	return (
 		<>
 			<div 
-			className={`flex flex-row cursor-pointer border border-gray-400 rounded p-2 shadow-sm ${props.className}`}
+			className={`bg-primary flex flex-row cursor-pointer border border-gray-400 rounded p-2 shadow-sm ${props.className}`}
 			onClick={handleClick}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
@@ -48,7 +48,6 @@ export const ListItem = (props) => {
 				<div className='flex flex-col truncate'>
 					<ListItemName 
 					ref={refName} 
-					type={props.type} 
 					data={props.data}
 					/>
 
@@ -68,21 +67,53 @@ export const ListItem = (props) => {
 	)
 }
 
+export const ListItemMini = (props) => {
+
+	return (
+		<>
+			<div
+			className={`flex flex-row items-center cursor-pointer ${props.className}`}
+			>
+				<ListItemAvatar type={props.type} data={props.data} size='mini'/>
+				<ListItemName data={props.data}/>
+			</div>
+		</>
+	)
+}
+
 
 const ListItemAvatar = React.forwardRef((props, ref) => {
 	const hasAvatar = !isNil(props.data.photoURL) && props.data.photoURL !== ''
 
+	const size = {
+		item: {
+			default: {
+				width: '3.5rem',
+				minWidth: '3.5rem',
+				maxWidth: '3.5rem',
+				height: '3.5rem',
+				minHeight: '3.5rem',
+				maxHeight: '3.5rem',
+			},
+			mini: {
+				width: '2rem',
+				minWidth: '2rem',
+				maxWidth: '2rem',
+				height: '2rem',
+				minHeight: '2rem',
+				maxHeight: '2rem',
+			},
+		},
+		icon: {
+			default: 'h-6 w-6',
+			mini: 'h-4 w-4',
+		},
+	}
+
 	return (
 		<div 
 		className='flex mr-2'
-		style={{ 
-			width: '3.5rem',
-			minWidth: '3.5rem',
-			maxWidth: '3.5rem',
-			height: '3.5rem',
-			minHeight: '3.5rem',
-			maxHeight: '3.5rem',
-		}}
+		style={size.item[props.size] || size.item.default}
 		>
 			<div 
 			className='flex-1 rounded border border-gray-400'
@@ -93,7 +124,7 @@ const ListItemAvatar = React.forwardRef((props, ref) => {
 			>
 				<div className='w-full h-full rounded flex items-center'>
 				 	{ hasAvatar && (<img src={props.data.photoURL} className='w-full h-full rounded'/>) }
-			  	{ !hasAvatar && icon(props.type, 'h-6 w-6 mx-auto')}
+			  	{ !hasAvatar && icon(props.type, `${size.icon[props.size] || size.icon.default} mx-auto`)}
 				</div>
 			</div>
 		</div>
@@ -111,8 +142,7 @@ const ListItemName = React.forwardRef((props, ref) => {
 		onMouseLeave={props.onMouseLeave}
 		ref={ref}
 		>
-			{props.type !== 'users' && props.data.name}
-			{props.type === 'users' && props.data.displayName}
+			{ props.data.name || props.data.displayName }
 		</div>
 	)
 })

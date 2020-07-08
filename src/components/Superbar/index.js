@@ -22,9 +22,9 @@ const Superbar = ({ props } ) => {
 		{ superbarVisible && (
 			<div className='relative' style={{zIndex:2000}}>
 
-				<div className='fixed w-full bg-red-300'>
+				<div className='fixed w-full'>
 
-					<div className='bg-secondary p-2 flex flex-row items-center border-b border-gray-300 top-0 shadow' { ...props }>
+					<div className='bg-primary p-2 flex flex-row items-center border-b border-gray-300 top-0 shadow' { ...props }>
 
 						<div 
 						onClick={goToHome}
