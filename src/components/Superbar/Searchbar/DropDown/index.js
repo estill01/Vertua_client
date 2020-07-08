@@ -28,7 +28,7 @@ export const DropDown = (props) => {
 					<div 
 					className='absolute w-full h-full bg-secondary-inverse rounded-b'
 					style={{ 
-						zIndex: 0,
+						zIndex: ZINDEX.searchDropDown,
 						opacity: 0.95,
 					}}
 					>
@@ -36,7 +36,7 @@ export const DropDown = (props) => {
 
 					<div
 					className='relative w-full rounded-b border-l border-b border-r border-gray-400 text-secondary-inverse flex flex-col shadow' 
-					style={{ zIndex: 1 }}
+					style={{ zIndex: ZINDEX.searchDropDown + 1 }}
 					>
 						<DropDownContent style={props}/>
 						<hr/>
@@ -70,21 +70,19 @@ const DropDownContent = (props) => {
 
 	return (
 		<>
-			<div className='flex-1 px-4 py-2'>
+			<div className='flex-1 py-2'>
 
-				<div className='flex flex-col'>
-					<div className='text-sm mr-2 truncate'>
-						{resultsCount} {resultWord()} for <span className='font-bold italic'>{searchQuery}</span>
-					</div>
+				<div className='px-4 text-sm mr-2 truncate'>
+					{resultsCount} {resultWord()} for <span className='font-bold italic'>{searchQuery}</span>
 				</div>
 
 				{ resultsProjectIndex.length > 0 && ( 
 				<div className='flex-1 pb-2'>
-					<span style={{fontVariant:'small-caps'}}>projects</span>
+					<span className='px-4' style={{fontVariant:'small-caps'}}>projects</span>
 					<div className='flex flex-col mt-1'>
 						{ resultsProjectIndex.map((item, i) =>  {
 						return (
-							<ListItemMini key={i} data={item} type={TYPES.projects} className='mb-1'/>
+							<ListItemMini key={i} data={item} type={TYPES.projects} className='px-4 py-1 hover:bg-gray-700'/>
 						)
 						})}
 					</div>
@@ -94,11 +92,11 @@ const DropDownContent = (props) => {
 
 				{ resultsUserIndex.length > 0 && ( 
 				<div className='flex-1 pb-2'>
-					<span style={{fontVariant:'small-caps'}}>users</span>
+					<span className='px-4' style={{fontVariant:'small-caps'}}>users</span>
 					<div className='flex flex-col mt-1'>
 						{ resultsUserIndex.map((item, i) =>  {
 						return (
-							<ListItemMini key={i} data={item} type={TYPES.users} className='mb-1'/>
+							<ListItemMini key={i} data={item} type={TYPES.users} className='mb-1 px-4 hover:bg-gray-700'/>
 						)
 						})}
 					</div>

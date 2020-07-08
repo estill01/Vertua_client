@@ -49,6 +49,7 @@ export const ListItem = (props) => {
 					<ListItemName 
 					ref={refName} 
 					data={props.data}
+					className='font-semibold text-xl'
 					/>
 
 					<div className='flex flex-row truncate'>
@@ -68,14 +69,21 @@ export const ListItem = (props) => {
 }
 
 export const ListItemMini = (props) => {
+	const history = useHistory()
+
+	function handleClick(e) {
+		handleItemClick(props.data)
+		history.push(props.data.urlSlug)
+	}
 
 	return (
 		<>
 			<div
 			className={`flex flex-row items-center cursor-pointer ${props.className}`}
+			onClick={handleClick}
 			>
 				<ListItemAvatar type={props.type} data={props.data} size='mini'/>
-				<ListItemName data={props.data}/>
+				<ListItemName data={props.data} className='font-normal text-lg'/>
 			</div>
 		</>
 	)
@@ -96,12 +104,12 @@ const ListItemAvatar = React.forwardRef((props, ref) => {
 				maxHeight: '3.5rem',
 			},
 			mini: {
-				width: '2rem',
-				minWidth: '2rem',
-				maxWidth: '2rem',
-				height: '2rem',
-				minHeight: '2rem',
-				maxHeight: '2rem',
+				width: '1.5rem',
+				minWidth: '1.5rem',
+				maxWidth: '1.5rem',
+				height: '1.5rem',
+				minHeight: '1.5rem',
+				maxHeight: '1.5rem',
 			},
 		},
 		icon: {
@@ -134,7 +142,7 @@ const ListItemAvatar = React.forwardRef((props, ref) => {
 const ListItemName = React.forwardRef((props, ref) => {
 	return (
 		<div 
-		className='flex-1 font-semibold text-xl truncate text-blue-600'
+		className={`flex-1 truncate text-blue-600 ${props.className}`}
 		style={{
 			minWidth: '0%',
 		}}
