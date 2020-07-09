@@ -7,6 +7,7 @@ import { LogInButton, LogOutButton } from '../buttons/account'
 import * as Search from './Searchbar'
 import * as UserMenu from '../menus/UserMenu'
 import LogoGlyph from '../utils/LogoGlyph'
+import { ZINDEX } from '../utils'
 
 
 const Superbar = ({ props } ) => {
@@ -20,7 +21,7 @@ const Superbar = ({ props } ) => {
 	return (
 		<>
 		{ superbarVisible && (
-			<div className='relative' style={{zIndex:2000}}>
+			<div className='relative' style={{zIndex: ZINDEX.superbar}}>
 
 				<div className='fixed w-full'>
 

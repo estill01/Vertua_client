@@ -38,12 +38,12 @@ export const TYPES = {
 export const ZINDEX = {
 	footer: 1,
 	plusButton: 98,
-	dimmer: 99,
-	creationModal: 100,
+	dimmer: '99',
 	sideNav: 101,
 	searchDropDown: 101,
 	userMenu: 102,
 	superbar: 200,
 	globalDimmer: 1000,
+	creationModal: 1001,
 	loadingPage: 1000,
 }

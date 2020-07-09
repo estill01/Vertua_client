@@ -64,23 +64,6 @@ export default CreationModal
 // ---------------------------------------------------
 
 
-const ModalFrame = (props) => {
-	const dispatch = useDispatch()
-	function handleClickContainer(e) {
-		dispatch(nukeOverlays())
-		dispatch(toggle('plusButton'))
-	}
-	return (
-		<div 
-		className={`fixed w-screen h-screen top-0 left-0 flex flex-row ${props.className}`} 
-		style={props.style}
-		onClick={(e) => handleClickContainer(e)}
-		>
-			{props.children}
-		</div>
-	)
-}
-
 const ModalCard = (props) => {
 	function handleClickModal(e) {
 		console.log("--- Click: INNER --")
@@ -105,6 +88,24 @@ const ModalCard = (props) => {
 		</>
 	)
 }
+
+const ModalFrame = (props) => {
+	const dispatch = useDispatch()
+	function handleClickContainer(e) {
+		dispatch(nukeOverlays())
+		dispatch(toggle('plusButton'))
+	}
+	return (
+		<div 
+		className={`fixed w-screen h-screen top-0 left-0 flex flex-row ${props.className}`} 
+		style={props.style}
+		onClick={(e) => handleClickContainer(e)}
+		>
+			{props.children}
+		</div>
+	)
+}
+
 
 const ModalCardBody = (props) => {
 	return (
