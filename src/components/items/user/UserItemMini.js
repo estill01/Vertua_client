@@ -1,8 +1,8 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { setCurrentItem, clearCurrentItem } from '../../app/slices/ItemsSlice.js'
-import { handleItemClick } from '../../app/utils'
+import { setCurrentItem, clearCurrentItem } from '../../../app/slices/ItemsSlice.js'
+import { handleItemClick } from '../../../app/utils'
 
 export const UserItemMini = (props) => {
 	const history = useHistory()

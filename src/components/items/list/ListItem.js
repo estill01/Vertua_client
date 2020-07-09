@@ -2,10 +2,10 @@ import React, { useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { isNil, startCase } from 'lodash'
-import { handleItemClick } from '../../app/utils'
-import { UserAvatar } from '../utils/UserAvatar'
-import { icon } from '../utils'
-import { setPreviewItem, clearPreviewItem } from '../../app/slices/ItemsSlice.js'
+import { UserAvatar } from '../../utils/UserAvatar'
+import { icon } from '../../utils'
+import { setPreviewItem, clearPreviewItem } from '../../../app/slices/ItemsSlice.js'
+import { handleItemClick } from '../../../app/utils'
 
 
 export const ListItem = (props) => {
@@ -90,7 +90,7 @@ export const ListItemMini = (props) => {
 }
 
 
-const ListItemAvatar = React.forwardRef((props, ref) => {
+export const ListItemAvatar = React.forwardRef((props, ref) => {
 	const hasAvatar = !isNil(props.data.photoURL) && props.data.photoURL !== ''
 
 	const size = {
@@ -139,7 +139,7 @@ const ListItemAvatar = React.forwardRef((props, ref) => {
 	)
 })
 
-const ListItemName = React.forwardRef((props, ref) => {
+export const ListItemName = React.forwardRef((props, ref) => {
 	return (
 		<div 
 		className={`flex-1 truncate text-blue-600 ${props.className}`}
@@ -156,7 +156,7 @@ const ListItemName = React.forwardRef((props, ref) => {
 })
 
 
-const ListItemDetails = React.forwardRef((props, ref) => {
+export const ListItemDetails = React.forwardRef((props, ref) => {
 	return (
 		<>
 			{ props.type === 'users' && <ItemStats data={props.data}/> }
@@ -173,7 +173,7 @@ const ListItemDetails = React.forwardRef((props, ref) => {
 })
 
 
-const ListItemMadeBy = (props) => {
+export const ListItemMadeBy = (props) => {
 	const refName = React.createRef()
 	const refAvatar = React.createRef()
 	const history = useHistory()

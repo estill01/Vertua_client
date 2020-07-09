@@ -8,10 +8,10 @@ import { firebase } from '../app'
 import Card from '../components/utils/Card'
 
 import {
-	SponsorResearchCard,
 	BuildTheFutureCard,
-	RegisterCROCard,
 	CommunityProductsCard,
+	SponsorResearchCard,
+	RegisterCROCard,
 } from '../components/cards/specialty'
 import * as Featured from '../components/cards/featured'
 

@@ -6,7 +6,7 @@ import Card from '../components/utils/Card'
 import { fetchBySlug, setCurrentItem } from '../app/slices/ItemsSlice.js'
 import { fetchProjectsForUser } from '../app/slices/UserSlice.js'
 import { Loader } from 'semantic-ui-react'
-import { ItemList } from '../components/items/ItemList.jsx'
+import { ItemList } from '../components/items'
 import { UserAvatar } from '../components/utils/UserAvatar'
 import { fetchCurrentItem } from '../app/utils'
 

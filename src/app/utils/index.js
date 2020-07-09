@@ -52,14 +52,13 @@ export const fetchCurrentItem = (async () => {
 	const hasCurrent = state.items.hasCurrent
 	const currentItem = state.items.current
 
-	console.log("hasCurrent: ", hasCurrent)
-	console.log("currentItem: ", currentItem)
-	console.log("window.location: ", window.location)
+	// console.log("hasCurrent: ", hasCurrent)
+	// console.log("currentItem: ", currentItem)
+	// console.log("window.location: ", window.location)
 
 	async function loadData() {
 		console.log("[loadData]")
 		let path = window.location.pathname.split('/')
-		console.log("path: ", path)
 		await store.dispatch(fetchBySlug({type: path[1], slug: path[2]}))
 	}
 

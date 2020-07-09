@@ -1,5 +1,7 @@
-import { ListItem } from './ListItem.js'
+import { ItemList, ListItem, ListItemMini } from './list'
 
 export {
-	ListItem
+	ItemList,
+	ListItem,
+	ListItemMini,
 }
