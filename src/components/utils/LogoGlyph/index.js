@@ -6,7 +6,9 @@ import { Menu, Image } from 'semantic-ui-react'
 
 // import { ReactComponent as Logo } from '../../../assets/images/logo/thunder.svg'
 // import { ReactComponent as Logo } from '../../../assets/images/logo/miscellaneous.svg' // GOOD
-import { ReactComponent as Logo } from '../../../assets/images/logo/flash (1).svg'
+import { ReactComponent as LogoGlyphSVG } from '../../../assets/images/logo/flash (1).svg'
+import { ReactComponent as LogoDarkSVG } from '../../../assets/images/logo/vertua_logo-dark@2x.svg'
+import { ReactComponent as LogoLightSVG } from '../../../assets/images/logo/vertua_logo-light@2x.svg'
 
 // import {  ReactComponent as Logo } from '../../assets/images/logo/noun_fast_3119713.svg'  
 // import {  ReactComponent as Logo } from '../../assets/images/logo/noun_fractal_224058.svg' 
@@ -56,19 +58,29 @@ import { ReactComponent as Logo } from '../../../assets/images/logo/flash (1).sv
 // Run whole thing through 99Designs / get a finalized version in order
 
 
-const LogoGlyph = (props) => (					
+export const Logo = (props) => (
+	<>
+	{ props.dark && ( <LogoDarkSVG className={props.className} style={props.style}/> ) }
+	{ props.light && ( <LogoLightSVG className={props.className} style={props.style}/> ) }
+	</>
+)
+
+export const LogoGlyph = (props) => (					
 	<>
 		<div 
 		className={`${props.className}`}
 		style={props.style}
 		>
-			<Logo 
+			<LogoGlyphSVG 
 			className={props.className}
 			style={props.style}
 			/>
 		</div>
 	</>
 )
+
+
+
 		// style={{
 		// 	backgroundColor:'white',
 		// 	backgroundImage: 'linear-gradient(to bottom right, #42e2ac, #4299e2)'
@@ -76,7 +88,6 @@ const LogoGlyph = (props) => (
 
 			// <Logo {...props} style={{fill:'white'}}/>
 
-export default LogoGlyph
 
 		// <Image 
 		// src={require('../../../assets/images/logo/circle_dots.jpg')} 

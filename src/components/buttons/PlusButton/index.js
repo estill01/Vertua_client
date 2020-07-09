@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { useStore, useDispatch, useSelector } from 'react-redux'
 import { toggle } from '../../../app/slices/PageSlice'
+import { ZINDEX } from '../../utils'
 
 const PlusButton = (props) => {
 	const dispatch = useDispatch()
@@ -25,8 +26,7 @@ const PlusButton = (props) => {
 			style={{
 				right: '2em',
 				bottom: '2em',
-				// zIndex: props.style.zIndex,
-				zIndex: 2100,
+				zIndex: ZINDEX.plusButton,
 
 			}}
 			onClick={(e) => handleClick(e)}

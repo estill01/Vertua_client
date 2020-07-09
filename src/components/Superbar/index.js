@@ -6,7 +6,7 @@ import { MenuToggle } from '../menus/utils'
 import { LogInButton, LogOutButton } from '../buttons/account'
 import * as Search from './Searchbar'
 import * as UserMenu from '../menus/UserMenu'
-import LogoGlyph from '../utils/LogoGlyph'
+import { Logo, LogoGlyph } from '../utils/LogoGlyph'
 import { ZINDEX } from '../utils'
 
 
@@ -18,6 +18,7 @@ const Superbar = ({ props } ) => {
 
 	function goToHome() { history.push('/') }
 
+							// <span className='text-2xl font-logo font-black italic' style={{marginTop:'0.125em'}}>Vertua</span>
 	return (
 		<>
 		{ superbarVisible && (
@@ -33,7 +34,11 @@ const Superbar = ({ props } ) => {
 							<LogoGlyph 
 							className='h-6 w-6'
 							/>
-							<span className='text-2xl font-logo font-black italic' style={{marginTop:'0.125em'}}>Vertua</span>
+							<Logo
+							dark
+							className='ml-1'
+							style={{ height: '1.3rem' }}
+							/>
 						</div>
 
 						<div className='flex flex-1 flex-row items-center'>

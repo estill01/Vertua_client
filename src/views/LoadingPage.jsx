@@ -1,6 +1,6 @@
 import React from 'react'
 import { Loader } from 'semantic-ui-react'
-import LogoGlyph from '../components/utils/LogoGlyph'
+import { LogoGlyph, Logo } from '../components/utils/LogoGlyph'
 import { ZINDEX } from '../components/utils'
 
 export const LoadingPage = () => {
@@ -21,14 +21,10 @@ export const LoadingPage = () => {
 						borderRadius: '32px'
 					}}
 					/>
-					<div 
-					className='text-5xl font-logo font-bold italic text-center mt-8 text-white select-none'
-					style={{
-						textShadow: '1px 1px 1px #ba6c1170'
-					}}
-					>
-						Vertua
-					</div>
+					<Logo 
+					light
+					className='mt-8 select-none h-14'
+					/>
 				</div>
 				<Loader 
 				active 
@@ -42,3 +38,14 @@ export const LoadingPage = () => {
 		</div>
 	)
 }
+
+
+					// <div 
+					// className='text-5xl font-logo font-bold italic text-center mt-8 text-white select-none'
+					// style={{
+					// 	textShadow: '1px 1px 1px #ba6c1170'
+					// }}
+					// >
+					// 	Vertua
+					// </div>
+          //

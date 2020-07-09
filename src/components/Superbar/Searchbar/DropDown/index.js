@@ -96,7 +96,7 @@ const DropDownContent = (props) => {
 					<div className='flex flex-col mt-1'>
 						{ resultsUserIndex.map((item, i) =>  {
 						return (
-							<ListItemMini key={i} data={item} type={TYPES.users} className='mb-1 px-4 hover:bg-gray-700'/>
+							<ListItemMini key={i} data={item} type={TYPES.users} className='px-4 py-1 hover:bg-gray-700'/>
 						)
 						})}
 					</div>

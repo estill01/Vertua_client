@@ -17,10 +17,10 @@ module.exports = {
 				secondary: "var(--color-bg-secondary)",
 				'secondary-inverse': "var(--color-bg-secondary-inverse)",
 				default: "var(--color-bg-default)",
-				inverse: "var(--color-bg-inverse)"
+				inverse: "var(--color-bg-inverse)",
 			},
 			fontFamily: {
-				logo: ['Comfortaa'],
+			//	logo: ['Comfortaa'],
 				display: ["Helvetica", "sans-serif"],
 				body: ["Helvetica", "sans-serif"],
 			},

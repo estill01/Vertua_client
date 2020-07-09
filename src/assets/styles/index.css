@@ -1,16 +1,16 @@
 @tailwind base;
 
-@font-face {
-  font-family: Comfortaa;
-  src: url(../fonts/comfortaa/Comfortaa-Regular.ttf) format("ttf");
-}
-
-@font-face {
-	font-family: Comfortaa;
-	src: url(../fonts/comfortaa/Comfortaa-Bold.ttf) format("ttf");
-	font-weight: bold;
-}
-
+/* @font-face { */
+/*   font-family: Comfortaa; */
+/*   src: url(../fonts/comfortaa/Comfortaa-Regular.ttf) format("ttf"); */
+/* } */
+/*  */
+/* @font-face { */
+/* 	font-family: Comfortaa; */
+/* 	src: url(../fonts/comfortaa/Comfortaa-Bold.ttf) format("ttf"); */
+/* 	font-weight: bold; */
+/* } */
+/*  */
 
 
 :root {
