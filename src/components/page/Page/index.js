@@ -13,39 +13,7 @@ import { ZINDEX } from '../../utils'
 import { toggle, nukeOverlays } from '../../../app/slices/PageSlice'
 import { search, stashSearch, clearSearch } from '../../../app/slices/SearchSlice'
 import { clearCurrentItem } from '../../../app/slices/ItemsSlice.js'
-
-// import Superbar from '../../Superbar'
-
-	// // TODO Move to SearchResultsPage(?); listener there is doing the querying.
 	
-	// useEffect(() => {
-	// 	let unlisten = history.listen((location, action) => {
-	// 		let srpQuery = store.getState().search.srp.query
-	// 		let urlQuery = location.search.replace('?query=', '')
-	// 		urlQuery = decodeURIComponent(urlQuery)
-	// 		const inputEl = document.getElementById('superbar_search_input')
-	// 		if (urlQuery != '') {
-	// 			if (urlQuery != srpQuery) {
-	// 				dispatch(clearSearch())
-	// 				dispatch(search(urlQuery))
-	// 				dispatch(stashSearch())
-	// 			}
-	// 			inputEl.value = urlQuery
-	// 		}
-	// 	})
-	// 	return () => unlisten()
-	// })
-	
-			// { superbarOpen && (
-			// 	<Superbar 
-			// 	id='superbar'
-			// 	style={{
-			// 		zIndex:1000
-			// 	}}
-			// 	/>
-			// )}
-					
-
 const Page = () => {
 	const store = useStore()
 	const dispatch = useDispatch()
@@ -59,6 +27,10 @@ const Page = () => {
 		if (userMenuOpen) { dispatch(nukeOverlays()) }
 	}
 
+	// -----------------
+	// Keydown listener
+	// -----------------
+	// - Pick up e.g. 'esc' key for modal toggle
 	function keyDownListener(e) {
 		if (e.keyCode === 27 || e.key === 'Escape') {
 			if (store.getState().page.creationModal) {
@@ -69,25 +41,27 @@ const Page = () => {
 			}
 		}
 	}
-
-	function popStateListener(e) {
-		dispatch(clearCurrentItem)
-	}
-
-
-	// Popstate listener - Reset 'currentItem' on browser forward/backward buttons
-	useEffect(() => {
-		window.addEventListener('popstate', popStateListener)
-		return () => window.removeEventListener('popstate', popStateListener)
-	})
-
-	// Keydown listener - Pick up e.g. 'esc' key for modal toggle
 	useEffect(() => {
 		document.addEventListener('keydown', keyDownListener)
 		return () => document.removeEventListener('keydown', keyDownListener)
 	})
 
-	// UserMenu open/close toggle
+	// -----------------
+	// Popstate listener 
+	// -----------------
+	// - Reset 'currentItem' on browser forward/backward buttons
+	function popStateListener(e) {
+		dispatch(clearCurrentItem)
+	}
+	useEffect(() => {
+		window.addEventListener('popstate', popStateListener)
+		return () => window.removeEventListener('popstate', popStateListener)
+	})
+
+
+	// -----------------
+	// UserMenu visibility toggle
+	// -----------------
 	useEffect(() => {
 		let watchUserMenu = watch(store.getState, 'page.userMenu')
 		let unsubscribeWatchUserMenu = store.subscribe(watchUserMenu((newVal, oldVal) => {
@@ -143,7 +117,4 @@ const Page = () => {
 		</>
 	)
 }
-
-// <ScrollLock/>
-
 export default Page

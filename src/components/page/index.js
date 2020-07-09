@@ -1,4 +1,12 @@
 import { Metadata, Dimmer, ScrollLock, Footer } from './utils'
 import Page from './Page'
+import Superbar from './Superbar'
 
-export { Page, Metadata, Dimmer, ScrollLock, Footer }
+export { 
+	Metadata, 
+	Dimmer, 
+	ScrollLock, 
+	Footer,
+	Page,
+	Superbar,
+}

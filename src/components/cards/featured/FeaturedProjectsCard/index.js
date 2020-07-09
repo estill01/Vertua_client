@@ -2,8 +2,8 @@ import React, { useEffect, lazy } from 'react'
 import { useDispatch } from 'react-redux'
 import { Image } from 'semantic-ui-react'
 import { useHistory } from 'react-router-dom'
-import { CardHeader } from '../utils'
-import { setCurrentItem } from '../../../app/slices/ItemsSlice.js'
+import { CardHeader } from '../../utils'
+import { setCurrentItem } from '../../../../app/slices/ItemsSlice.js'
 
 import('smoothscroll-polyfill').then((val) => {
 	console.log("[Smooth Scroll Polyfill]")

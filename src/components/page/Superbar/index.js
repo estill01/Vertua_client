@@ -2,12 +2,12 @@ import React, { useState, useEffect } from 'react'
 import { useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { Menu, Image, Icon, Dropdown } from 'semantic-ui-react'
-import { MenuToggle } from '../menus/utils'
-import { LogInButton, LogOutButton } from '../buttons/account'
+import { MenuToggle } from '../../menus/utils'
+import { LogInButton, LogOutButton } from '../../buttons/account'
 import * as Search from './Searchbar'
-import * as UserMenu from '../menus/UserMenu'
-import { Logo, LogoGlyph } from '../utils/LogoGlyph'
-import { ZINDEX } from '../utils'
+import * as UserMenu from '../../menus/UserMenu'
+import { Logo, LogoGlyph } from '../../utils/LogoGlyph'
+import { ZINDEX } from '../../utils'
 
 
 const Superbar = ({ props } ) => {
@@ -70,30 +70,3 @@ const Superbar = ({ props } ) => {
 }
 
 export default Superbar
-
-				// <div className='fixed relative w-full h-12 border-b border-gray-300 top-0 shadow bg-red-300' {...props}>
-        //
-				// 	<div 
-				// 	onClick={goToHome}
-				// 	className='h-full px-2 flex flex-row items-center cursor-pointer select-none text-gray-800 bg-blue-500'
-				// 	>
-				// 		<LogoGlyph 
-				// 		className='h-6 w-6'
-				// 		/>
-				// 		<span className='text-2xl font-logo-bold font-black italic' style={{marginTop:'0.125em'}}>Vertua</span>
-        //
-        //
-				// 	<div className='h-full absolute right-0 px-2 flex flex-row items-center bg-yellow-400'>
-				// 		<div className='h-full w-auto bg-green-500'>
-				// 			<Search.InputBar className='w-auto' ref={inputBarRef}/>
-				// 		</div>
-        //
-				// 		{ ((isAnonymous === null) || (isAnonymous === undefined) || (isAnonymous === true)) && (<LogInButton/>)}
-				// 		<UserMenu.Trigger className='ml-2'/>
-				// 	</div>
-        //
-				// 	</div>
-
-
-						
-

@@ -7,12 +7,13 @@ import { useStore } from 'react-redux'
 import { firebase } from '../app'
 import Card from '../components/utils/Card'
 
-import SponsorResearchCard from '../components/cards/SponsorResearch'
-import BuildTheFutureCard from '../components/cards/BuildTheFuture'
-import RegisterCROCard from '../components/cards/RegisterCRO'
-import FeaturedProjectsCard from '../components/cards/FeaturedProjects'
-import CommunityProductsCard from '../components/cards/CommunityProducts'
-import FeaturedUsersCard from '../components/cards/FeaturedUsers'
+import {
+	SponsorResearchCard,
+	BuildTheFutureCard,
+	RegisterCROCard,
+	CommunityProductsCard,
+} from '../components/cards/specialty'
+import * as Featured from '../components/cards/featured'
 
 import { clearSuperbarSearch } from '../app/slices/SearchSlice.js'
 
@@ -25,10 +26,10 @@ const HomePage = () => {
 		<>
 			<PageErrorBoundary>
 				<BuildTheFutureCard/>
-				<FeaturedProjectsCard/>
+				<Featured.ProjectsCard/>
 				<CommunityProductsCard className='my-2'/>
 				<SponsorResearchCard/>
-				<FeaturedUsersCard/>
+				<Featured.UsersCard/>
 			</PageErrorBoundary>
 		</>
 	)

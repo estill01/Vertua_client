@@ -85,16 +85,9 @@ export const ItemsSlice = createSlice({
 			console.log("[items/fetchBySlug/fulfilled]")
 			state.status = 'idle'
 			state.isLoading = false 
-
-			console.log("action.payload: ", action.payload)
-			state.hasCurrent = true
-			
-			if (!isNil(action.payload.creator)) {
-				if (!isNil(action.payload.creator.docRef)) {
-					delete action.payload.creator.docRef // NB. inclusion of 'docRef' causes redux to error
-				}
-			}
+			cleanLegacyDataStructures(action.payload)
 			state.current = action.payload
+			state.hasCurrent = true
 		},
 
 
@@ -109,3 +102,12 @@ export const {
 } = ItemsSlice.actions
 
 export default ItemsSlice.reducer
+
+function cleanLegacyDataStructures(payload) {
+	console.log("[cleanLegacyDataStructures]")
+	if (!isNil(payload.creator)) {
+		if (!isNil(payload.creator.docRef)) {
+			delete payload.creator.docRef // NB. inclusion of 'docRef' causes redux to error
+		}
+	}
+}

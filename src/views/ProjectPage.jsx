@@ -3,6 +3,7 @@ import { useStore, useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { fetchBySlug } from '../app/slices/ItemsSlice.js'
 import PageErrorBoundary from './PageErrorBoundary'
+import { ListItemMini } from '../components/items/ListItem.js'
 import { UserItemMini } from '../components/items/UserItemMini.jsx'
 import { fetchCurrentItem } from '../app/utils'
 
@@ -32,7 +33,7 @@ const ProjectPage = () => {
 
 						<div className='flex flex-col'>
 						{currentItem && (
-							<div className='text-4xl font-extrabold leading-snug'>{currentItem.name}</div>
+							<div className='text-2xl font-bold leading-snug'>{currentItem.name}</div>
 						)}
 						</div>
 

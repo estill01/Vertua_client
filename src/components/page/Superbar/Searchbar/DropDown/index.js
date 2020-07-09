@@ -1,14 +1,12 @@
 import React, { useEffect } from 'react'
 import { useStore, useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { toggle, nukeOverlays } from '../../../../app/slices/PageSlice'
-import { ReactComponent as AlgoliaLogo } from '../../../../assets/images/search-by-algolia-light-background.svg'
 import { EnterIndicator } from '../utils.js'
-import { clearCurrentItem } from '../../../../app/slices/ItemsSlice.js'
-import { TYPES, ZINDEX } from '../../../utils'
-
-// import { MiniSearchResultItem } from '../../../search'
-import { ListItemMini } from '../../../items/ListItem.js'
+import { TYPES, ZINDEX } from '../../../../utils'
+import { ListItemMini } from '../../../../items/ListItem.js'
+import { toggle, nukeOverlays } from '../../../../../app/slices/PageSlice'
+import { ReactComponent as AlgoliaLogo } from '../../../../../assets/images/search-by-algolia-light-background.svg'
+import { clearCurrentItem } from '../../../../../app/slices/ItemsSlice.js'
 
 export const DropDown = (props) => {
 	const dispatch = useDispatch()
@@ -42,8 +40,6 @@ export const DropDown = (props) => {
 						<hr/>
 						<BottomBar inputBarRef={props.inputBarRef}/> 
 					</div>
-
-				
 				</div>
 
 				<div className='flex-1' onClick={() => dispatch(nukeOverlays())}/>

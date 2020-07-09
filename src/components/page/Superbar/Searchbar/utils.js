@@ -1,7 +1,7 @@
 import React from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { toggle } from '../../../app/slices/PageSlice'
+import { toggle } from '../../../../app/slices/PageSlice'
 import { Icon } from 'semantic-ui-react'
   
 

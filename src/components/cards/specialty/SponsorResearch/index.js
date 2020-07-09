@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { useStore } from 'react-redux'
-import { CardHeader } from '../utils'
+import { CardHeader } from '../../utils'
 import { ReactComponent as FundSVG } from './images/noun_funding_2714872.svg'
 import { ReactComponent as ResearchSVG } from './images/noun_Science_3155785.svg'
 import { ReactComponent as PatentSVG } from './images/noun_Patent_582626.svg'
