@@ -3,6 +3,7 @@ import PageErrorBoundary from './PageErrorBoundary'
 import { useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { search, stashSearch } from '../app/slices/SearchSlice'
+import { TYPES } from '../app/utils'
 import { isNil } from 'lodash'
 import { SearchFilters, SearchResults, SearchResultsSection, ContentPreview } from '../components/search'
 import Sticky from 'react-sticky-el'
@@ -55,8 +56,8 @@ const SearchResultsPage = () => {
 								{resultsCount} {resultWord()} for <span className='text-lg font-bold italic'>{query}</span> 
 							</div>
 
-							<SearchResultsSection type='projects' results={results} className='mb-4'/>
-							<SearchResultsSection type='users' results={results} className='mb-4'/>
+							<SearchResultsSection type={TYPES.projects} results={results} className='mb-4'/>
+							<SearchResultsSection type={TYPES.users} results={results} className='mb-4'/>
 							<SearchResultsSection type='groups' results={results} className='mb-4'/>
 							<SearchResultsSection type='experiments' results={results} className='mb-4'/>
 							<SearchResultsSection type='tools' results={results} className='mb-4'/>

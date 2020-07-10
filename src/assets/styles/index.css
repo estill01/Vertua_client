@@ -56,7 +56,10 @@
 @tailwind components;
 
 .section-header {
-	@apply font-semibold text-gray-700 text-lg leading-normal;
+	@apply font-bold text-gray-700 text-lg leading-normal;
+}
+.detail-header {
+	@apply font-semibold text-gray-700 text-base leading-normal;
 }
 
 

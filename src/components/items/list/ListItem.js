@@ -5,7 +5,7 @@ import { isNil, startCase } from 'lodash'
 import { UserAvatar } from '../../utils/UserAvatar'
 import { icon } from '../../utils'
 import { setPreviewItem, clearPreviewItem } from '../../../app/slices/ItemsSlice.js'
-import { handleItemClick } from '../../../app/utils'
+import { handleItemClick, TYPES } from '../../../app/utils'
 
 
 export const ListItem = (props) => {
@@ -16,19 +16,23 @@ export const ListItem = (props) => {
 	const refDetails = React.createRef()
 	const dispatch = useDispatch()
 
+	console.log("[ListItem.madeBy] -- ", props.madeBy)
+
 	function handleClick(e) {
 		handleItemClick(props.data)
 		history.push(props.data.urlSlug)
 	}
 	function handleMouseEnter(e) {
 		console.log("[ListItem.MouseEnter]")
+		console.log('props.data: ', props.data)
 		toggleStylesOn()
-		dispatch(setPreviewItem(props.data))
+		if (props.previewItem) {
+			dispatch(setPreviewItem(props.data))
+		}
 	}
 	function handleMouseLeave(e) {
 		console.log("[ListItem.MouseLeave]")
 		toggleStylesOff()
-		// dispatch(clearPreviewItem())
 	}
 	function toggleStylesOn() { refItem.current.classList.add('border-blue-500') }
 	function toggleStylesOff() { refItem.current.classList.remove('border-blue-500') }
@@ -57,8 +61,10 @@ export const ListItem = (props) => {
 						ref={refDetails} 
 						type={props.type} 
 						data={props.data} 
-						toggleStylesOn={toggleTextStylesOn}
-						toggleStylesOff={toggleTextStylesOff}
+						toggleParentStylesOn={toggleTextStylesOn}
+						toggleParentStylesOff={toggleTextStylesOff}
+						madeBy={props.madeBy}
+						previewItem={props.previewItem}
 						/>
 					</div>
 
@@ -157,14 +163,23 @@ export const ListItemName = React.forwardRef((props, ref) => {
 
 
 export const ListItemDetails = React.forwardRef((props, ref) => {
+
+	function handleMouseEnter() {
+		props.toggleParentStylesOff()
+	}
+	function handleMouseLeave() {
+		props.toggleParentStylesOn()
+	}
+
 	return (
 		<>
-			{ props.type === 'users' && <ItemStats data={props.data}/> }
-			{ props.type !== 'users' && (
-			<ListItemMadeBy
-			data={props.data} 
-			toggleStylesOn={props.toggleStylesOn}
-			toggleStylesOff={props.toggleStylesOff}
+			{ (props.type === TYPES.users || props.madeBy === false) && (<ItemStats data={props.data}/>) }
+			{ ((props.type !== TYPES.users && props.madeBy === undefined ) || props.madeBy === true) && (
+			<ItemMadeBy
+			data={props.data.creator} 
+			onMouseEnter={handleMouseEnter}
+			onMouseLeave={handleMouseLeave}
+			previewItem={props.previewItem}
 			/> 
 			)}
 			
@@ -173,50 +188,45 @@ export const ListItemDetails = React.forwardRef((props, ref) => {
 })
 
 
-export const ListItemMadeBy = (props) => {
+export const ItemMadeBy = (props) => {
 	const refName = React.createRef()
 	const refAvatar = React.createRef()
 	const history = useHistory()
 	const dispatch = useDispatch()
 
-	// TODO add a safty existence check for props.data.creator (?)
-
 	function handleMouseEnter(e) { 
-		console.log("[ItemCreator.MouseEnter]")
-		dispatch(setPreviewItem(props.data.creator))
 		refName.current.classList.remove('text-gray-700')
 		refName.current.classList.add('text-blue-600')
-		// props.refName.current.classList.remove('text-blue-600')
-		props.toggleStylesOff()
+		if (!isNil(props.onMouseEnter)) { props.onMouseEnter() }
+		if (props.previewItem) { dispatch(setPreviewItem(props.data))}
 	}
 	function handleMouseLeave(e) {
-		console.log("[ItemCreator.MouseLeave]")
 		refName.current.classList.remove('text-blue-600')
 		refName.current.classList.add('text-gray-700')
-		props.toggleStylesOn()
+		if (!isNil(props.onMouseLeave)) { props.onMouseLeave() }
 	}
 	function handleClick(e) {
 		e.stopPropagation()
-		handleItemClick(props.data.creator)
-		history.push(props.data.creator.urlSlug)
+		handleItemClick(props.data)
+		history.push(props.data.urlSlug)
 	}
 
 	return (
 		<div>
 			<div 
-			className='flex flex-row items-center truncate text-gray-700'
+			className='flex flex-row items-center truncate text-gray-700 cursor-pointer'
 			ref={refName}
 			onMouseEnter={handleMouseEnter}
 			onMouseLeave={handleMouseLeave}
 			onClick={handleClick}
 			>
 				<div ref={refAvatar} className='border border-transparent rounded-sm'>
-					<UserAvatar data={props.data.creator} className='rounded-full h-6 w-6 flex-none'/> 
+					<UserAvatar data={props.data} className='rounded-full h-6 w-6 flex-none'/> 
 				</div>
 				<div 
 				className='ml-1 text-sm font-semibold'
 				>
-					{props.data.creator.displayName}
+					{props.data.displayName}
 				</div>
 			</div>
 		</div>
@@ -225,9 +235,12 @@ export const ListItemMadeBy = (props) => {
 
 const ItemStats = (props) => {
 	let date = new Date(props.data.createdAt)
+	let word = null
+	if (props.type === TYPES.users ) { word = 'Joined' }
+	else { word = 'Created' }
 	return (
 		<div className='truncate'>
-			Joined: { date.toString() }
+			{word}: { date.toString() }
 		</div>
 	)
 }

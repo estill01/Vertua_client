@@ -21,7 +21,7 @@ export const SearchResultsSection = (props) => {
 			{ !isNil(props.results[props.type]) && (props.results[props.type].length !== 0 ) && 
 				props.results[props.type].map((result, i) => {
 					return ( 
-						<ListItem key={i} data={result} type={props.type} className='mb-2'/>
+						<ListItem key={i} data={result} type={props.type} previewItem={true} className='mb-2'/>
 					)
 				})
 			}

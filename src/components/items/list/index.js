@@ -5,7 +5,7 @@ import {
 	ListItemAvatar,
 	ListItemName,
 	ListItemDetails,
-	ListItemMadeBy,
+	ItemMadeBy,
 } from './ListItem.js'
 
 export {
@@ -15,5 +15,5 @@ export {
 	ListItemAvatar,
 	ListItemName,
 	ListItemDetails,
-	ListItemMadeBy,
+	ItemMadeBy,
 }

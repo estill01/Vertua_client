@@ -15,7 +15,7 @@ export const UserItemMini = (props) => {
 
 	return (
 		<div 
-		className={`flex flex-row cursor-pointer ${props.className}`}
+		className={`flex flex-row items-center cursor-pointer ${props.className}`}
 		onClick={handleClick}
 		>
 			<img src={props.data.photoURL} className='h-6 w-6 rounded-full'/>

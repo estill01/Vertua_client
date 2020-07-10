@@ -11,6 +11,13 @@ export const Collection = {
 	PROJECTS: 'projects',
 }
 
+export const TYPES = {
+	projects: 'projects',
+	project: 'projects',
+	users: 'users',
+	user: 'users',
+}
+
 export const createItem = async ({ values, collection, uid }) => {
 	if (isNil(values)) { throw new Error("[createItem()] function parameter 'values' cannot be undefined.") }
 	if (isNil(collection)) { throw new Error("[createItem()] function parameter 'collection' cannot be undefined.") }

@@ -7,14 +7,12 @@ import { ListItem } from './ListItem.js'
 import Card from '../../utils/Card'
 import { fetchBySlug, setCurrentItem } from '../../../app/slices/ItemsSlice.js'
 import { fetchProjectsForUser } from '../../../app/slices/UserSlice.js'
-import { TYPES } from '../../utils'
+import { TYPES } from '../../../app/utils'
 
 import { fetchTypeByOwner } from '../../../app/remote/firebase'
 
-// props.ownerId
-// props.type
 export const ItemList = (props) => {
-	console.log("[ItemList]")
+	console.log("[ItemList] -- madeBy:", props.madeBy)
 	const dispatch = useDispatch()
 	const [ isLoading, setIsLoading ] = useState(false)
 	const [ hasItems, setHasItems ] = useState(false)
@@ -50,7 +48,7 @@ export const ItemList = (props) => {
 					{ items.map((item, i) => {
 						let classes = null
 						if (items.length > i+1) { classes = 'mb-2' } 
-						return <ListItem key={i} data={item} type={props.type} className={classes}/>
+						return <ListItem key={i} data={item} type={props.type} className={classes} madeBy={props.madeBy}/>
 					})}
 					</>
 			)}

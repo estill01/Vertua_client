@@ -3,8 +3,7 @@ import { useSelector } from 'react-redux'
 import PageErrorBoundary from './PageErrorBoundary'
 import { isNil } from 'lodash'
 
-import { fetchCurrentItem } from '../app/utils'
-import { TYPES } from '../components/utils'
+import { fetchCurrentItem, TYPES } from '../app/utils'
 import { UserInfoCard } from '../components/items/user'
 import { ItemList } from '../components/items'
 import { SectionHeader } from '../components/page/section'
@@ -26,7 +25,7 @@ const UserPage = (props) => {
 
 							<Card className='mt-4'>
 								<SectionHeader type={TYPES.projects} className='mb-2'/>
-								<ItemList ownerID={currentItem.uid} type={TYPES.projects}/>
+								<ItemList ownerID={currentItem.uid} type={TYPES.projects} madeBy={false}/>
 							</Card>
 						</>
 					)}

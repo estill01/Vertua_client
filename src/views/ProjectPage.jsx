@@ -3,7 +3,7 @@ import { useStore, useSelector, useDispatch } from 'react-redux'
 import { useLocation } from 'react-router-dom'
 import { fetchBySlug } from '../app/slices/ItemsSlice.js'
 import PageErrorBoundary from './PageErrorBoundary'
-import { ListItemMini, ListItemMadeBy } from '../components/items'
+import { ListItemMini, ItemMadeBy } from '../components/items'
 import { UserItemMini } from '../components/items/user'
 import { fetchCurrentItem } from '../app/utils'
 import { Card } from '../components/utils'
@@ -41,11 +41,22 @@ const ProjectPage = () => {
 						
 						<hr className='my-2'/>
 
-						<div className='section-header mb-1'>Created By</div>
 
 						{ !isNil(currentItem.creator) && (
 							<>
-								<UserItemMini data={currentItem.creator}/>
+								<div className='flex flex-row'>
+								
+								<div className='flex-1 mr-2'>
+									<div className='detail-header mb-1'>Created By</div>
+									<ItemMadeBy data={currentItem.creator}/>
+								</div>
+
+								<div className='flex-1 mr-2'>
+									<div className='detail-header mb-1'>Created At</div>
+									<div>{ new Date(currentItem.createdAt).toString() }</div>
+								</div>
+
+								</div>
 							</>
 						)}
 					</Card>

@@ -29,13 +29,6 @@ export function icon(type, classes) {
 	)
 }
 
-export const TYPES = {
-	projects: 'projects',
-	project: 'projects',
-	users: 'users',
-	user: 'users',
-}
-
 export const ZINDEX = {
 	footer: 1,
 	plusButton: 98,
