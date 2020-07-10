@@ -54,4 +54,13 @@
 /*! purgecss end ignore */
 
 @tailwind components;
+
+.section-header {
+	@apply font-semibold text-gray-700 text-lg leading-normal;
+}
+
+
+
+
+
 @tailwind utilities;

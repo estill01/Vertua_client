@@ -7,7 +7,6 @@ import { clearSuperbarSearch } from '../slices/SearchSlice.js'
 import { setCurrentItem, fetchBySlug } from '../slices/ItemsSlice.js'
 import { nukeOverlays } from '../slices/PageSlice.js'
 
-
 export const Collection = {
 	PROJECTS: 'projects',
 }
@@ -69,19 +68,5 @@ export const fetchCurrentItem = (async () => {
 		await loadData()
 	}
 })
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 

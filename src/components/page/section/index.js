@@ -35,19 +35,14 @@ export const SectionHeader = (props) => {
 
 	return (
 		<div 
-		className='flex flex-row border-gray-300 mb-2 rounded-sm items-center pb-1 border-b' 
+		className={`flex flex-row border-gray-300 rounded-sm items-center pb-1 border-b ${props.className}`}
 		>
 			<div 
 			className='w-6 h-6 flex items-center rounded'
 			>
 				{ icon(props.type, 'h-6 w-6 mx-auto') }
 			</div>
-			<div 
-			className='font-semibold text-gray-700 text-lg leading-normal px-1 py-1px' 
-			style={{
-				marginRop: '-0.25rem',
-			}}
-			>
+			<div className='section-header px-1' >
 				{type}
 			</div>
 		</div>

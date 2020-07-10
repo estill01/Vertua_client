@@ -18,8 +18,8 @@ export const UserItemMini = (props) => {
 		className={`flex flex-row cursor-pointer ${props.className}`}
 		onClick={handleClick}
 		>
-			<img src={props.data.photoURL} className='h-10 w-10 rounded'/>
-			<div className='ml-2'>
+			<img src={props.data.photoURL} className='h-6 w-6 rounded-full'/>
+			<div className='ml-2 font-semibold text-sm'>
 				{props.data.displayName}
 			</div>
 		</div>

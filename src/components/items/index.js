@@ -1,7 +1,13 @@
-import { ItemList, ListItem, ListItemMini } from './list'
+import { 
+	ItemList, 
+	ListItem, 
+	ListItemMini,
+	ListItemMadeBy,
+} from './list'
 
 export {
 	ItemList,
 	ListItem,
 	ListItemMini,
+	ListItemMadeBy,
 }

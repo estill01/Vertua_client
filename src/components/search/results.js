@@ -15,7 +15,7 @@ import { SectionHeader } from '../page/section'
 export const SearchResultsSection = (props) => {
 	return (
 		<div className={props.className}>
-			<SectionHeader type={props.type}/>
+			<SectionHeader type={props.type} className='mb-2'/>
 
 			<>
 			{ !isNil(props.results[props.type]) && (props.results[props.type].length !== 0 ) && 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import PageErrorBoundary from './PageErrorBoundary'
 import { isNil } from 'lodash'
@@ -8,6 +8,8 @@ import { TYPES } from '../components/utils'
 import { UserInfoCard } from '../components/items/user'
 import { ItemList } from '../components/items'
 import { SectionHeader } from '../components/page/section'
+
+import { Card } from '../components/utils'
 
 const UserPage = (props) => {
 	let currentItem = useSelector(state => state.items.current)
@@ -21,8 +23,11 @@ const UserPage = (props) => {
 
 					{ currentItem && (
 						<>
-							<SectionHeader type={TYPES.projects}/>
-							<ItemList data={currentItem}/>
+
+							<Card className='mt-4'>
+								<SectionHeader type={TYPES.projects} className='mb-2'/>
+								<ItemList ownerID={currentItem.uid} type={TYPES.projects}/>
+							</Card>
 						</>
 					)}
 
@@ -30,5 +35,6 @@ const UserPage = (props) => {
 			</PageErrorBoundary>
 		</>
 	)
+
 }
 export default UserPage

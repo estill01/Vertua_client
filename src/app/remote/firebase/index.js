@@ -24,6 +24,20 @@ export const fetchFromFirestore = async (id, type) => {
 	catch (err) { throw new Error(err) }
 }
 
+export const fetchTypeByOwner = async (type, ownerID) => {
+	console.log("[fetchTypeByOwner]")
+	console.log("type: ", type)
+	console.log("ownerID: ", ownerID) 
+	let firestore = firebase.firestore()
+	try {
+		let querySnapshot = await firestore.collection(type).where('creator.uid', '==', ownerID).get()
+		let arrDocSnapshot = querySnapshot.docs 
+		let docs = arrDocSnapshot.map((doc) => doc.data())
+		return docs
+	}
+	catch (err) { throw new Error(err) }
+}
+
 export const fetchBySlug = async (type, slug) => {
 	console.log("[Firebase.fetchBySlug]")
 	console.log("slug: ", slug)
@@ -43,13 +57,11 @@ export const fetchBySlug = async (type, slug) => {
 	console.log("doc[0].data(): ", docs[0].data())
 	// TODO Sometimes Algolia fails on user creation, which then fails to make slug, so this returns undefined
 
-
 	let result = docs[0].data()
 	console.log("result: ", result) // array length 0
 
 	return result
 }
-
 
 export const getProjectsForUser = async (userId) => {
 	console.log("[Firebase.getProjectsForUser]")
@@ -67,10 +79,8 @@ export const getProjectsForUser = async (userId) => {
 	// console.log("received - snapshot: ", querySnapshot)
 	console.log("received - docs: ", docs)
 
-
 	return docs
 	// return querySnapshot.docs
-
 }
 
 

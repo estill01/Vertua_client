@@ -1,4 +1,5 @@
 import React from 'react'
+import Card from './Card'
 
 import { ReactComponent as ProjectIcon } from './images/hexagon.svg'
 import { ReactComponent as UsersIcon } from './images/user.svg'
@@ -46,4 +47,8 @@ export const ZINDEX = {
 	globalDimmer: 1000,
 	creationModal: 1001,
 	loadingPage: 1000,
+}
+
+export {
+	Card
 }
