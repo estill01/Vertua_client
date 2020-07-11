@@ -4,7 +4,6 @@ import { useLocation, useHistory } from 'react-router-dom'
 import { Loader } from 'semantic-ui-react'
 import { isNil } from 'lodash'
 import { ListItem } from './ListItem.js'
-import Card from '../../utils/Card'
 import { fetchBySlug, setCurrentItem } from '../../../app/slices/ItemsSlice.js'
 import { fetchProjectsForUser } from '../../../app/slices/UserSlice.js'
 import { TYPES } from '../../../app/utils'
@@ -26,6 +25,7 @@ export const ItemList = (props) => {
 				console.log("items: ", items)
 			})()
 		}
+		return () => {}
 	})
 
 	async function loadData() {

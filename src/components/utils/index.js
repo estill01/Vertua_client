@@ -18,6 +18,15 @@ export const ICONS = {
 	services: <ServicesIcon/>, 
 }
 
+export const SIZE = {
+	default: '3.5rem',
+	mini: '1.5rem',
+	ICON: {
+		default: 'h-6 w-6',
+		mini: 'h-4 w-4',
+	},
+}
+
 export function icon(type, classes) {
 	return React.createElement(
 		'div',
