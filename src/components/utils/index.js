@@ -22,8 +22,9 @@ export const SIZE = {
 	default: '3.5rem',
 	mini: '1.5rem',
 	ICON: {
-		default: 'h-6 w-6',
+		default: 'h-8 w-8',
 		mini: 'h-4 w-4',
+		full: 'h-full w-full',
 	},
 }
 

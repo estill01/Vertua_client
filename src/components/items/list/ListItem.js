@@ -49,7 +49,7 @@ export const ListItem = (props) => {
 			onMouseLeave={handleMouseLeave}
 			ref={refItem}
 			>
-				<ListItemAvatar ref={refAvatar} type={props.type} data={props.data} size={'default'}/>
+				<ListItemAvatar ref={refAvatar} type={props.type} data={props.data} size={'pee'}/>
 				<div className='flex flex-col truncate'>
 					<ListItemName 
 					ref={refName} 
@@ -103,7 +103,11 @@ export const ListItemAvatar = React.forwardRef((props, ref) => {
 		// style={SIZE[props.size] || SIZE.default}
 	return (
 		<div 
-		className={`flex mr-2 ${SIZE.ICON.full}`}
+		className='flex mr-2'
+		style={{
+			height: SIZE[props.size] || SIZE.default,
+			width: SIZE[props.size] || SIZE.default,
+		}}
 		>
 			<div 
 			className='flex-1 rounded border border-gray-400'
@@ -114,7 +118,7 @@ export const ListItemAvatar = React.forwardRef((props, ref) => {
 			>
 				<div className='w-full h-full rounded flex items-center'>
 				 	{ hasAvatar && (<img src={props.data.photoURL} className='w-full h-full rounded'/>) }
-			  	{ !hasAvatar && <TypeIcon type={props.type} size={props.size}/> }
+			  	{ !hasAvatar && <TypeIcon type={props.type} size={props.size || 'default'}/> }
 				</div>
 			</div>
 		</div>
