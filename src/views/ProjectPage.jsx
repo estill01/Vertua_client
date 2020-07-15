@@ -6,7 +6,7 @@ import PageErrorBoundary from './PageErrorBoundary'
 import { ListItemMini, ItemMadeBy } from '../components/items'
 import { UserItemMini } from '../components/items/user'
 import { fetchCurrentItem, TYPES } from '../app/utils'
-import { Card, icon } from '../components/utils'
+import { Card, icon, TypeIcon } from '../components/utils'
 import { isNil } from 'lodash'
 
 
@@ -35,7 +35,7 @@ const ProjectPage = () => {
 					<Card>
 						{currentItem && (
 						<div className='flex flex-row items-center'>
-							{ icon(TYPES.projects, 'mr-2 h-6 w-6 p-1 border border-gray-500 rounded-md') }
+							<TypeIcon type={TYPES.projects} size='mini' className='mr-2'/>
 							<div className='text-2xl font-bold leading-snug'>{currentItem.name}</div>
 						</div>
 						)}

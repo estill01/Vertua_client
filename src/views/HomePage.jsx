@@ -14,6 +14,7 @@ import {
 	RegisterCROCard,
 } from '../components/cards/specialty'
 import * as Featured from '../components/cards/featured'
+import RecentProjectsCard from '../components/cards/RecentProjects'
 
 import { clearSuperbarSearch } from '../app/slices/SearchSlice.js'
 
@@ -27,6 +28,7 @@ const HomePage = () => {
 			<PageErrorBoundary>
 				<BuildTheFutureCard/>
 				<Featured.ProjectsCard/>
+				<RecentProjectsCard/>
 				<CommunityProductsCard className='my-2'/>
 				<SponsorResearchCard/>
 				<Featured.UsersCard/>

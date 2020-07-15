@@ -3,10 +3,9 @@ import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { isNil, startCase } from 'lodash'
 import { UserAvatar } from '../../utils/UserAvatar'
-import { icon, SIZE } from '../../utils'
+import { icon, SIZE, TypeIcon } from '../../utils'
 import { setPreviewItem, clearPreviewItem } from '../../../app/slices/ItemsSlice.js'
 import { handleItemClick, TYPES } from '../../../app/utils'
-import { TypeIcon } from '../index.js'
 
 
 export const ListItem = (props) => {
@@ -97,10 +96,9 @@ export const ListItemMini = (props) => {
 }
 
 
+// TODO Refactor to use <TypeIcon/>
 export const ListItemAvatar = React.forwardRef((props, ref) => {
 	const hasAvatar = !isNil(props.data.photoURL) && props.data.photoURL !== ''
-
-		// style={SIZE[props.size] || SIZE.default}
 	return (
 		<div 
 		className='flex mr-2'
@@ -118,44 +116,13 @@ export const ListItemAvatar = React.forwardRef((props, ref) => {
 			>
 				<div className='w-full h-full rounded flex items-center'>
 				 	{ hasAvatar && (<img src={props.data.photoURL} className='w-full h-full rounded'/>) }
-			  	{ !hasAvatar && <TypeIcon type={props.type} size={props.size || 'default'}/> }
+			  	{ !hasAvatar && icon(props.type, `${SIZE.ICON[props.size] || SIZE.ICON.default} mx-auto`) }
 				</div>
 			</div>
 		</div>
 	)
 })
 
-// export const TypeIcon = (props) => {
-// 	const size = {
-// 		item: {
-// 			default: {
-// 				width: '3.5rem',
-// 				minWidth: '3.5rem',
-// 				maxWidth: '3.5rem',
-// 				height: '3.5rem',
-// 				minHeight: '3.5rem',
-// 				maxHeight: '3.5rem',
-// 			},
-// 			mini: {
-// 				width: '1.5rem',
-// 				minWidth: '1.5rem',
-// 				maxWidth: '1.5rem',
-// 				height: '1.5rem',
-// 				minHeight: '1.5rem',
-// 				maxHeight: '1.5rem',
-// 			},
-// 		},
-// 		icon: {
-// 			default: 'h-6 w-6',
-// 			mini: 'h-4 w-4',
-// 		},
-// 	}
-//
-// 	return (
-// 	{ icon(props.type, `${size.icon[props.size] || size.icon.default} mx-auto`)}
-// 	)
-// }
-//
 export const ListItemName = React.forwardRef((props, ref) => {
 	return (
 		<div 
