@@ -171,15 +171,18 @@ export const ItemMadeBy = (props) => {
 	const refAvatar = React.createRef()
 	const history = useHistory()
 	const dispatch = useDispatch()
+	const displayName = props.data.displayName || `Anonymous (${props.data.uid})`
 
 	function handleMouseEnter(e) { 
 		refName.current.classList.remove('text-gray-700')
 		refName.current.classList.add('text-blue-600')
+		refAvatar.current.classList.add('border-blue-600')
 		if (!isNil(props.onMouseEnter)) { props.onMouseEnter() }
 		if (props.previewItem) { dispatch(setPreviewItem(props.data))}
 	}
 	function handleMouseLeave(e) {
 		refName.current.classList.remove('text-blue-600')
+		refAvatar.current.classList.remove('border-blue-600')
 		refName.current.classList.add('text-gray-700')
 		if (!isNil(props.onMouseLeave)) { props.onMouseLeave() }
 	}
@@ -198,13 +201,13 @@ export const ItemMadeBy = (props) => {
 			onMouseLeave={handleMouseLeave}
 			onClick={handleClick}
 			>
-				<div ref={refAvatar} className='border border-transparent rounded-sm'>
+				<div ref={refAvatar} className='border border-gray-400 rounded-full'>
 					<UserAvatar data={props.data} className='rounded-full h-6 w-6 flex-none'/> 
 				</div>
 				<div 
 				className='ml-1 text-sm font-semibold'
 				>
-					{props.data.displayName}
+					{displayName} 
 				</div>
 			</div>
 		</div>

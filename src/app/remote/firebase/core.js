@@ -15,7 +15,7 @@ export const firebaseConfig = {
 firebase.initializeApp(firebaseConfig)
 
 export const firebaseUIConfig = {
-	signInSuccessUrl: 'account', // make this dynamic; reference 'previousPath'
+	signInSuccessUrl: 'account', // TODO => 'profile'
 	signInOptions: [
 		{
 	  	provider: firebase.auth.GoogleAuthProvider.PROVIDER_ID,

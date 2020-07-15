@@ -71,6 +71,13 @@ const ProductPage = loadable(
 	{ fallback: <LoadingPage/> }
 )
 
+						// <Route exact path='/profile'
+						// render={(routeProps) => {
+						// 	dispatch(setPath(routeProps.location.pathname))
+						// 	return (<UserPage/>)
+						// }}
+						// />
+
 const Router = () => {
 	let dispatch = useDispatch()
 	const store = useStore()
