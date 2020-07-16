@@ -193,7 +193,7 @@ export const ItemMadeBy = (props) => {
 	}
 
 	return (
-		<div>
+		<>
 			<div 
 			className='flex flex-row items-center truncate text-gray-700 cursor-pointer'
 			ref={refName}
@@ -210,7 +210,7 @@ export const ItemMadeBy = (props) => {
 					{displayName} 
 				</div>
 			</div>
-		</div>
+		</>
 	)
 }
 
@@ -218,7 +218,7 @@ const ItemStats = (props) => {
 	let date = new Date(props.data.createdAt)
 	let word = null
 	if (props.type === TYPES.users ) { word = 'Joined' }
-	else { word = 'Created' }
+	else { word = 'Posted' }
 	return (
 		<div className='truncate'>
 			{word}: { date.toString() }

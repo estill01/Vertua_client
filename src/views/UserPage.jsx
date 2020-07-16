@@ -2,7 +2,6 @@ import React, { useEffect, useState } from 'react'
 import { useSelector } from 'react-redux'
 import PageErrorBoundary from './PageErrorBoundary'
 import { isNil } from 'lodash'
-
 import { fetchCurrentItem, TYPES } from '../app/utils'
 import { UserInfoCard } from '../components/items/user'
 import { ItemList } from '../components/items'
@@ -22,11 +21,10 @@ const UserPage = (props) => {
 
 					{ currentItem && (
 						<>
-
-							<Card className='mt-4'>
+							<div className='mt-4'>
 								<SectionHeader type={TYPES.projects} className='mb-2'/>
 								<ItemList ownerID={currentItem.uid} type={TYPES.projects} madeBy={false}/>
-							</Card>
+							</div>
 						</>
 					)}
 
