@@ -1,6 +1,12 @@
 # Vertua.com Web App Front-End
 
-React + Redux front-end application for vertua.com website
-Tailwinds CSS
+![Screen_grab](Screen_grab.png)
 
+## Stack
+
+- React
+- Redux Toolkit
+- Tailwinds CSS
+- Firebase Auth
+- Algolia
 
