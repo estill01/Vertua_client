@@ -10,6 +10,7 @@
 - Redux Toolkit
 - Tailwinds CSS
 - Firebase Auth
+- Firestore 
 - React-Router
 - Algolia
 
